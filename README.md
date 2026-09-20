@@ -2,6 +2,8 @@
 
 AvaWin is an experimental Avalonia theme and toolkit that reproduces the look, metrics and controls of the Metro controls from the Windows 8.1 / Windows Phone 8.1 era. It is derived from the WinJS 3.x and 4.x builds to try and match what they do.
 
+You can check out the AvaWin Gallery on https://drasticactions.github.io/AvaWin/
+
 Issues and PRs are welcome, but note that this is a hobby project. If you find yourself depending on this, you should probably fork it.
 
 ## Getting started
