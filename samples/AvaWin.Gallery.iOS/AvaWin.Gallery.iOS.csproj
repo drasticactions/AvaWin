@@ -15,6 +15,21 @@
     <PackageReference Include="Avalonia.iOS" />
   </ItemGroup>
 
+  <!-- Debug-only: Avalonia developer tools (avdt / MCP). Never part of a release build. -->
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <PackageReference Include="AvaloniaUI.DiagnosticsSupport" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DefineConstants>$(DefineConstants);AVAWIN_DEVTOOLS</DefineConstants>
+    <!-- Debug runs on the Mono interpreter with no AOT compilation; the simulator also skips linking. -->
+    <UseInterpreter>true</UseInterpreter>
+    <MtouchInterpreter>all</MtouchInterpreter>
+    <PublishAot>false</PublishAot>
+    <MtouchLink Condition="$(RuntimeIdentifier.StartsWith('iossimulator'))">None</MtouchLink>
+    <!-- The tooling license key is read from the developer's environment. -->
+    <AvaloniaUILicenseKey Condition="'$(AvaloniaUILicenseKey)' == '' And '$(AVALONIA_TOOLS_LICENSE_KEY)' != ''">$(AVALONIA_TOOLS_LICENSE_KEY)</AvaloniaUILicenseKey>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\AvaWin.Gallery\AvaWin.Gallery.csproj" />
   </ItemGroup>

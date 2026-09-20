@@ -10,5 +10,5 @@ public partial class AppDelegate : AvaloniaAppDelegate<App>
 #pragma warning restore CA1711
 {
     protected override AppBuilder CustomizeAppBuilder(AppBuilder builder) =>
-        base.CustomizeAppBuilder(builder).WithAvaWinFonts();
+        DeveloperTools.Attach(base.CustomizeAppBuilder(builder).WithAvaWinFonts());
 }

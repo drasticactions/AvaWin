@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Platform;
 using Avalonia.Interactivity;
 using AvaWin.Gallery.Pages;
 using AvaWin.Gallery.ViewModels;
@@ -24,8 +23,6 @@ public partial class MainView : UserControl
         public void Execute(object? parameter) => action();
     }
 
-    private IInsetsManager? _insets;
-
     public MainView()
     {
         InitializeComponent();
@@ -45,28 +42,13 @@ public partial class MainView : UserControl
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
-        // Phones: keep the page out of the safe area. The overlay chrome (AppBar, NavBar, SettingsFlyout) insets itself.
-        _insets = TopLevel.GetTopLevel(this)?.InsetsManager;
-        if (_insets is { } insets)
+        // Phones: draw under the system bars. The TopLevel pads this view by the safe area itself
+        // (TopLevel.AutoSafeAreaPadding); the overlay chrome (AppBar, NavBar, SettingsFlyout) insets itself.
+        if (TopLevel.GetTopLevel(this)?.InsetsManager is { } insets)
         {
             insets.DisplayEdgeToEdgePreference = true;
-            insets.SafeAreaChanged += OnSafeAreaChanged;
-            Root.Margin = insets.SafeAreaPadding;
         }
     }
-
-    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
-    {
-        if (_insets is { } insets)
-        {
-            insets.SafeAreaChanged -= OnSafeAreaChanged;
-            _insets = null;
-        }
-
-        base.OnDetachedFromVisualTree(e);
-    }
-
-    private void OnSafeAreaChanged(object? sender, SafeAreaChangedArgs e) => Root.Margin = e.SafeAreaPadding;
 
     private void BuildNav()
     {
