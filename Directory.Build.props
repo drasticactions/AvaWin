@@ -15,6 +15,7 @@
     <PackageProjectUrl>https://github.com/draticactions/avawin</PackageProjectUrl>
     <PackageTags>avalonia;theme;avaloniaui;winjs;windows8;metro</PackageTags>
     <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <AvaWinRepoRoot>$(MSBuildThisFileDirectory)</AvaWinRepoRoot>
     <ValidateXcodeVersion>false</ValidateXcodeVersion>
@@ -30,6 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(AvaWinIsLibrary)' != 'false'">
+    <None Include="$(AvaWinRepoRoot)README.md" Pack="true" PackagePath="\" Visible="false" />
     <None Include="$(AvaWinRepoRoot)NOTICE.md" Pack="true" PackagePath="\" Visible="false" />
     <None Include="$(AvaWinRepoRoot)LICENSE.md" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
