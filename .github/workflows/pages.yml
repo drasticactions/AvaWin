@@ -1,0 +1,43 @@
+name: Deploy Gallery to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Install wasm-tools workload
+        run: dotnet workload install wasm-tools
+      - name: Publish browser gallery
+        run: dotnet publish samples/AvaWin.Gallery.Browser -c Release -o publish
+      - name: Prepare Pages site
+        run: |
+          # Skip Jekyll so folders starting with "_" (e.g. _framework) are served.
+          touch publish/wwwroot/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: publish/wwwroot
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
