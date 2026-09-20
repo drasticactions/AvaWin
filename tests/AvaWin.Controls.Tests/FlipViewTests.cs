@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,10 +39,12 @@ public class FlipViewTests
         Assert.False(await flip.PreviousAsync());
         Assert.True(await flip.NextAsync());
         Assert.Equal(1, flip.CurrentPage);
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs();
         Assert.True(await flip.NextAsync());
         Assert.False(await flip.NextAsync());
         Assert.Equal(2, flip.CurrentPage);
         Assert.DoesNotContain(":cannext", flip.Classes);
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs();
         Assert.Equal(2, selected);
         Assert.Contains((true, 2), visibility);
         window.UpdateLayout();
@@ -92,9 +95,9 @@ public class FlipViewTests
         var (window, flip) = Make();
         var calls = new List<string>();
         flip.SetCustomAnimations(new FlipViewAnimations(
-            Next: (_, _) => { calls.Add("next"); return Task.CompletedTask; },
-            Previous: (_, _) => { calls.Add("prev"); return Task.CompletedTask; },
-            Jump: (_, _) => { calls.Add("jump"); return Task.CompletedTask; }));
+            Next: (_, _, _) => { calls.Add("next"); return Task.CompletedTask; },
+            Previous: (_, _, _) => { calls.Add("prev"); return Task.CompletedTask; },
+            Jump: (_, _, _) => { calls.Add("jump"); return Task.CompletedTask; }));
         AvaWin.Animations.WinAnimations.TimeScale = 1;
         await flip.NextAsync();
         Avalonia.Threading.Dispatcher.UIThread.RunJobs();
@@ -104,6 +107,113 @@ public class FlipViewTests
         Avalonia.Threading.Dispatcher.UIThread.RunJobs();
         Assert.Equal(["next", "prev", "jump"], calls);
         AvaWin.Animations.WinAnimations.TimeScale = 0;
+        window.Close();
+    }
+
+    /// <summary>A second move during the slide cancels it: one page ends up visible, at rest, with paired visibility events.</summary>
+    [AvaloniaFact]
+    public async Task Quick_Moves_Cancel_The_Running_Slide()
+    {
+        var (window, flip) = Make();
+        var visibility = new List<(bool, int)>();
+        flip.PageVisibilityChanged += (_, e) => visibility.Add((e.Visible, e.Index));
+        AvaWin.Animations.WinAnimations.TimeScale = 1;
+        try
+        {
+            await flip.NextAsync();
+            AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+            await Task.Delay(50);
+            Assert.Contains(":animating", flip.Classes);
+            await flip.NextAsync();
+            var completed = 0;
+            flip.PageCompleted += (_, _) => completed++;
+            for (var i = 0; i < 120 && flip.Classes.Contains(":animating"); i++)
+            {
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                await Task.Delay(16);
+            }
+
+            window.UpdateLayout();
+            Assert.Equal(2, flip.CurrentPage);
+            Assert.Equal(1, completed);
+            var pages = flip.GetVisualDescendants().OfType<Avalonia.Controls.Presenters.ContentPresenter>().Where(p => p.Name is "PART_PageA" or "PART_PageB").ToList();
+            var shown = Assert.Single(pages, p => p.IsVisible);
+            Assert.Equal("three", (shown.Child as TextBlock)?.Text);
+            Assert.Null(shown.RenderTransform);
+            Assert.Equal(1, shown.Opacity);
+            Assert.Equal([(true, 1), (false, 0), (true, 2), (false, 1)], visibility);
+        }
+        finally
+        {
+            AvaWin.Animations.WinAnimations.TimeScale = 0;
+            window.Close();
+        }
+    }
+
+    /// <summary>A custom animation that throws on its token when interrupted is a canceled slide, not an error.</summary>
+    [AvaloniaFact]
+    public async Task Interrupted_Custom_Animation_Cancels_Cleanly()
+    {
+        var (window, flip) = Make();
+        var canceled = 0;
+        flip.SetCustomAnimations(new FlipViewAnimations(Next: async (_, _, token) =>
+        {
+            try
+            {
+                await Task.Delay(10_000, token);
+            }
+            catch (OperationCanceledException)
+            {
+                canceled++;
+                throw;
+            }
+        }));
+        AvaWin.Animations.WinAnimations.TimeScale = 1;
+        try
+        {
+            await flip.NextAsync();
+            Assert.Contains(":animating", flip.Classes);
+            await flip.NextAsync();
+            for (var i = 0; i < 120 && flip.Classes.Contains(":animating"); i++)
+            {
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                await Task.Delay(16);
+            }
+
+            Assert.Equal(1, canceled);
+            Assert.Contains(":animating", flip.Classes);
+            flip.CurrentPage = 0;
+            Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+            Assert.Equal(2, canceled);
+            Assert.Equal(0, flip.CurrentPage);
+        }
+        finally
+        {
+            AvaWin.Animations.WinAnimations.TimeScale = 0;
+            window.Close();
+        }
+    }
+
+    private sealed class Model
+    {
+        public int Page { get; set; }
+    }
+
+    /// <summary>PageSelected fires once the page has settled, after a two-way SelectedIndex binding has updated its source.</summary>
+    [AvaloniaFact]
+    public async Task PageSelected_Fires_After_The_Binding_Source_Is_Updated()
+    {
+        var model = new Model();
+        var flip = new FlipView { ItemsSource = new[] { "one", "two", "three" }, Width = 400, Height = 300, DataContext = model };
+        flip.Bind(FlipView.SelectedIndexProperty, new Avalonia.Data.Binding(nameof(Model.Page)) { Mode = Avalonia.Data.BindingMode.TwoWay });
+        var window = ThemeTestHelpers.Host(new Grid { Children = { flip } }, "Light", Platform.Desktop, 500, 400);
+        var seen = new List<int>();
+        flip.PageSelected += (_, _) => seen.Add(model.Page);
+        await flip.NextAsync();
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+        await flip.NextAsync();
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+        Assert.Equal([1, 2], seen);
         window.Close();
     }
 }

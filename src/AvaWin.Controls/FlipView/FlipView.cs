@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Specialized;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -10,19 +11,23 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media.Transformation;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using AvaWin.Animations;
 
 namespace AvaWin.Controls;
 
-/// <summary>Custom page animations for <see cref="FlipView.SetCustomAnimations"/>.</summary>
-/// <param name="Next">Runs on a move forward, with the outgoing and the incoming page.</param>
+/// <summary>
+/// Custom page animations for <see cref="FlipView.SetCustomAnimations"/>. Each runs with the outgoing page, the
+/// incoming page and a token that is canceled when another move interrupts the transition; stop the animation then.
+/// </summary>
+/// <param name="Next">Runs on a move forward.</param>
 /// <param name="Previous">Runs on a move backward.</param>
 /// <param name="Jump">Runs on a jump to a page that is not adjacent.</param>
 public sealed record FlipViewAnimations(
-    Func<Control?, Control?, Task>? Next = null,
-    Func<Control?, Control?, Task>? Previous = null,
-    Func<Control?, Control?, Task>? Jump = null);
+    Func<Control?, Control?, CancellationToken, Task>? Next = null,
+    Func<Control?, Control?, CancellationToken, Task>? Previous = null,
+    Func<Control?, Control?, CancellationToken, Task>? Jump = null);
 
 /// <summary>Arguments for <see cref="FlipView.PageVisibilityChanged"/>.</summary>
 public sealed class FlipViewPageVisibilityEventArgs : RoutedEventArgs
@@ -84,7 +89,10 @@ public sealed class FlipView : SelectingItemsControl
     private Button? _next;
     private FlipViewAnimations _animations = new();
     private int _shownIndex = -1;
+    private int _indexA = -1;
+    private int _indexB = -1;
     private int _generation;
+    private CancellationTokenSource? _transition;
     private bool _itemsHooked;
     private Point? _swipeStart;
     private bool _swipeHandled;
@@ -319,7 +327,6 @@ public sealed class FlipView : SelectingItemsControl
     private void OnSelectedIndexChanged(int oldIndex, int newIndex)
     {
         UpdatePseudoClasses();
-        RaiseEvent(new RoutedEventArgs(PageSelectedEvent));
         var direction = oldIndex < 0 || newIndex < 0 ? 0 : Math.Abs(newIndex - oldIndex) == 1 ? Math.Sign(newIndex - oldIndex) : 2;
         Show(newIndex, animate: oldIndex >= 0 && direction != 0, direction);
     }
@@ -339,13 +346,26 @@ public sealed class FlipView : SelectingItemsControl
         }
 
         var generation = ++_generation;
+        // A move during a slide stops it; the canceled tracks leave both pages at their end values.
+        _transition?.Cancel();
+        _transition = new CancellationTokenSource();
+        var token = _transition.Token;
         var oldIndex = _shownIndex;
         _shownIndex = index;
         var item = index >= 0 && index < ItemCount ? ItemsView[index] : null;
         var outgoing = _current;
         var incoming = ReferenceEquals(_current, _pageA) ? _pageB : _pageA;
+        outgoing.ClearValue(OpacityProperty);
+        outgoing.ClearValue(RenderTransformProperty);
+        if (incoming.Content is not null)
+        {
+            // Still holds the page a canceled slide was moving out.
+            RaiseEvent(new FlipViewPageVisibilityEventArgs(PageVisibilityChangedEvent, incoming.Child, false, IndexOf(incoming)));
+        }
+
         // The content is set before the template, so a typed FuncDataTemplate never has to build null.
         incoming.Content = item;
+        SetIndex(incoming, index);
         incoming.ContentTemplate = ItemTemplate;
         incoming.IsVisible = true;
         incoming.ClearValue(OpacityProperty);
@@ -361,11 +381,14 @@ public sealed class FlipView : SelectingItemsControl
                 var custom = direction switch { 1 => _animations.Next, -1 => _animations.Previous, _ => _animations.Jump };
                 if (custom is not null)
                 {
-                    await custom(outgoing.Child, incoming.Child);
+                    await custom(outgoing.Child, incoming.Child, token);
                 }
                 else if (direction == 2)
                 {
-                    await WinAnimations.CrossFade(incoming, outgoing);
+                    // WinAnimations.CrossFade, with cancellation.
+                    await Task.WhenAll(
+                        AnimationRunner.Run(incoming, new[] { AnimationRunner.Opacity(0, 1, 0, 167, WinEasing.Linear) }, token),
+                        AnimationRunner.Run(outgoing, new[] { AnimationRunner.Opacity(1, 0, 0, 167, WinEasing.Linear) }, token));
                 }
                 else
                 {
@@ -375,9 +398,13 @@ public sealed class FlipView : SelectingItemsControl
                     var outTo = Orientation == Orientation.Horizontal ? AnimationRunner.Translate(sign * distance, 0) : AnimationRunner.Translate(0, sign * distance);
                     var inFrom = Orientation == Orientation.Horizontal ? AnimationRunner.Translate(-sign * distance, 0) : AnimationRunner.Translate(0, -sign * distance);
                     await Task.WhenAll(
-                        AnimationRunner.Run(outgoing, AnimationRunner.Transform(TransformOperations.Identity, outTo, 0, 300, WinEasing.Standard)),
-                        AnimationRunner.Run(incoming, AnimationRunner.Transform(inFrom, TransformOperations.Identity, 0, 300, WinEasing.Standard)));
+                        AnimationRunner.Run(outgoing, new[] { AnimationRunner.Transform(TransformOperations.Identity, outTo, 0, 300, WinEasing.Standard) }, token),
+                        AnimationRunner.Run(incoming, new[] { AnimationRunner.Transform(inFrom, TransformOperations.Identity, 0, 300, WinEasing.Standard) }, token));
                 }
+            }
+            catch (OperationCanceledException) when (token.IsCancellationRequested)
+            {
+                // A custom animation that honors the token; the next move already owns the pages.
             }
             finally
             {
@@ -397,9 +424,32 @@ public sealed class FlipView : SelectingItemsControl
         outgoing.IsVisible = false;
         outgoing.ContentTemplate = null;
         outgoing.Content = null;
+        SetIndex(outgoing, -1);
         outgoing.ClearValue(OpacityProperty);
         outgoing.ClearValue(RenderTransformProperty);
         RaiseEvent(new RoutedEventArgs(PageCompletedEvent));
+        // Posted: a two-way SelectedIndex binding writes its source after this call stack, and handlers read it.
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (generation == _generation)
+            {
+                RaiseEvent(new RoutedEventArgs(PageSelectedEvent));
+            }
+        });
+    }
+
+    private int IndexOf(ContentPresenter page) => ReferenceEquals(page, _pageA) ? _indexA : _indexB;
+
+    private void SetIndex(ContentPresenter page, int index)
+    {
+        if (ReferenceEquals(page, _pageA))
+        {
+            _indexA = index;
+        }
+        else
+        {
+            _indexB = index;
+        }
     }
 
     private void UpdatePseudoClasses()
