@@ -327,10 +327,13 @@ public class AppBar : TemplatedControl
         {
             // The bar travels between its open position and the strip it leaves behind, so the slide ends exactly
             // where the closed layout starts. The presenter is in its open layout on both paths; a fresh layout pass
-            // gives it its open height before the offset is taken from it.
+            // gives it its open height before the offset is taken from it. The strip keeps the safe-area padding on
+            // the bar's edge, so that padding stays on screen too.
             _presenter.IsVisible = true;
             _presenter.UpdateLayout();
-            var travel = Math.Max(0, _presenter.Bounds.Height - (closedVisible ? ClosedHeight : 0));
+            var safeArea = _presenter.SafeAreaPadding;
+            var stripHeight = closedVisible ? ClosedHeight + (Placement == AppBarPlacement.Top ? safeArea.Top : safeArea.Bottom) : 0;
+            var travel = Math.Max(0, _presenter.Bounds.Height - stripHeight);
             var offset = new WinOffset(0, Placement == AppBarPlacement.Top ? -travel : travel, false);
             _presenter.SetTransition(opening: open, closing: !open);
             await (open ? WinAnimations.ShowEdgeUI(_presenter, offset) : WinAnimations.HideEdgeUI(_presenter, offset));
