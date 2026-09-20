@@ -33,6 +33,7 @@
                    Text="An Avalonia theme and toolkit that reproduces the look and controls of Windows 8.1 and Windows Phone 8.1 via WinJS." />
         <TextBlock Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}" TextWrapping="Wrap"
                    Text="Pick a tile to open a control page. Right-click, or use the ellipsis at the bottom, for the navigation bar and settings." />
+        <HyperlinkButton Content="AvaWin on GitHub" NavigateUri="https://github.com/drasticactions/AvaWin" Padding="0" />
       </StackPanel>
     </win:HubSection>
   </win:Hub>
