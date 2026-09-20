@@ -1,0 +1,22 @@
+<Styles x:Class="AvaWin.AvaWinTheme"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:win="using:AvaWin">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="avares://AvaWin.Theme/Accents/Palette.xaml" />
+        <win:AccentColors />
+        <win:ColorPaletteResourcesCollection />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Accents/Converters.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Accents/BaseResources.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Accents/ControlResources.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Strings/InvariantResources.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <ResourceInclude x:Key="PhoneMetrics" Source="avares://AvaWin.Theme/Accents/PhoneMetrics.xaml" />
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <StyleInclude Source="avares://AvaWin.Theme/Controls/_Controls.xaml" />
+</Styles>

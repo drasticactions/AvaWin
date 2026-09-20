@@ -1,0 +1,103 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.SettingsFlyoutPage"
+              x:DataType="vm:ChromeViewModel"
+              Description="The SettingsFlyout is the pane the Settings charm opens: full height, docked on the right, 345px narrow or 645px wide, with a small back button and the app's settings sections. Light dismiss and Escape close it. BackButton is the round back arrow, which also drives Page navigation.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="PhotoTile" x:DataType="vm:Photo">
+      <Grid Width="140" Height="140">
+        <Image Source="{Binding Image}" Stretch="UniformToFill" />
+      </Grid>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <Grid>
+      <win:ListView ItemsSource="{Binding Photos}" ItemTemplate="{StaticResource PhotoTile}" TapBehavior="ToggleSelect" Margin="20,16,20,0" Opacity="0.5">
+        <win:ListView.Layout>
+          <win:GridLayout Orientation="Vertical" />
+        </win:ListView.Layout>
+      </win:ListView>
+      <win:SettingsFlyoutPresenter Header="Options" HorizontalAlignment="Right">
+        <StackPanel>
+          <StackPanel Classes="win-settings-section">
+            <TextBlock Text="Notifications" Classes="win-type-medium" />
+            <ToggleSwitch OnContent="On" OffContent="Off" IsChecked="True" />
+            <TextBlock Text="Sound" Classes="win-type-medium" />
+            <ToggleSwitch OnContent="On" OffContent="Off" />
+          </StackPanel>
+          <StackPanel Classes="win-settings-section">
+            <TextBlock Text="Account" Classes="win-type-medium" />
+            <TextBlock Text="Your name" />
+            <TextBox Text="Ava Adler" />
+            <TextBlock Text="Region" />
+            <ComboBox SelectedIndex="0" HorizontalAlignment="Stretch">
+              <ComboBoxItem Content="Automatic" />
+              <ComboBoxItem Content="en-US" />
+              <ComboBoxItem Content="ja-JP" />
+            </ComboBox>
+          </StackPanel>
+          <StackPanel Classes="win-settings-section">
+            <TextBlock Text="Photos" Classes="win-type-medium" />
+            <CheckBox Content="Upload automatically" IsChecked="True" />
+            <CheckBox Content="Include location" />
+            <Button Content="Clear cache" Margin="0,8,0,0" />
+          </StackPanel>
+          <StackPanel Classes="win-settings-section">
+            <HyperlinkButton Content="Privacy statement" />
+            <HyperlinkButton Content="Terms of use" />
+          </StackPanel>
+        </StackPanel>
+      </win:SettingsFlyoutPresenter>
+    </Grid>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Overlay panes" Description="Real SettingsFlyouts over the window: Show() slides them in from the right. PaneWidth=Wide is for settings that need a form.">
+    <StackPanel Classes="demo-column">
+      <win:SettingsFlyout Name="Narrow" Header="Options">
+        <StackPanel Classes="win-settings-section">
+          <TextBlock Text="Notifications" Classes="win-type-medium" />
+          <ToggleSwitch OnContent="On" OffContent="Off" IsChecked="True" />
+          <Button Content="Apply" Classes="accent" Margin="0,12,0,0" />
+        </StackPanel>
+      </win:SettingsFlyout>
+      <win:SettingsFlyout Name="Wide" Header="Account" PaneWidth="Wide">
+        <StackPanel Classes="win-settings-section">
+          <TextBlock Text="Your name" />
+          <TextBox Text="Ava Adler" />
+          <TextBlock Text="Email" />
+          <TextBox Text="ava.adler@example.com" />
+          <Button Content="Save" Classes="accent" Margin="0,12,0,0" />
+        </StackPanel>
+      </win:SettingsFlyout>
+      <WrapPanel Classes="demo-row">
+        <Button Name="ShowNarrow" Content="Show narrow (345px)" Click="OnShowNarrow" />
+        <Button Name="ShowWide" Content="Show wide (645px)" Click="OnShowWide" />
+      </WrapPanel>
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="BackButton" Description="A 41px circle with the back glyph; hover adds a wash, press inverts. The small class is the SettingsFlyout header size. Disabled hides the glyph but keeps the space.">
+    <WrapPanel Classes="demo-row" VerticalAlignment="Center">
+      <win:BackButton IsAutoEnabled="False" />
+      <win:BackButton IsAutoEnabled="False" Classes="small" VerticalAlignment="Center" />
+      <Border BorderThickness="1" BorderBrush="{DynamicResource WinSeparatorBrush}">
+        <win:BackButton IsAutoEnabled="False" IsEnabled="False" />
+      </Border>
+      <TextBlock Text="← disabled keeps its 41px" VerticalAlignment="Center" Classes="win-type-xx-small" />
+    </WrapPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="BackButton in a NavigationPage" Description="Inside a Page the button finds Page.Navigation on its own (IsAutoEnabled): it is disabled on the root page and pops the pushed page when clicked.">
+    <Border BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" Height="220" MaxWidth="480" HorizontalAlignment="Left">
+      <NavigationPage Name="Nav">
+        <ContentPage Header="Home">
+          <Button Content="Push a page" Click="OnPush" Margin="20,0" VerticalAlignment="Top" />
+        </ContentPage>
+      </NavigationPage>
+    </Border>
+  </g:Scenario>
+</g:SamplePage>

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaWin.Controls</RootNamespace>
+    <PackageId>AvaWin.Controls</PackageId>
+    <Description>WinRT style controls for Avalonia</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaWin.Animations\AvaWin.Animations.csproj" />
+    <ProjectReference Include="..\AvaWin.Theme\AvaWin.Theme.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="**/*.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaWin.Controls.Tests" />
+  </ItemGroup>
+
+</Project>

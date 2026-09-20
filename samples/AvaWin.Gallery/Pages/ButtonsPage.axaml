@@ -1,0 +1,124 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.ButtonsPage"
+              x:DataType="vm:FormsViewModel"
+              HeroFill="False"
+              Description="Button samples.">
+  <g:SamplePage.Hero>
+    <g:ResponsiveColumns Classes="screen">
+      <StackPanel Spacing="14">
+        <TextBlock Text="Share “Harbor at dusk”" Classes="win-type-x-large" />
+        <TextBlock Text="Send to" Classes="win-type-small" />
+        <WrapPanel Classes="demo-row">
+          <ToggleButton Content="Mail" IsChecked="True" />
+          <ToggleButton Content="Link" />
+          <ToggleButton Content="Print" />
+          <ToggleButton Content="Fax" IsEnabled="False" />
+        </WrapPanel>
+        <TextBlock Text="Copies" Classes="win-type-small" />
+        <WrapPanel Classes="demo-row" VerticalAlignment="Center">
+          <RepeatButton Content="−" Click="OnFewer" />
+          <TextBlock Text="{Binding Copies}" Classes="win-type-x-large" VerticalAlignment="Center" MinWidth="32" TextAlignment="Center" />
+          <RepeatButton Content="+" Click="OnMore" />
+          <TextBlock Text="hold to repeat" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" VerticalAlignment="Center" />
+        </WrapPanel>
+        <WrapPanel Classes="demo-row" Margin="0,8,0,0">
+          <Button Content="Send" Classes="accent" Command="{Binding SendCommand}" />
+          <Button Content="Cancel" Command="{Binding CancelCommand}" />
+          <SplitButton Content="Save">
+            <SplitButton.Flyout>
+              <MenuFlyout>
+                <MenuItem Header="Save a copy" />
+                <MenuItem Header="Save to album..." />
+              </MenuFlyout>
+            </SplitButton.Flyout>
+          </SplitButton>
+          <DropDownButton Content="More">
+            <DropDownButton.Flyout>
+              <MenuFlyout>
+                <MenuItem Header="Set as lock screen" />
+                <MenuItem Header="Open with..." />
+                <MenuItem Header="Properties" />
+              </MenuFlyout>
+            </DropDownButton.Flyout>
+          </DropDownButton>
+        </WrapPanel>
+        <TextBlock Classes="win-type-medium" TextWrapping="Wrap" ClipToBounds="False">
+          <Run Text="Sharing keeps the original size. " />
+          <InlineUIContainer><HyperlinkButton Content="Learn more" Padding="0" /></InlineUIContainer>
+        </TextBlock>
+        <TextBlock Text="{Binding Status}" Classes="demo-status" />
+      </StackPanel>
+      <Border ClipToBounds="True" MaxHeight="260" VerticalAlignment="Top">
+        <Image Source="{Binding Photos[0].Image}" Stretch="UniformToFill" />
+      </Border>
+    </g:ResponsiveColumns>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Button" Description="Normal, accent, disabled, and a stretched button whose label wraps.">
+    <StackPanel Classes="demo-column">
+      <WrapPanel Classes="demo-row">
+        <Button Content="Button" />
+        <Button Content="Accent" Classes="accent" />
+        <Button Content="Disabled" IsEnabled="False" />
+        <Button Content="Accent disabled" Classes="accent" IsEnabled="False" />
+      </WrapPanel>
+      <Button Content="A wide button with a long label that stretches to the page width" HorizontalAlignment="Stretch" MaxWidth="480" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="ToggleButton" Description="Checked buttons invert to the text color. IsThreeState adds an indeterminate value.">
+    <WrapPanel Classes="demo-row">
+      <ToggleButton Content="Toggle" />
+      <ToggleButton Content="Checked" IsChecked="True" />
+      <ToggleButton Content="Indeterminate" IsThreeState="True" IsChecked="{x:Null}" />
+      <ToggleButton Content="Disabled" IsEnabled="False" />
+      <ToggleButton Content="Checked disabled" IsChecked="True" IsEnabled="False" />
+    </WrapPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="HyperlinkButton" Description="Links in the accent color, underlined on hover; inline links sit in body text through an InlineUIContainer.">
+    <StackPanel Classes="demo-column">
+      <WrapPanel Classes="demo-row">
+        <HyperlinkButton Content="Hyperlink" />
+        <HyperlinkButton Content="Visited" Classes="visited" />
+        <HyperlinkButton Content="Disabled" IsEnabled="False" />
+      </WrapPanel>
+      <TextBlock Classes="win-type-medium" TextWrapping="Wrap" MaxWidth="480" ClipToBounds="False">
+        <Run Text="Inline links stay in the body text, like " />
+        <InlineUIContainer><HyperlinkButton Content="this one" Padding="0" /></InlineUIContainer>
+        <Run Text="." />
+      </TextBlock>
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="DropDownButton, SplitButton, ToggleSplitButton" Description="DropDownButton always opens its flyout; SplitButton has a primary action on the left and the chevron on the right; ToggleSplitButton's left half toggles.">
+    <WrapPanel Classes="demo-row">
+      <DropDownButton Content="Options">
+        <DropDownButton.Flyout>
+          <MenuFlyout><MenuItem Header="First" /><MenuItem Header="Second" /><MenuItem Header="Third" /></MenuFlyout>
+        </DropDownButton.Flyout>
+      </DropDownButton>
+      <DropDownButton Content="Disabled" IsEnabled="False" />
+      <SplitButton Content="Save">
+        <SplitButton.Flyout>
+          <MenuFlyout><MenuItem Header="Save as..." /><MenuItem Header="Save all" /></MenuFlyout>
+        </SplitButton.Flyout>
+      </SplitButton>
+      <SplitButton Content="Disabled" IsEnabled="False" />
+      <ToggleSplitButton Content="Toggle">
+        <ToggleSplitButton.Flyout>
+          <MenuFlyout><MenuItem Header="Option A" /><MenuItem Header="Option B" /></MenuFlyout>
+        </ToggleSplitButton.Flyout>
+      </ToggleSplitButton>
+      <ToggleSplitButton Content="Checked" IsChecked="True">
+        <ToggleSplitButton.Flyout>
+          <MenuFlyout><MenuItem Header="Option A" /><MenuItem Header="Option B" /></MenuFlyout>
+        </ToggleSplitButton.Flyout>
+      </ToggleSplitButton>
+    </WrapPanel>
+  </g:Scenario>
+</g:SamplePage>

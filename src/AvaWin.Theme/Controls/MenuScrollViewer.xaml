@@ -1,0 +1,75 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="using:Avalonia.Controls.Converters"
+                    x:ClassModifier="internal">
+  <ControlTheme x:Key="WinMenuScrollButton" TargetType="RepeatButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="Padding" Value="0,2" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinSymbolFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource ScrollBarButtonArrowIconFontSize}" />
+    <Setter Property="Foreground" Value="{DynamicResource ScrollBarButtonArrowForeground}" />
+    <Setter Property="RenderTransform" Value="{x:Null}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          Content="{TemplateBinding Content}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource ScrollBarButtonBackgroundPointerOver}" />
+      <Setter Property="Foreground" Value="{DynamicResource ScrollBarButtonArrowForegroundPointerOver}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinMenuScrollViewer" TargetType="ScrollViewer">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="IsScrollChainingEnabled" Value="False" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel>
+          <RepeatButton DockPanel.Dock="Top"
+                        Theme="{StaticResource WinMenuScrollButton}"
+                        Content="&#xE0E4;"
+                        Command="{Binding LineUp, RelativeSource={RelativeSource TemplatedParent}}">
+            <RepeatButton.IsVisible>
+              <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}" ConverterParameter="0">
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalScrollBarVisibility" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Offset.Y" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Extent.Height" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Viewport.Height" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+          </RepeatButton>
+          <RepeatButton DockPanel.Dock="Bottom"
+                        Theme="{StaticResource WinMenuScrollButton}"
+                        Content="&#xE0E5;"
+                        Command="{Binding LineDown, RelativeSource={RelativeSource TemplatedParent}}">
+            <RepeatButton.IsVisible>
+              <MultiBinding Converter="{x:Static converters:MenuScrollingVisibilityConverter.Instance}" ConverterParameter="100">
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="VerticalScrollBarVisibility" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Offset.Y" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Extent.Height" />
+                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Viewport.Height" />
+              </MultiBinding>
+            </RepeatButton.IsVisible>
+          </RepeatButton>
+          <ScrollContentPresenter Name="PART_ContentPresenter">
+            <ScrollContentPresenter.GestureRecognizers>
+              <ScrollGestureRecognizer CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
+                                       CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}" />
+            </ScrollContentPresenter.GestureRecognizers>
+          </ScrollContentPresenter>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

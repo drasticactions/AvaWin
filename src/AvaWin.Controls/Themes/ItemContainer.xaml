@@ -1,0 +1,21 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin.Controls"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Width="300" Padding="20">
+      <StackPanel Spacing="12">
+        <win:ItemContainer Content="Item" />
+        <win:ItemContainer Content="Selected" IsSelected="True" />
+        <win:ItemContainer Content="Filled" IsSelected="True" SelectionStyle="Filled" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type win:ItemContainer}" TargetType="win:ItemContainer" BasedOn="{StaticResource {x:Type win:ListViewItem}}">
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Padding" Value="{DynamicResource WinListItemPadding}" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </ControlTheme>
+</ResourceDictionary>

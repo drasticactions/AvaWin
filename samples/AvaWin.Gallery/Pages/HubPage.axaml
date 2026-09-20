@@ -1,0 +1,119 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.HubPage"
+              x:DataType="vm:HubViewModel"
+              Description="A Hub is the Windows 8.1 start page pattern: a wide panorama of sections you pan across, each with a header that opens the full view. On a narrow screen the sections stack vertically instead. HeaderInvoked fires for interactive headers; SectionOnScreen scrolls to a section.">
+  <g:SamplePage.Resources>
+    <Thickness x:Key="WinHubHeaderMargin">0,12,0,4</Thickness>
+    <DataTemplate x:Key="LeadTemplate" x:DataType="vm:Article">
+      <StackPanel Classes="lead" Spacing="10" Width="360">
+        <Border Height="220" ClipToBounds="True">
+          <Image Source="{Binding Photo.Image}" Stretch="UniformToFill" />
+        </Border>
+        <TextBlock Text="{Binding Title}" Classes="win-type-x-large" TextWrapping="Wrap" />
+        <TextBlock Text="{Binding Summary}" Classes="win-type-small" TextWrapping="Wrap" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+      </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="RowTemplate" x:DataType="vm:Article">
+      <Grid Classes="row" ColumnDefinitions="110,*" Margin="0,0,0,14" Width="300">
+        <Border Height="70" ClipToBounds="True">
+          <Image Source="{Binding Photo.Image}" Stretch="UniformToFill" />
+        </Border>
+        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Top">
+          <TextBlock Text="{Binding Title}" Classes="win-type-medium" TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" />
+          <TextBlock Text="{Binding Photo.Location}" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+  <g:SamplePage.Styles>
+    <Style Selector="g|SamplePage:narrow win|Hub.news">
+      <Setter Property="Orientation" Value="Vertical" />
+    </Style>
+    <Style Selector="g|SamplePage:narrow win|Hub.news Grid.row">
+      <Setter Property="Width" Value="NaN" />
+    </Style>
+    <Style Selector="g|SamplePage:narrow win|Hub.news StackPanel.lead">
+      <Setter Property="Width" Value="NaN" />
+    </Style>
+    <Style Selector="g|SamplePage:narrow win|Hub.news StackPanel.top">
+      <Setter Property="Orientation" Value="Vertical" />
+    </Style>
+  </g:SamplePage.Styles>
+
+  <g:SamplePage.Hero>
+    <DockPanel>
+      <TextBlock DockPanel.Dock="Bottom" Classes="demo-status" Text="{Binding Status}" Margin="20,8,20,12" />
+      <win:Hub Name="NewsHub" Classes="news" HeaderInvoked="OnHeaderInvoked" Margin="0,8,0,0">
+        <win:HubSection Header="Top stories" IsHeaderStatic="True">
+          <StackPanel Classes="top" Orientation="Horizontal" Spacing="30">
+            <ContentControl Content="{Binding Lead}" ContentTemplate="{StaticResource LeadTemplate}" />
+            <ItemsControl ItemsSource="{Binding TopStories}" ItemTemplate="{StaticResource RowTemplate}" />
+          </StackPanel>
+        </win:HubSection>
+        <win:HubSection Header="Travel">
+          <ItemsControl ItemsSource="{Binding Travel}" ItemTemplate="{StaticResource RowTemplate}" />
+        </win:HubSection>
+        <win:HubSection Header="Science">
+          <ItemsControl ItemsSource="{Binding Science}" ItemTemplate="{StaticResource RowTemplate}" />
+        </win:HubSection>
+        <win:HubSection Header="Culture">
+          <ItemsControl ItemsSource="{Binding Culture}" ItemTemplate="{StaticResource RowTemplate}" />
+        </win:HubSection>
+      </win:Hub>
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Jump to a section" Description="SectionOnScreen is the section at the leading edge. Setting it scrolls the panorama; reading it after a pan tells you where the user is.">
+    <StackPanel Spacing="12">
+      <WrapPanel Classes="demo-row">
+        <Button Content="Top stories" Click="OnJump" Tag="0" />
+        <Button Content="Travel" Click="OnJump" Tag="1" />
+        <Button Content="Science" Click="OnJump" Tag="2" />
+        <Button Content="Culture" Click="OnJump" Tag="3" />
+      </WrapPanel>
+      <TextBlock Name="JumpStatus" Classes="demo-status" Text="SectionOnScreen: 0" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Live parallax background" Description="Any control can sit behind a transparent Hub. This one redraws itself every frame, and ScrollPosition — which raises change notifications as the user pans — shifts it at a fraction of the hub's own movement. Pan the panorama to see the scene drift.">
+    <Border BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" Height="320" ClipToBounds="True">
+      <Panel>
+        <g:DriftingShapesBackground Name="ParallaxScene" Opacity="0.7" />
+        <win:Hub Name="ParallaxHub" Background="Transparent">
+          <win:HubSection Header="Top stories" IsHeaderStatic="True">
+            <ItemsControl ItemsSource="{Binding TopStories}" ItemTemplate="{StaticResource RowTemplate}" />
+          </win:HubSection>
+          <win:HubSection Header="Travel" IsHeaderStatic="True">
+            <ItemsControl ItemsSource="{Binding Travel}" ItemTemplate="{StaticResource RowTemplate}" />
+          </win:HubSection>
+          <win:HubSection Header="Science" IsHeaderStatic="True">
+            <ItemsControl ItemsSource="{Binding Science}" ItemTemplate="{StaticResource RowTemplate}" />
+          </win:HubSection>
+          <win:HubSection Header="Culture" IsHeaderStatic="True">
+            <ItemsControl ItemsSource="{Binding Culture}" ItemTemplate="{StaticResource RowTemplate}" />
+          </win:HubSection>
+        </win:Hub>
+      </Panel>
+    </Border>
+  </g:Scenario>
+
+  <g:Scenario Title="Vertical orientation" Description="Orientation=Vertical stacks the sections; it is the Windows Phone layout, and the one the hero switches to on a narrow page.">
+    <Border BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" Height="360" MaxWidth="480" HorizontalAlignment="Left">
+      <win:Hub Orientation="Vertical">
+        <win:HubSection Header="Travel">
+          <ItemsControl ItemsSource="{Binding Travel}" ItemTemplate="{StaticResource RowTemplate}" />
+        </win:HubSection>
+        <win:HubSection Header="Science">
+          <ItemsControl ItemsSource="{Binding Science}" ItemTemplate="{StaticResource RowTemplate}" />
+        </win:HubSection>
+        <win:HubSection Header="Culture">
+          <ItemsControl ItemsSource="{Binding Culture}" ItemTemplate="{StaticResource RowTemplate}" />
+        </win:HubSection>
+      </win:Hub>
+    </Border>
+  </g:Scenario>
+</g:SamplePage>

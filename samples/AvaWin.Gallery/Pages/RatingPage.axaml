@@ -1,0 +1,66 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.RatingPage"
+              x:DataType="vm:RatingViewModel"
+              HeroFill="False"
+              Description="Rating: a row of stars that shows the average rating until the user sets their own. Hovering previews (PreviewChange), clicking commits (Change), and clicking the current value clears it (Cancel) unless EnableClear is off.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="AlbumRatingRow" x:DataType="vm:AlbumRating">
+      <Grid ColumnDefinitions="60,*,Auto" Margin="0,0,0,12">
+        <Border Height="60" ClipToBounds="True">
+          <Image Source="{Binding Album.Cover.Image}" Stretch="UniformToFill" />
+        </Border>
+        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+          <TextBlock Text="{Binding Album.Title}" Classes="win-type-medium" />
+          <TextBlock Text="{Binding Album.Artist}" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        </StackPanel>
+        <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+          <win:Rating AverageRating="{Binding Average}" Classes="small" IsEnabled="False" />
+          <TextBlock Text="{Binding Votes, StringFormat='{}{0} ratings'}" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" HorizontalAlignment="Right" />
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <g:ResponsiveColumns Classes="screen">
+      <StackPanel Spacing="10">
+        <Border Height="220" ClipToBounds="True">
+          <Image Source="{Binding Album.Cover.Image}" Stretch="UniformToFill" />
+        </Border>
+        <TextBlock Text="{Binding Album.Title}" Classes="win-type-x-large" />
+        <TextBlock Text="{Binding Album.Artist}" Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        <TextBlock Text="Your rating" Classes="win-type-medium" Margin="0,12,0,0" />
+        <win:Rating Name="Stars" UserRating="{Binding UserRating}" AverageRating="3.6" />
+        <TextBlock Text="{Binding Status}" Classes="demo-status" />
+      </StackPanel>
+      <StackPanel Spacing="10">
+        <TextBlock Text="More from the store" Classes="win-type-medium" />
+        <ItemsControl ItemsSource="{Binding Others}" ItemTemplate="{StaticResource AlbumRatingRow}" />
+      </StackPanel>
+    </g:ResponsiveColumns>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Average and user ratings" Description="With no UserRating the stars show the AverageRating, including a partial star; once the user rates, their value takes over.">
+    <StackPanel Classes="demo-column">
+      <TextBlock Text="Average 3.5, no user rating" Classes="win-type-xx-small" />
+      <win:Rating AverageRating="3.5" />
+      <TextBlock Text="User rating 4 (average hidden)" Classes="win-type-xx-small" />
+      <win:Rating UserRating="4" AverageRating="3.5" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Sizes and limits" Description="The small class is for list rows. MaxRating sets the star count; EnableClear=False stops a click on the current value from clearing it.">
+    <StackPanel Classes="demo-column">
+      <TextBlock Text="Small" Classes="win-type-xx-small" />
+      <win:Rating UserRating="4" Classes="small" />
+      <TextBlock Text="MaxRating 10, EnableClear off" Classes="win-type-xx-small" />
+      <win:Rating UserRating="7" MaxRating="10" EnableClear="False" />
+      <TextBlock Text="Disabled" Classes="win-type-xx-small" />
+      <win:Rating UserRating="2" IsEnabled="False" />
+    </StackPanel>
+  </g:Scenario>
+</g:SamplePage>

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Headless.XUnit" />
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="Avalonia.HarfBuzz" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaWin.Animations\AvaWin.Animations.csproj" />
+  </ItemGroup>
+</Project>

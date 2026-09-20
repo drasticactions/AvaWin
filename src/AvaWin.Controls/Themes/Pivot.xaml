@@ -1,0 +1,171 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin.Controls"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Width="600" Height="300">
+      <win:Pivot Title="PIVOT">
+        <win:PivotItem Header="first"><TextBlock Text="first content" /></win:PivotItem>
+        <win:PivotItem Header="second"><TextBlock Text="second content" /></win:PivotItem>
+      </win:Pivot>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="WinPivotNavButton" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource WinPivotNavButtonWidth}" />
+    <Setter Property="Height" Value="{DynamicResource WinPivotNavButtonHeight}" />
+    <Setter Property="Margin" Value="{DynamicResource WinPivotNavButtonMargin}" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="Background" Value="{DynamicResource PivotNavButtonBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource PivotNavButtonForeground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinSymbolFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinPivotNavButtonFontSize}" />
+    <Setter Property="Opacity" Value="0" />
+    <Setter Property="IsHitTestVisible" Value="False" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Transitions">
+      <Transitions>
+        <DoubleTransition Property="Opacity" Duration="0:0:0.167" />
+      </Transitions>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root" Background="{TemplateBinding Background}" ClipToBounds="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource PivotNavButtonBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource PivotNavButtonForegroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource PivotNavButtonBackgroundPressed}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource PivotNavButtonForegroundPressed}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinPivotHeaderButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="{DynamicResource WinPivotHeaderPadding}" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Foreground" Value="{DynamicResource PivotHeaderForeground}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinPivotHeaderFontSize}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightPivotHeader}" />
+    <Setter Property="Opacity" Value="{DynamicResource PivotHeaderUnselectedOpacity}" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Transitions">
+      <Transitions>
+        <DoubleTransition Property="Opacity" Duration="0:0:0.167" />
+      </Transitions>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            VerticalContentAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.selected">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Root">
+      <Setter Property="BorderBrush" Value="{DynamicResource PivotHeaderForeground}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type win:Pivot}" TargetType="win:Pivot">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource WinTextBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinFontFamily}" />
+    <Setter Property="ClipToBounds" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel Name="PART_Root" Background="{TemplateBinding Background}">
+          <ContentPresenter Name="PART_Title"
+                            DockPanel.Dock="Top"
+                            Content="{TemplateBinding Title}"
+                            Foreground="{DynamicResource PivotTitleForeground}"
+                            FontSize="{DynamicResource WinPivotTitleFontSize}"
+                            FontWeight="{DynamicResource WinFontWeightPivotTitle}"
+                            Margin="{DynamicResource WinPivotTitleMargin}"
+                            IsVisible="False" />
+          <Grid Name="PART_Headers"
+                DockPanel.Dock="Top"
+                Height="{DynamicResource WinPivotHeadersHeight}"
+                Background="Transparent">
+            <win:PivotHeadersPanel Name="PART_HeadersPanel" />
+            <Button Name="PART_PrevButton"
+                    Theme="{StaticResource WinPivotNavButton}"
+                    Content="&#xE0E2;"
+                    HorizontalAlignment="Left" />
+            <Button Name="PART_NextButton"
+                    Theme="{StaticResource WinPivotNavButton}"
+                    Content="&#xE0E3;"
+                    HorizontalAlignment="Right" />
+          </Grid>
+          <Panel Name="PART_Viewport" Background="Transparent">
+            <ScrollViewer Name="PART_ItemScroller"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          Margin="{DynamicResource WinPivotItemTopOffset}"
+                          Padding="{DynamicResource WinPivotItemPadding}">
+              <ContentPresenter Name="PART_ItemHost" />
+            </ScrollViewer>
+          </Panel>
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:hastitle /template/ ContentPresenter#PART_Title">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:shownavbuttons /template/ Button#PART_PrevButton, ^:shownavbuttons /template/ Button#PART_NextButton">
+      <Setter Property="Opacity" Value="1" />
+      <Setter Property="IsHitTestVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type win:PivotItem}" TargetType="win:PivotItem">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

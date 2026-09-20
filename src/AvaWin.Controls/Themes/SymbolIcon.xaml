@@ -1,0 +1,38 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin.Controls"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <StackPanel Orientation="Horizontal" Spacing="12">
+        <win:SymbolIcon Icon="Accept" />
+        <win:SymbolIcon Icon="Camera" FontSize="28" />
+        <win:SymbolIcon Glyph="&#xE0D5;" FontSize="18.5" />
+        <win:SymbolIcon Icon="Delete" IsEnabled="False" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type win:SymbolIcon}" TargetType="win:SymbolIcon">
+    <Setter Property="Foreground" Value="{DynamicResource SymbolIconForeground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinSymbolFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeCommandGlyph}" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <TextBlock Name="PART_Glyph"
+                   Text="{TemplateBinding ActualGlyph}"
+                   FontFamily="{TemplateBinding FontFamily}"
+                   FontSize="{TemplateBinding FontSize}"
+                   Foreground="{TemplateBinding Foreground}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:disabled">
+      <Setter Property="Foreground" Value="{DynamicResource SymbolIconForegroundDisabled}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

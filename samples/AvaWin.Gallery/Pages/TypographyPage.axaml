@@ -1,0 +1,51 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.TypographyPage"
+              x:DataType="vm:ChromeViewModel"
+              HeroFill="False"
+              Description="The type ramp in Selawik, the open-source Segoe UI metric-compatible face: xx-large 42pt Light for page titles down to xx-small 9pt captions. The Phone platform swaps in the Windows Phone ramp; change Platform in Settings to compare.">
+  <g:SamplePage.Hero>
+    <g:ResponsiveColumns Classes="screen">
+      <StackPanel Spacing="10">
+        <TextBlock Text="TRAVEL" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        <TextBlock Text="Chasing the violet hour" Classes="win-type-xx-large" TextWrapping="Wrap" />
+        <TextBlock Text="Where to stand, and when, for the best light on the black-sand coast." Classes="win-type-x-large" TextWrapping="Wrap" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        <TextBlock Text="By Ava Adler · Reykjavik" Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        <TextBlock Text="Getting there" Classes="win-type-large" Margin="0,12,0,0" />
+        <TextBlock Classes="win-type-medium" TextWrapping="Wrap"
+                   Text="The coast road turns to gravel after the lighthouse. Park at the second pull-out; the path to the beach is signed but easy to miss in fog. Give yourself forty minutes before the light goes purple, jumping quickly from gold to violet as the sun drops behind the glacier." />
+        <TextBlock Classes="win-type-medium" TextWrapping="Wrap"
+                   Text="Typography, photography and geography: every glyph with a descender — g, j, p, q, y — should sit comfortably on the line without being clipped." />
+        <TextBlock Text="Photographs by the author. 0123456789" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+      </StackPanel>
+      <StackPanel Spacing="12">
+        <Border ClipToBounds="True" Height="200">
+          <Image Source="{Binding Photos[4].Image}" Stretch="UniformToFill" />
+        </Border>
+        <TextBlock Text="Violet hour, Reykjavik" Classes="win-type-x-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        <TextBlock Classes="win-type-interactive" Text="win-type-interactive — hover and press me" />
+        <TextBlock Classes="win-type-ellipsis" Text="win-type-ellipsis — this line is too long for its box, so the end is trimmed" />
+        <TextBlock Classes="win-type-medium" FontFamily="{DynamicResource WinMonospaceFontFamily}" Text="code, pre, samp: Consolas / Menlo" />
+      </StackPanel>
+    </g:ResponsiveColumns>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="The ramp" Description="Each class with its size and weight. The h1–h6 classes are aliases.">
+    <StackPanel Spacing="10">
+      <TextBlock Classes="win-type-xx-large" Text="win-type-xx-large / h1 — 42pt Light, typography" />
+      <TextBlock Classes="win-type-x-large" Text="win-type-x-large / h2 — 20pt Light, typography" />
+      <TextBlock Classes="win-type-large" Text="win-type-large / h3 — 11pt Semibold, typography" />
+      <TextBlock Classes="win-type-medium" Text="win-type-medium / h4 — 11pt Regular, typography" />
+      <TextBlock Classes="win-type-small" Text="win-type-small / h5 — 11pt Semilight (body), typography" />
+      <TextBlock Classes="win-type-x-small" Text="win-type-x-small — 11pt Semilight, typography" />
+      <TextBlock Classes="win-type-xx-small" Text="win-type-xx-small / h6 — 9pt Regular, typography" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Symbols" Description="The Symbols.ttf glyph face, used by AppBar commands, BackButton and SymbolIcon, through the win-symbol class.">
+    <TextBlock Classes="win-symbol" FontSize="28" Text="&#xE0D5; &#xE081; &#xE082; &#xE094; &#xE0B8; &#xE0E2; &#xE0E3; &#xE0E4; &#xE0E5; &#xE0E7; &#xE10C; &#xE26B; &#xE019; &#xE018;" />
+  </g:Scenario>
+</g:SamplePage>

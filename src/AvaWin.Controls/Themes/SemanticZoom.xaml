@@ -1,0 +1,68 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin.Controls"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Width="500" Height="300">
+      <win:SemanticZoom />
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="WinSemanticZoomButton" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource WinSemanticZoomButtonSize}" />
+    <Setter Property="Height" Value="{DynamicResource WinSemanticZoomButtonSize}" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="{DynamicResource WinSemanticZoomButtonMargin}" />
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="VerticalAlignment" Value="Bottom" />
+    <Setter Property="Background" Value="{DynamicResource SemanticZoomButtonBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource SemanticZoomButtonForeground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinSymbolFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinSemanticZoomButtonFontSize}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root" Background="{TemplateBinding Background}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource SemanticZoomButtonBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource SemanticZoomButtonBackgroundPressed}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource SemanticZoomButtonForegroundPressed}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type win:SemanticZoom}" TargetType="win:SemanticZoom">
+    <Setter Property="MinHeight" Value="{DynamicResource WinSemanticZoomDefaultHeight}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="ClipToBounds" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="PART_Root" Background="{TemplateBinding Background}">
+          <Panel Name="PART_ZoomedInHost" />
+          <Panel Name="PART_ZoomedOutHost" Background="{DynamicResource SemanticZoomZoomedOutBackground}" IsVisible="False" />
+          <Button Name="PART_ZoomOutButton"
+                  Theme="{StaticResource WinSemanticZoomButton}"
+                  Content="&#xE0B8;" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:zoomedout /template/ Button#PART_ZoomOutButton, ^:nobutton /template/ Button#PART_ZoomOutButton, ^:locked /template/ Button#PART_ZoomOutButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,130 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin">
+
+  <win:ResourceAlias x:Key="SymbolIconForeground" Target="WinTextBrush" />
+  <win:ResourceAlias x:Key="SymbolIconForegroundDisabled" Target="WinTextDisabledBrush" />
+
+  <win:ResourceAlias x:Key="BackButtonBorderBrushFocused" Target="WinFocusOutlineBrush" />
+
+  <win:ResourceAlias x:Key="NavBarCommandBackground" Target="WinNavCommandBackgroundBrush" />
+  <win:ResourceAlias x:Key="NavBarCommandForeground" Target="WinTextBrush" />
+  <win:ResourceAlias x:Key="NavBarCommandBackgroundPointerOver" Target="WinNavCommandBackgroundHoverBrush" />
+  <win:ResourceAlias x:Key="NavBarCommandBackgroundPressed" Target="WinNavCommandBackgroundPressedBrush" />
+  <win:ResourceAlias x:Key="NavBarCommandForegroundPressed" Target="WinNavCommandForegroundPressedBrush" />
+  <win:ResourceAlias x:Key="NavBarCommandBackgroundOpened" Target="WinNavCommandBackgroundPressedBrush" />
+  <win:ResourceAlias x:Key="NavBarCommandForegroundOpened" Target="WinNavCommandForegroundPressedBrush" />
+  <win:ResourceAlias x:Key="NavBarCommandBorderBrushFocused" Target="WinFocusOutlineBrush" />
+  <win:ResourceAlias x:Key="NavBarPageIndicatorBackground" Target="WinNavPageIndicatorBrush" />
+  <win:ResourceAlias x:Key="NavBarPageIndicatorBackgroundCurrent" Target="WinNavPageIndicatorCurrentBrush" />
+  <win:ResourceAlias x:Key="NavBarPageIndicatorBackgroundPointerOver" Target="WinNavPageIndicatorHoverBrush" />
+  <win:ResourceAlias x:Key="NavBarPageIndicatorBackgroundPressed" Target="WinNavPageIndicatorPressedBrush" />
+  <win:ResourceAlias x:Key="NavBarArrowBackground" Target="WinNavArrowBackgroundBrush" />
+  <win:ResourceAlias x:Key="NavBarArrowForeground" Target="WinNavArrowForegroundBrush" />
+  <win:ResourceAlias x:Key="NavBarArrowBackgroundPointerOver" Target="WinNavArrowBackgroundHoverBrush" />
+  <win:ResourceAlias x:Key="NavBarArrowForegroundPointerOver" Target="WinNavArrowForegroundHoverBrush" />
+  <win:ResourceAlias x:Key="NavBarArrowBackgroundPressed" Target="WinNavArrowBackgroundPressedBrush" />
+  <win:ResourceAlias x:Key="NavBarArrowForegroundPressed" Target="WinNavArrowForegroundPressedBrush" />
+
+  <win:ResourceAlias x:Key="HubSectionHeaderForeground" Target="WinTextBrush" />
+  <win:ResourceAlias x:Key="HubSectionHeaderForegroundPointerOver" Target="WinHubHeaderHoverBrush" />
+  <win:ResourceAlias x:Key="HubSectionHeaderForegroundPressed" Target="WinHubHeaderPressedBrush" />
+  <win:ResourceAlias x:Key="HubSectionHeaderBorderBrushFocused" Target="WinFocusOutlineBrush" />
+
+  <win:ResourceAlias x:Key="PivotHeaderForeground" Target="WinTextBrush" />
+  <win:ResourceAlias x:Key="PivotHeaderUnselectedOpacity" Target="WinPivotHeaderUnselectedOpacityValue" DarkTarget="WinPivotHeaderUnselectedOpacityDarkValue" />
+  <win:ResourceAlias x:Key="PivotTitleForeground" Target="WinTextBrush" />
+  <win:ResourceAlias x:Key="PivotNavButtonBackground" Target="WinPivotNavButtonBackgroundBrush" />
+  <win:ResourceAlias x:Key="PivotNavButtonForeground" Target="WinPivotNavButtonForegroundBrush" />
+  <win:ResourceAlias x:Key="PivotNavButtonBackgroundPointerOver" Target="WinPivotNavButtonBackgroundHoverBrush" />
+  <win:ResourceAlias x:Key="PivotNavButtonForegroundPointerOver" Target="WinPivotNavButtonForegroundHoverBrush" />
+  <win:ResourceAlias x:Key="PivotNavButtonBackgroundPressed" Target="WinPivotNavButtonBackgroundPressedBrush" />
+  <win:ResourceAlias x:Key="PivotNavButtonForegroundPressed" Target="WinPivotNavButtonForegroundPressedBrush" />
+
+  <win:ResourceAlias x:Key="ListViewItemBackground" Target="WinListItemBackgroundBrush" />
+  <win:ResourceAlias x:Key="ListViewItemBackgroundBackdrop" Target="WinListItemBackdropBrush" />
+  <win:ResourceAlias x:Key="ListViewItemHoverOutlineBrush" Target="WinListItemHoverOutlineBrush" />
+  <win:ResourceAlias x:Key="ListViewItemBackgroundPointerOverFilled" Target="WinListItemFilledHoverBrush" />
+  <win:ResourceAlias x:Key="ListViewItemSelectionBorderBrush" Target="WinSelectionBorderBrush" />
+  <win:ResourceAlias x:Key="ListViewItemSelectionBorderBrushPointerOver" Target="WinSelectionBorderHoverBrush" />
+  <win:ResourceAlias x:Key="ListViewItemSelectionBackground" Target="WinSelectionFillBrush" />
+  <win:ResourceAlias x:Key="ListViewItemSelectionBackgroundPointerOver" Target="WinSelectionFillHoverBrush" />
+  <win:ResourceAlias x:Key="ListViewItemForegroundSelected" Target="WinSelectionForegroundBrush" />
+  <win:ResourceAlias x:Key="ListViewItemCheckmarkBackground" Target="WinSelectionCheckmarkBackgroundBrush" />
+  <win:ResourceAlias x:Key="ListViewItemCheckmarkBackgroundPointerOver" Target="WinSelectionCheckmarkBackgroundHoverBrush" />
+  <win:ResourceAlias x:Key="ListViewItemCheckmarkForeground" Target="WinSelectionCheckmarkBrush" />
+  <win:ResourceAlias x:Key="ListViewItemFocusOutlineBrush" Target="WinListFocusOutlineBrush" />
+  <win:ResourceAlias x:Key="ListViewGroupHeaderForeground" Target="WinTextBrush" />
+  <win:ResourceAlias x:Key="ListViewGroupHeaderFocusOutlineBrush" Target="WinListFocusOutlineBrush" />
+  <win:ResourceAlias x:Key="ListViewSelectionHintForeground" Target="WinSelectionHintBrush" />
+  <win:ResourceAlias x:Key="ListViewPhoneCheckBorderBrush" Target="WinTextBrush" />
+  <win:ResourceAlias x:Key="ListViewPhoneCheckBackgroundPressed" Target="WinSelectionFillBrush" />
+
+  <win:ResourceAlias x:Key="FlipViewNavButtonBackground" Target="WinFlipViewNavButtonBackgroundBrush" />
+  <win:ResourceAlias x:Key="FlipViewNavButtonForeground" Target="WinFlipViewNavButtonForegroundBrush" />
+  <win:ResourceAlias x:Key="FlipViewNavButtonBackgroundPointerOver" Target="WinFlipViewNavButtonBackgroundHoverBrush" />
+  <win:ResourceAlias x:Key="FlipViewNavButtonForegroundPointerOver" Target="WinFlipViewNavButtonForegroundHoverBrush" />
+  <win:ResourceAlias x:Key="FlipViewNavButtonBackgroundPressed" Target="WinFlipViewNavButtonBackgroundPressedBrush" />
+  <win:ResourceAlias x:Key="FlipViewNavButtonForegroundPressed" Target="WinFlipViewNavButtonForegroundPressedBrush" />
+
+  <win:ResourceAlias x:Key="SemanticZoomButtonBackground" Target="WinSemanticZoomButtonBackgroundBrush" />
+  <win:ResourceAlias x:Key="SemanticZoomButtonBackgroundPointerOver" Target="WinSemanticZoomButtonBackgroundHoverBrush" />
+  <win:ResourceAlias x:Key="SemanticZoomButtonBackgroundPressed" Target="WinSemanticZoomButtonBackgroundPressedBrush" />
+  <win:ResourceAlias x:Key="SemanticZoomButtonForeground" Target="WinSemanticZoomButtonForegroundBrush" />
+  <win:ResourceAlias x:Key="SemanticZoomButtonForegroundPressed" Target="WinSemanticZoomButtonForegroundPressedBrush" />
+  <win:ResourceAlias x:Key="SemanticZoomZoomedOutBackground" Target="WinSemanticZoomZoomedOutBackgroundBrush" />
+
+  <win:ResourceAlias x:Key="RatingStarForegroundUser" Target="WinRatingUserBrush" />
+  <win:ResourceAlias x:Key="RatingStarForegroundTentative" Target="WinRatingTentativeBrush" />
+  <win:ResourceAlias x:Key="RatingStarForegroundAverage" Target="WinRatingAverageBrush" />
+  <win:ResourceAlias x:Key="RatingStarForegroundEmpty" Target="WinRatingEmptyBrush" />
+
+  <win:ResourceAlias x:Key="SearchBoxBorderBrush" Target="WinSearchBoxBorderBrush" />
+  <win:ResourceAlias x:Key="SearchBoxBackground" Target="WinSearchBoxBackgroundBrush" />
+  <win:ResourceAlias x:Key="SearchBoxForeground" Target="WinSearchBoxForegroundBrush" />
+  <win:ResourceAlias x:Key="WinSearchBoxInputForeground" Target="WinSearchBoxSuggestionForegroundBrush" />
+  <win:ResourceAlias x:Key="SearchBoxBackgroundPointerOver" Target="WinSearchBoxBackgroundHoverBrush" />
+  <win:ResourceAlias x:Key="SearchBoxBorderBrushPointerOver" Target="WinSearchBoxBorderHoverBrush" />
+  <win:ResourceAlias x:Key="SearchBoxBorderBrushFocused" Target="WinSearchBoxBorderFocusedBrush" />
+  <win:ResourceAlias x:Key="SearchBoxBackgroundFocused" Target="WinSearchBoxBackgroundFocusedBrush" />
+  <win:ResourceAlias x:Key="SearchBoxButtonForeground" Target="WinSearchBoxButtonForegroundBrush" />
+  <win:ResourceAlias x:Key="SearchBoxButtonBackgroundPointerOver" Target="WinSearchBoxButtonBackgroundHoverBrush" />
+  <win:ResourceAlias x:Key="SearchBoxButtonBackgroundPressed" Target="WinSearchBoxButtonBackgroundPressedBrush" />
+  <win:ResourceAlias x:Key="SearchBoxButtonForegroundPressed" Target="WinSearchBoxButtonForegroundPressedBrush" />
+  <win:ResourceAlias x:Key="SearchBoxButtonBackgroundFocused" Target="WinSearchBoxButtonBackgroundFocusedBrush" />
+  <win:ResourceAlias x:Key="SearchBoxButtonForegroundFocused" Target="WinSearchBoxButtonForegroundFocusedBrush" />
+  <win:ResourceAlias x:Key="SearchBoxBackgroundDisabled" Target="WinSearchBoxBackgroundDisabledBrush" />
+  <win:ResourceAlias x:Key="SearchBoxBorderBrushDisabled" Target="WinSearchBoxBorderDisabledBrush" />
+  <win:ResourceAlias x:Key="SearchBoxForegroundDisabled" Target="WinSearchBoxForegroundDisabledBrush" />
+  <win:ResourceAlias x:Key="SearchBoxFlyoutBackground" Target="WinSearchBoxFlyoutBackgroundBrush" />
+  <win:ResourceAlias x:Key="SearchBoxFlyoutBorderBrush" Target="WinSearchBoxFlyoutBorderBrush" />
+  <win:ResourceAlias x:Key="SearchBoxSuggestionForeground" Target="WinSearchBoxSuggestionForegroundBrush" />
+  <win:ResourceAlias x:Key="SearchBoxSuggestionBackgroundPointerOver" Target="WinSearchBoxSuggestionBackgroundHoverBrush" />
+  <win:ResourceAlias x:Key="SearchBoxSuggestionBackgroundSelected" Target="WinSearchBoxSuggestionBackgroundSelectedBrush" />
+  <win:ResourceAlias x:Key="SearchBoxSuggestionBackgroundSelectedPointerOver" Target="WinSearchBoxSuggestionBackgroundSelectedHoverBrush" />
+  <win:ResourceAlias x:Key="SearchBoxSuggestionSeparatorForeground" Target="WinSearchBoxSuggestionSeparatorBrush" />
+  <win:ResourceAlias x:Key="SearchBoxHighlightForeground" Target="WinSearchBoxHighlightBrush" />
+  <win:ResourceAlias x:Key="SearchBoxHighlightForegroundSelected" Target="WinSearchBoxHighlightSelectedBrush" />
+
+  <win:ResourceAlias x:Key="ContentDialogBackground" Target="WinContentDialogBackgroundBrush" />
+  <win:ResourceAlias x:Key="ContentDialogBorderBrush" Target="WinTextBrush" />
+  <win:ResourceAlias x:Key="ContentDialogForeground" Target="WinTextBrush" />
+  <win:ResourceAlias x:Key="ContentDialogBackdrop" Target="WinContentDialogBackdropBrush" />
+  <x:Double x:Key="ContentDialogBackdropOpacity">0.6</x:Double>
+  <x:Double x:Key="ContentDialogMinWidth">320</x:Double>
+  <x:Double x:Key="ContentDialogMaxWidth">456</x:Double>
+  <x:Double x:Key="ContentDialogMinHeight">184</x:Double>
+  <x:Double x:Key="ContentDialogMaxHeight">758</x:Double>
+  <Thickness x:Key="ContentDialogPadding">24,18,24,24</Thickness>
+  <x:Double x:Key="ContentDialogTitleFontSize">20</x:Double>
+  <FontWeight x:Key="ContentDialogTitleFontWeight">Normal</FontWeight>
+  <x:Double x:Key="ContentDialogContentFontSize">15</x:Double>
+  <Thickness x:Key="ContentDialogCommandsMargin">0,24,0,0</Thickness>
+  <x:Double x:Key="ContentDialogCommandSpacing">4</x:Double>
+
+  <win:ResourceAlias x:Key="SettingsFlyoutBackground" Target="WinSettingsFlyoutBackgroundBrush" />
+  <win:ResourceAlias x:Key="SettingsFlyoutBorderBrush" Target="WinSettingsFlyoutBorderBrush" />
+  <win:ResourceAlias x:Key="SettingsFlyoutHeaderBackground" Target="WinSettingsFlyoutBackgroundBrush" />
+  <win:ResourceAlias x:Key="SettingsFlyoutForeground" Target="WinTextBrush" />
+
+</ResourceDictionary>

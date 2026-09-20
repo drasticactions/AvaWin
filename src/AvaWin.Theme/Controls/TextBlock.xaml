@@ -1,0 +1,79 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20" Width="600">
+      <StackPanel Spacing="8">
+        <TextBlock Classes="win-type-xx-large" Text="win-type-xx-large" />
+        <TextBlock Classes="win-type-x-large" Text="win-type-x-large" />
+        <TextBlock Classes="win-type-large" Text="win-type-large" />
+        <TextBlock Classes="win-type-medium" Text="win-type-medium" />
+        <TextBlock Classes="win-type-small" Text="win-type-small" />
+        <TextBlock Classes="win-type-x-small" Text="win-type-x-small" />
+        <TextBlock Classes="win-type-xx-small" Text="win-type-xx-small" />
+        <TextBlock Classes="win-type-interactive" Text="win-type-interactive" />
+        <TextBlock Classes="win-type-ellipsis" Text="win-type-ellipsis — a long line that will be trimmed with an ellipsis at the edge" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <Style Selector=":is(TextBlock)">
+    <Setter Property="ClipToBounds" Value="False" />
+  </Style>
+  <Style Selector="TextBlock.win-type-xx-large, TextBlock.h1">
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeXXLarge}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightXXLarge}" />
+    <Setter Property="LineHeight" Value="{DynamicResource WinLineHeightXXLarge}" />
+  </Style>
+  <Style Selector="TextBlock.win-type-x-large, TextBlock.h2">
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeXLarge}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightXLarge}" />
+    <Setter Property="LineHeight" Value="{DynamicResource WinLineHeightXLarge}" />
+  </Style>
+  <Style Selector="TextBlock.win-type-large, TextBlock.h3">
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeLarge}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightLarge}" />
+    <Setter Property="LineHeight" Value="{DynamicResource WinLineHeightLarge}" />
+  </Style>
+  <Style Selector="TextBlock.win-type-medium, TextBlock.h4">
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeMedium}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightMedium}" />
+    <Setter Property="LineHeight" Value="{DynamicResource WinLineHeightMedium}" />
+  </Style>
+  <Style Selector="TextBlock.win-type-small, TextBlock.h5">
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeSmall}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightSmall}" />
+    <Setter Property="LineHeight" Value="{DynamicResource WinLineHeightSmall}" />
+  </Style>
+  <Style Selector="TextBlock.win-type-x-small, TextBlock.h6">
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeXSmall}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightXSmall}" />
+    <Setter Property="LineHeight" Value="{DynamicResource WinLineHeightXSmall}" />
+  </Style>
+  <Style Selector="TextBlock.win-type-xx-small, TextBlock.h7">
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeXXSmall}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightXXSmall}" />
+    <Setter Property="LineHeight" Value="{DynamicResource WinLineHeightXXSmall}" />
+  </Style>
+  <Style Selector="TextBlock.win-type-dt, TextBlock.win-type-th">
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeSmall}" />
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+  <Style Selector="TextBlock.win-type-ellipsis">
+    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    <Setter Property="TextWrapping" Value="NoWrap" />
+  </Style>
+  <Style Selector="TextBlock.win-type-interactive">
+    <Setter Property="Foreground" Value="{DynamicResource WinTextBrush}" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="TextBlock.win-type-interactive:pointerover">
+    <Setter Property="Foreground" Value="{DynamicResource WinTextHoverBrush}" />
+  </Style>
+  <Style Selector="TextBlock.win-type-interactive:pressed">
+    <Setter Property="Foreground" Value="{DynamicResource WinTextPressedBrush}" />
+  </Style>
+  <Style Selector="TextBlock.win-symbol">
+    <Setter Property="FontFamily" Value="{DynamicResource WinSymbolFontFamily}" />
+  </Style>
+</Styles>

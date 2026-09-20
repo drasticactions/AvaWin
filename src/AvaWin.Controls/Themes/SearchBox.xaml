@@ -1,0 +1,244 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin.Controls"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20" Width="400">
+      <StackPanel Spacing="12">
+        <win:SearchBox PlaceholderText="Search" />
+        <win:SearchBox QueryText="query" IsEnabled="False" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="WinSearchBoxInput" TargetType="TextBox">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Padding" Value="{DynamicResource WinSearchBoxInputPadding}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeBody}" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Foreground" Value="{DynamicResource WinSearchBoxInputForeground}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="PART_Root">
+          <TextBlock Name="PART_Watermark"
+                     Text="{TemplateBinding PlaceholderText}"
+                     Foreground="{DynamicResource SearchBoxForeground}"
+                     Margin="{TemplateBinding Padding}"
+                     VerticalAlignment="Center"
+                     IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}"
+                     IsHitTestVisible="False" />
+          <ScrollViewer Name="PART_ScrollViewer"
+                        HorizontalScrollBarVisibility="Hidden"
+                        VerticalScrollBarVisibility="Disabled"
+                        Margin="{TemplateBinding Padding}">
+            <TextPresenter Name="PART_TextPresenter"
+                           Text="{TemplateBinding Text, Mode=TwoWay}"
+                           CaretIndex="{TemplateBinding CaretIndex}"
+                           SelectionStart="{TemplateBinding SelectionStart}"
+                           SelectionEnd="{TemplateBinding SelectionEnd}"
+                           SelectionBrush="{DynamicResource WinTextSelectionBrush}"
+                           SelectionForegroundBrush="{DynamicResource WinTextSelectionForegroundBrush}"
+                           CaretBrush="{TemplateBinding Foreground}"
+                           VerticalAlignment="Center" />
+          </ScrollViewer>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinSearchBoxButton" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource WinSearchBoxButtonWidth}" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource SearchBoxButtonForeground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinSymbolFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinSearchBoxButtonFontSize}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root" Background="{TemplateBinding Background}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource SearchBoxButtonBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource SearchBoxButtonForegroundFocused}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource SearchBoxButtonBackgroundPressed}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource SearchBoxButtonForegroundPressed}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type win:SearchSuggestionItem}" TargetType="win:SearchSuggestionItem">
+    <Setter Property="Foreground" Value="{DynamicResource SearchBoxSuggestionForeground}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeBody}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root" Background="{TemplateBinding Background}">
+          <Panel>
+            <win:HighlightTextBlock Name="PART_Query"
+                                    FullText="{TemplateBinding Suggestion, Converter={x:Static win:SearchBoxConverters.Text}}"
+                                    Highlight="{TemplateBinding Highlight}"
+                                    HighlightBrush="{DynamicResource SearchBoxHighlightForeground}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Padding="{DynamicResource WinSearchBoxQueryPadding}"
+                                    LineHeight="20"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="NoWrap"
+                                    IsVisible="False" />
+            <Grid Name="PART_Result" ColumnDefinitions="Auto,*" Height="{DynamicResource WinSearchBoxResultHeight}" Margin="{DynamicResource WinSearchBoxSeparatorPadding}" IsVisible="False">
+              <Image Grid.Column="0"
+                     Source="{TemplateBinding Suggestion, Converter={x:Static win:SearchBoxConverters.Image}}"
+                     Width="{DynamicResource WinSearchBoxResultImageSize}"
+                     Height="{DynamicResource WinSearchBoxResultImageSize}"
+                     Margin="{DynamicResource WinSearchBoxResultImagePadding}"
+                     Stretch="UniformToFill" />
+              <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <win:HighlightTextBlock FullText="{TemplateBinding Suggestion, Converter={x:Static win:SearchBoxConverters.Text}}"
+                                        Highlight="{TemplateBinding Highlight}"
+                                        HighlightBrush="{DynamicResource SearchBoxHighlightForeground}"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        LineHeight="20"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="NoWrap" />
+                <TextBlock Text="{TemplateBinding Suggestion, Converter={x:Static win:SearchBoxConverters.DetailText}}"
+                           Foreground="{TemplateBinding Foreground}"
+                           Opacity="0.7"
+                           LineHeight="22"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap" />
+              </StackPanel>
+            </Grid>
+            <Grid Name="PART_Separator" ColumnDefinitions="Auto,*" Height="{DynamicResource WinSearchBoxSeparatorHeight}" Margin="{DynamicResource WinSearchBoxSeparatorPadding}" IsVisible="False">
+              <TextBlock Grid.Column="0"
+                         Text="{TemplateBinding Suggestion, Converter={x:Static win:SearchBoxConverters.Text}}"
+                         Foreground="{DynamicResource SearchBoxSuggestionSeparatorForeground}"
+                         Margin="0,0,10,0"
+                         VerticalAlignment="Center" />
+              <Rectangle Grid.Column="1" Height="1" Fill="{DynamicResource SearchBoxSuggestionSeparatorForeground}" VerticalAlignment="Center" />
+            </Grid>
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:query /template/ win|HighlightTextBlock#PART_Query">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:result /template/ Grid#PART_Result">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:separator /template/ Grid#PART_Separator">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:query:pointerover /template/ Border#PART_Root, ^:result:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource SearchBoxSuggestionBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:selected /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource SearchBoxSuggestionBackgroundSelected}" />
+    </Style>
+    <Style Selector="^:selected:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource SearchBoxSuggestionBackgroundSelectedPointerOver}" />
+    </Style>
+    <Style Selector="^:selected">
+      <Setter Property="Foreground" Value="{DynamicResource WinSelectionForegroundBrush}" />
+    </Style>
+    <Style Selector="^:selected /template/ win|HighlightTextBlock">
+      <Setter Property="HighlightBrush" Value="{DynamicResource SearchBoxHighlightForegroundSelected}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type win:SearchBox}" TargetType="win:SearchBox">
+    <Setter Property="Width" Value="{DynamicResource WinSearchBoxWidth}" />
+    <Setter Property="Height" Value="{DynamicResource WinSearchBoxHeight}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="Background" Value="{DynamicResource SearchBoxBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource SearchBoxBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource WinControlBorderThickness}" />
+    <Setter Property="Foreground" Value="{DynamicResource SearchBoxForeground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeBody}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="PART_Root">
+          <Border Name="PART_Border"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBox Name="PART_Input"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Theme="{StaticResource WinSearchBoxInput}"
+                       PlaceholderText="{TemplateBinding PlaceholderText}"
+                       FontFamily="{TemplateBinding FontFamily}"
+                       FontSize="{TemplateBinding FontSize}" />
+              <Button Name="PART_Button"
+                      Grid.Column="1"
+                      Theme="{StaticResource WinSearchBoxButton}"
+                      Content="&#xE094;" />
+            </Grid>
+          </Border>
+          <Popup Name="PART_Flyout"
+                 PlacementTarget="{TemplateBinding}"
+                 Placement="BottomEdgeAlignedLeft"
+                 HorizontalOffset="-2"
+                 VerticalOffset="2"
+                 IsLightDismissEnabled="False"
+                 Focusable="False">
+            <Border Name="PART_FlyoutBorder"
+                    Width="{Binding $parent[win:SearchBox].Bounds.Width}"
+                    MaxHeight="{DynamicResource WinSearchBoxFlyoutMaxHeight}"
+                    Background="{DynamicResource SearchBoxFlyoutBackground}"
+                    BorderBrush="{DynamicResource SearchBoxFlyoutBorderBrush}"
+                    BorderThickness="{DynamicResource WinControlBorderThickness}"
+                    Padding="{DynamicResource WinSearchBoxFlyoutPadding}">
+              <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ItemsControl Name="PART_Suggestions" />
+              </ScrollViewer>
+            </Border>
+          </Popup>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource SearchBoxBackgroundPointerOver}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource SearchBoxBorderBrushPointerOver}" />
+    </Style>
+    <Style Selector="^:inputfocus /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource SearchBoxBackgroundFocused}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource SearchBoxBorderBrushFocused}" />
+    </Style>
+    <Style Selector="^:inputfocus /template/ Button#PART_Button">
+      <Setter Property="Background" Value="{DynamicResource SearchBoxButtonBackgroundFocused}" />
+      <Setter Property="Foreground" Value="{DynamicResource SearchBoxButtonForegroundFocused}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource SearchBoxBackgroundDisabled}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource SearchBoxBorderBrushDisabled}" />
+    </Style>
+    <Style Selector="^:disabled /template/ TextBox#PART_Input">
+      <Setter Property="Foreground" Value="{DynamicResource SearchBoxForegroundDisabled}" />
+    </Style>
+    <Style Selector="^:disabled /template/ Button#PART_Button">
+      <Setter Property="Foreground" Value="{DynamicResource SearchBoxForegroundDisabled}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

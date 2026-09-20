@@ -1,0 +1,110 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.AppBarPage"
+              x:DataType="vm:ChromeViewModel"
+              Description="The AppBar docks commands to the bottom or top edge of the window, over the page. It opens from the ellipsis on its closed strip, a right-click, or swiping from the edge, and closes on light dismiss or Escape. Global commands sit on the right, selection commands on the left, and the bar reduces to icons when the window is narrow.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="PhotoTile" x:DataType="vm:Photo">
+      <Grid Width="140" Height="140">
+        <Image Source="{Binding Image}" Stretch="UniformToFill" />
+        <TextBlock Text="{Binding Title}" Classes="win-type-xx-small" Foreground="White" VerticalAlignment="Bottom" Margin="8,0,8,6" TextTrimming="CharacterEllipsis" />
+      </Grid>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <DockPanel>
+      <win:AppBarPresenter DockPanel.Dock="Bottom" IsOpen="True">
+        <win:AppBarCommand Label="Delete" Icon="Delete" Section="Selection" IsEnabled="{Binding HasSelection}" Click="OnCommand" />
+        <win:AppBarCommand Label="Copy" Icon="Copy" Section="Selection" IsEnabled="{Binding HasSelection}" Click="OnCommand" />
+        <win:AppBarCommand Label="Add" Icon="Add" Click="OnCommand" />
+        <win:AppBarCommand Label="Camera" Icon="Camera" Click="OnCommand" />
+        <win:AppBarCommand Type="Separator" />
+        <win:AppBarCommand Label="Favorite" Icon="Favorite" Type="Toggle" IsSelected="{Binding IsFavorite}" Click="OnCommand" />
+        <win:AppBarCommand Label="Slideshow" Icon="SlideShow" Click="OnCommand" />
+      </win:AppBarPresenter>
+      <TextBlock DockPanel.Dock="Bottom" Classes="demo-status" Text="{Binding Status}" Margin="20,6,20,10" />
+      <win:ListView ItemsSource="{Binding Photos}" ItemTemplate="{StaticResource PhotoTile}" TapBehavior="ToggleSelect" SelectionChanged="OnSelectionChanged" Margin="20,16,20,0">
+        <win:ListView.Layout>
+          <win:GridLayout Orientation="Vertical" />
+        </win:ListView.Layout>
+      </win:ListView>
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Overlay bars" Description="Real AppBars over the window. The bottom one keeps a minimal strip when closed; the top one is sticky (no light dismiss) with custom content instead of commands. Right-click toggling is left to the gallery's own bar.">
+    <StackPanel Classes="demo-column">
+      <win:AppBar Name="BottomBar" IsRightClickToggleEnabled="False">
+        <win:AppBarCommand Label="Add" Icon="Add" />
+        <win:AppBarCommand Label="Camera" Icon="Camera" />
+        <win:AppBarCommand Label="Favorite" Icon="Favorite" Type="Toggle" />
+        <win:AppBarCommand Label="Delete" Icon="Delete" Section="Selection" />
+      </win:AppBar>
+      <win:AppBar Name="TopBar" Placement="Top" ClosedDisplayMode="None" IsSticky="True" Layout="Custom" IsRightClickToggleEnabled="False">
+        <win:AppBar.Content>
+          <StackPanel Orientation="Horizontal" Spacing="12" Margin="20,0">
+            <TextBlock Text="Sticky top bar with custom content" VerticalAlignment="Center" />
+            <Button Content="Close" Click="OnCloseTop" Margin="0,16" />
+          </StackPanel>
+        </win:AppBar.Content>
+      </win:AppBar>
+      <WrapPanel Classes="demo-row">
+        <Button Name="OpenBottomBar" Content="Open bottom AppBar" Click="OnOpenBottom" />
+        <Button Name="OpenTopBar" Content="Open sticky top AppBar" Click="OnOpenTop" />
+      </WrapPanel>
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Closed display modes" Description="ClosedDisplayMode=Minimal leaves a 25px strip with the ellipsis; Compact keeps the icons visible without labels; None hides the bar entirely.">
+    <StackPanel Classes="demo-column" HorizontalAlignment="Stretch">
+      <TextBlock Text="Minimal" Classes="win-type-xx-small" />
+      <win:AppBarPresenter IsOpen="False" ClosedDisplayMode="Minimal">
+        <win:AppBarCommand Label="Add" Icon="Add" />
+        <win:AppBarCommand Label="Favorite" Icon="Favorite" Type="Toggle" IsSelected="True" />
+      </win:AppBarPresenter>
+      <TextBlock Text="Compact" Classes="win-type-xx-small" />
+      <win:AppBarPresenter IsOpen="False" ClosedDisplayMode="Compact">
+        <win:AppBarCommand Label="Add" Icon="Add" />
+        <win:AppBarCommand Label="Favorite" Icon="Favorite" Type="Toggle" IsSelected="True" />
+        <win:AppBarCommand Label="Delete" Icon="Delete" Section="Selection" />
+      </win:AppBarPresenter>
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Command types" Description="Button, Toggle (IsSelected), Separator, Flyout (opens a Flyout above the bar), Content (any control), and the disabled states.">
+    <win:AppBarPresenter IsOpen="True">
+      <win:AppBarCommand Label="Button" Icon="Add" />
+      <win:AppBarCommand Label="Toggle" Icon="Favorite" Type="Toggle" IsSelected="True" />
+      <win:AppBarCommand Type="Separator" />
+      <win:AppBarCommand Label="Flyout" Icon="More" Type="Flyout">
+        <win:AppBarCommand.Flyout>
+          <Flyout>
+            <StackPanel Spacing="8">
+              <TextBlock Text="A flyout from the bar" Classes="win-type-medium" />
+              <Button Content="OK" Classes="accent" />
+            </StackPanel>
+          </Flyout>
+        </win:AppBarCommand.Flyout>
+      </win:AppBarCommand>
+      <win:AppBarCommand Type="Content">
+        <TextBox PlaceholderText="content command" Width="160" VerticalAlignment="Center" />
+      </win:AppBarCommand>
+      <win:AppBarCommand Label="Disabled" Icon="Delete" IsEnabled="False" />
+      <win:AppBarCommand Label="Selected disabled" Icon="Pin" Type="Toggle" IsSelected="True" IsEnabled="False" />
+    </win:AppBarPresenter>
+  </g:Scenario>
+
+  <g:Scenario Title="Reduced layout" Description="When there is no room for labels the bar switches to the reduced layout: smaller rings, labels hidden. This one is constrained to 320px.">
+    <win:AppBarPresenter IsOpen="True" Width="320" HorizontalAlignment="Left">
+      <win:AppBarCommand Label="Add" Icon="Add" />
+      <win:AppBarCommand Label="Camera" Icon="Camera" />
+      <win:AppBarCommand Type="Separator" />
+      <win:AppBarCommand Label="Favorite" Icon="Favorite" Type="Toggle" IsSelected="True" />
+      <win:AppBarCommand Label="Delete" Icon="Delete" Section="Selection" />
+      <win:AppBarCommand Label="Edit" Icon="Edit" Section="Selection" />
+    </win:AppBarPresenter>
+  </g:Scenario>
+</g:SamplePage>

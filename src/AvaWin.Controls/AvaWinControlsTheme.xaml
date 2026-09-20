@@ -1,0 +1,14 @@
+<Styles x:Class="AvaWin.Controls.AvaWinControlsTheme"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/ControlResources.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <ResourceInclude x:Key="PhoneMetrics" Source="avares://AvaWin.Controls/Themes/PhoneMetrics.xaml" />
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <StyleInclude Source="avares://AvaWin.Controls/Themes/_Controls.xaml" />
+</Styles>

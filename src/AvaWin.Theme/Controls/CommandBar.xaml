@@ -1,0 +1,449 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Width="600">
+      <CommandBar>
+        <CommandBarButton Label="Add" Icon="&#xE109;" />
+        <CommandBarToggleButton Label="Favorite" Icon="&#xE113;" IsChecked="True" />
+        <CommandBarSeparator />
+        <CommandBarButton Label="Delete" Icon="&#xE107;" IsEnabled="False" />
+      </CommandBar>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="WinCommandRing" TargetType="ContentControl">
+    <Setter Property="Width" Value="{DynamicResource WinCommandRingSize}" />
+    <Setter Property="Height" Value="{DynamicResource WinCommandRingSize}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinSymbolFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinCommandGlyphFontSize}" />
+    <Setter Property="Background" Value="{DynamicResource AppBarCommandRingBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AppBarCommandRingBorderBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource AppBarCommandForeground}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Ring"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{DynamicResource WinCommandRingBorderThickness}"
+                CornerRadius="{DynamicResource WinCommandRingCornerRadius}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinAppBarEllipsisButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="{DynamicResource WinControlBorderThickness}" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Width" Value="{DynamicResource WinAppBarEllipsisWidth}" />
+    <Setter Property="Height" Value="{DynamicResource WinAppBarEllipsisHeight}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinSymbolFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinAppBarEllipsisFontSize}" />
+    <Setter Property="Foreground" Value="{DynamicResource AppBarInvokeButtonForeground}" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          Content="{TemplateBinding Content}"
+                          Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource AppBarInvokeButtonBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="BorderBrush" Value="{DynamicResource AppBarInvokeButtonBorderBrushFocused}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource AppBarInvokeButtonForegroundDisabled}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinCommandBarButtonBase" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="{DynamicResource WinControlBorderThickness}" />
+    <Setter Property="Padding" Value="{DynamicResource WinCommandPadding}" />
+    <Setter Property="Width" Value="{DynamicResource WinCommandWidth}" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Foreground" Value="{DynamicResource AppBarCommandLabelForeground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinFontFamily}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Transitions">
+      <Transitions>
+        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.167" Easing="0.1,0.9,0.2,1" />
+      </Transitions>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type CommandBarButton}" TargetType="CommandBarButton" BasedOn="{StaticResource WinCommandBarButtonBase}">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border x:Name="PART_Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <StackPanel x:Name="PART_LayoutRoot"
+                      Spacing="0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top">
+            <ContentControl x:Name="PART_Ring"
+                            Theme="{StaticResource WinCommandRing}"
+                            Margin="{DynamicResource WinCommandIconMargin}"
+                            HorizontalAlignment="Center">
+              <ContentPresenter x:Name="PART_IconPresenter"
+                                Content="{TemplateBinding Icon}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+            </ContentControl>
+            <TextBlock x:Name="PART_Label"
+                       Text="{TemplateBinding Label}"
+                       Foreground="{TemplateBinding Foreground}"
+                       FontSize="{DynamicResource WinCommandLabelFontSize}"
+                       MaxWidth="{DynamicResource WinCommandLabelMaxWidth}"
+                       Margin="{DynamicResource WinCommandLabelMargin}"
+                       Padding="4,0"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center" />
+          </StackPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:focus-visible /template/ Border#PART_Border">
+      <Setter Property="BorderBrush" Value="{DynamicResource AppBarCommandBorderBrushFocused}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ ContentControl#PART_Ring">
+      <Setter Property="Background" Value="{DynamicResource AppBarCommandRingBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="RenderTransform" Value="scale(0.975)" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentControl#PART_Ring">
+      <Setter Property="Background" Value="{DynamicResource AppBarCommandRingBackgroundPressed}" />
+      <Setter Property="Foreground" Value="{DynamicResource AppBarCommandForegroundPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentControl#PART_Ring">
+      <Setter Property="BorderBrush" Value="{DynamicResource AppBarCommandRingBorderBrushDisabled}" />
+      <Setter Property="Foreground" Value="{DynamicResource AppBarCommandForegroundDisabled}" />
+    </Style>
+    <Style Selector="^:disabled /template/ TextBlock#PART_Label">
+      <Setter Property="Foreground" Value="{DynamicResource AppBarCommandLabelForegroundDisabled}" />
+    </Style>
+    <Style Selector="^[IsCompact=True]">
+      <Setter Property="Width" Value="NaN" />
+    </Style>
+    <Style Selector="^[IsCompact=True] /template/ ContentControl#PART_Ring">
+      <Setter Property="Margin" Value="{DynamicResource WinCommandIconMarginReduced}" />
+    </Style>
+    <Style Selector="^[IsCompact=True] /template/ TextBlock#PART_Label">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right]">
+      <Setter Property="Width" Value="NaN" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ StackPanel#PART_LayoutRoot">
+      <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ ContentControl#PART_Ring">
+      <Setter Property="Margin" Value="{DynamicResource WinCommandIconMarginReduced}" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ TextBlock#PART_Label">
+      <Setter Property="Margin" Value="0,0,12,0" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="MaxWidth" Value="NaN" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="MinHeight" Value="{DynamicResource WinMenuItemMinHeight}" />
+      <Setter Property="Padding" Value="{DynamicResource WinMenuItemPadding}" />
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True] /template/ StackPanel#PART_LayoutRoot">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True] /template/ ContentControl#PART_Ring">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True] /template/ TextBlock#PART_Label">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="FontSize" Value="{DynamicResource WinFontSizeButton}" />
+      <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightButton}" />
+      <Setter Property="MaxWidth" Value="NaN" />
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="TextWrapping" Value="NoWrap" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]:pointerover /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource MenuFlyoutItemBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]:pressed /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource MenuFlyoutItemBackgroundPressed}" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]:pressed /template/ TextBlock#PART_Label">
+      <Setter Property="Foreground" Value="{DynamicResource MenuFlyoutItemForegroundPressed}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type CommandBarToggleButton}" TargetType="CommandBarToggleButton" BasedOn="{StaticResource WinCommandBarButtonBase}">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border x:Name="PART_Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}">
+          <StackPanel x:Name="PART_LayoutRoot"
+                      Spacing="0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top">
+            <ContentControl x:Name="PART_Ring"
+                            Theme="{StaticResource WinCommandRing}"
+                            Margin="{DynamicResource WinCommandIconMargin}"
+                            HorizontalAlignment="Center">
+              <ContentPresenter x:Name="PART_IconPresenter"
+                                Content="{TemplateBinding Icon}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+            </ContentControl>
+            <TextBlock x:Name="PART_Label"
+                       Text="{TemplateBinding Label}"
+                       Foreground="{TemplateBinding Foreground}"
+                       FontSize="{DynamicResource WinCommandLabelFontSize}"
+                       MaxWidth="{DynamicResource WinCommandLabelMaxWidth}"
+                       Margin="{DynamicResource WinCommandLabelMargin}"
+                       Padding="4,0"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center" />
+          </StackPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:focus-visible /template/ Border#PART_Border">
+      <Setter Property="BorderBrush" Value="{DynamicResource AppBarCommandBorderBrushFocused}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ ContentControl#PART_Ring">
+      <Setter Property="Background" Value="{DynamicResource AppBarCommandRingBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="RenderTransform" Value="scale(0.975)" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentControl#PART_Ring">
+      <Setter Property="Background" Value="{DynamicResource AppBarCommandRingBackgroundPressed}" />
+      <Setter Property="Foreground" Value="{DynamicResource AppBarCommandForegroundPressed}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentControl#PART_Ring">
+      <Setter Property="BorderBrush" Value="{DynamicResource AppBarCommandRingBorderBrushDisabled}" />
+      <Setter Property="Foreground" Value="{DynamicResource AppBarCommandForegroundDisabled}" />
+    </Style>
+    <Style Selector="^:disabled /template/ TextBlock#PART_Label">
+      <Setter Property="Foreground" Value="{DynamicResource AppBarCommandLabelForegroundDisabled}" />
+    </Style>
+    <Style Selector="^:checked">
+      <Style Selector="^ /template/ ContentControl#PART_Ring">
+        <Setter Property="Background" Value="{DynamicResource AppBarCommandRingBackgroundSelected}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppBarCommandForegroundSelected}" />
+      </Style>
+      <Style Selector="^:pointerover /template/ ContentControl#PART_Ring">
+        <Setter Property="Background" Value="{DynamicResource AppBarCommandRingBackgroundSelectedPointerOver}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppBarCommandForegroundSelectedPointerOver}" />
+      </Style>
+      <Style Selector="^:pressed /template/ ContentControl#PART_Ring">
+        <Setter Property="Background" Value="{DynamicResource AppBarCommandRingBackgroundSelectedPressed}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppBarCommandForegroundSelectedPressed}" />
+      </Style>
+      <Style Selector="^:disabled /template/ ContentControl#PART_Ring">
+        <Setter Property="Background" Value="{DynamicResource AppBarCommandRingBackgroundSelectedDisabled}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppBarCommandForegroundSelectedDisabled}" />
+      </Style>
+    </Style>
+    <Style Selector="^[IsCompact=True]">
+      <Setter Property="Width" Value="NaN" />
+    </Style>
+    <Style Selector="^[IsCompact=True] /template/ ContentControl#PART_Ring">
+      <Setter Property="Margin" Value="{DynamicResource WinCommandIconMarginReduced}" />
+    </Style>
+    <Style Selector="^[IsCompact=True] /template/ TextBlock#PART_Label">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right]">
+      <Setter Property="Width" Value="NaN" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ StackPanel#PART_LayoutRoot">
+      <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ ContentControl#PART_Ring">
+      <Setter Property="Margin" Value="{DynamicResource WinCommandIconMarginReduced}" />
+    </Style>
+    <Style Selector="^[LabelPosition=Right] /template/ TextBlock#PART_Label">
+      <Setter Property="Margin" Value="0,0,12,0" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="MaxWidth" Value="NaN" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="MinHeight" Value="{DynamicResource WinMenuItemMinHeight}" />
+      <Setter Property="Padding" Value="{DynamicResource WinMenuItemPadding}" />
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True] /template/ StackPanel#PART_LayoutRoot">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="Orientation" Value="Horizontal" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True] /template/ ContentControl#PART_Ring">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True] /template/ TextBlock#PART_Label">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="FontSize" Value="{DynamicResource WinFontSizeButton}" />
+      <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightButton}" />
+      <Setter Property="MaxWidth" Value="NaN" />
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="TextWrapping" Value="NoWrap" />
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]:pointerover /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource MenuFlyoutItemBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]:pressed /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource MenuFlyoutItemBackgroundPressed}" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]:pressed /template/ TextBlock#PART_Label">
+      <Setter Property="Foreground" Value="{DynamicResource MenuFlyoutItemForegroundPressed}" />
+    </Style>
+    <Style Selector="^[IsInOverflow=True]:checked /template/ Border#PART_Border">
+      <Setter Property="Background" Value="{DynamicResource MenuFlyoutItemBackgroundPointerOver}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type CommandBarSeparator}" TargetType="CommandBarSeparator">
+    <Setter Property="Width" Value="1" />
+    <Setter Property="Height" Value="40" />
+    <Setter Property="MinHeight" Value="40" />
+    <Setter Property="Margin" Value="{DynamicResource WinCommandSeparatorMargin}" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{DynamicResource CommandBarSeparatorBackground}"
+                Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                MinHeight="{TemplateBinding MinHeight}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[IsInOverflow=True]">
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="Width" Value="NaN" />
+      <Setter Property="Height" Value="1" />
+      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="Margin" Value="{DynamicResource WinMenuSeparatorMargin}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type CommandBar}" TargetType="CommandBar">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="{DynamicResource CommandBarBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource CommandBarBorderBrush}" />
+    <Setter Property="MinHeight" Value="{DynamicResource WinAppBarMinHeight}" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinFontFamily}" />
+    <Setter Property="ItemWidthBottom" Value="100" />
+    <Setter Property="ItemWidthRight" Value="140" />
+    <Setter Property="ItemWidthCollapsed" Value="56" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                Padding="{TemplateBinding Padding}"
+                MinHeight="{TemplateBinding MinHeight}">
+          <Panel>
+            <DockPanel KeyboardNavigation.TabNavigation="Cycle">
+              <Button x:Name="PART_OverflowButton"
+                      DockPanel.Dock="Right"
+                      Theme="{StaticResource WinAppBarEllipsisButton}"
+                      Margin="0,8,0,0"
+                      VerticalAlignment="Top"
+                      Content="&#xE10C;"
+                      IsVisible="{TemplateBinding IsOverflowButtonVisible}" />
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                DockPanel.Dock="Left"
+                                VerticalAlignment="Center" />
+              <ItemsControl x:Name="PART_PrimaryCommands"
+                            ItemsSource="{Binding VisiblePrimaryCommands, RelativeSource={RelativeSource TemplatedParent}}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            ClipToBounds="True">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="0" />
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+              </ItemsControl>
+            </DockPanel>
+            <Popup x:Name="PART_OverflowPopup"
+                   IsOpen="{TemplateBinding IsOpen, Mode=TwoWay}"
+                   PlacementTarget="{Binding #PART_OverflowButton}"
+                   Placement="Top"
+                   IsLightDismissEnabled="True"
+                   WindowManagerAddShadowHint="False">
+              <Border Background="{DynamicResource MenuFlyoutPresenterBackground}"
+                      BorderBrush="{DynamicResource MenuFlyoutPresenterBorderBrush}"
+                      BorderThickness="{DynamicResource MenuFlyoutPresenterBorderThemeThickness}"
+                      CornerRadius="{DynamicResource OverlayCornerRadius}"
+                      Padding="{DynamicResource MenuFlyoutPresenterThemePadding}"
+                      MinWidth="160">
+                <ItemsControl x:Name="PART_OverflowPresenter"
+                              ItemsSource="{Binding OverflowItems, RelativeSource={RelativeSource TemplatedParent}}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Spacing="0" />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                </ItemsControl>
+              </Border>
+            </Popup>
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^[DefaultLabelPosition=Collapsed]">
+      <Setter Property="MinHeight" Value="{DynamicResource WinAppBarReducedHeight}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

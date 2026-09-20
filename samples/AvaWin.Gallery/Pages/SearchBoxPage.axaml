@@ -1,0 +1,45 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.SearchBoxPage"
+              x:DataType="vm:SearchViewModel"
+              Description="SearchBox: a query field with a magnifier button and a suggestion list. SuggestionsRequested fills the list with query completions, labeled separators and results (image, text and detail); QuerySubmitted and ResultSuggestionChosen report what the user picked.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="ContactRow" x:DataType="vm:Contact">
+      <Grid ColumnDefinitions="40,*" Margin="10,7">
+        <Border Width="40" Height="40" Background="{Binding Brush}">
+          <TextBlock Text="{Binding Initials}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+          <TextBlock Text="{Binding Name}" Classes="win-type-medium" />
+          <TextBlock Text="{Binding City}" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <DockPanel Margin="20,16,20,0">
+      <win:SearchBox Name="Search" DockPanel.Dock="Top" PlaceholderText="Search people or cities" MaxWidth="480" HorizontalAlignment="Left" />
+      <TextBlock DockPanel.Dock="Top" Text="{Binding Status}" Classes="demo-status" Margin="0,8,0,8" />
+      <win:ListView ItemsSource="{Binding Results}" ItemTemplate="{StaticResource ContactRow}" TapBehavior="InvokeOnly" SelectionMode="None">
+        <win:ListView.Layout>
+          <win:GridLayout Orientation="Vertical" />
+        </win:ListView.Layout>
+      </win:ListView>
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="States" Description="A box with a query, and disabled.">
+    <WrapPanel Classes="demo-row">
+      <win:SearchBox QueryText="harbor" Width="280" SearchHistoryDisabled="True" />
+      <win:SearchBox QueryText="query" Width="280" IsEnabled="False" />
+    </WrapPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Focus on keyboard input" Description="FocusOnKeyboardInput is the behavior where typing anywhere on the page starts a search: with the toggle on, click the results above and type.">
+    <ToggleSwitch OnContent="Typing focuses the search box" OffContent="Typing focuses the search box" IsChecked="{Binding #Search.FocusOnKeyboardInput}" />
+  </g:Scenario>
+</g:SamplePage>

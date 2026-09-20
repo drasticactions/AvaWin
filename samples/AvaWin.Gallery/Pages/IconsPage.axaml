@@ -1,0 +1,36 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:pages="using:AvaWin.Gallery.Pages"
+              x:Class="AvaWin.Gallery.Pages.IconsPage"
+              HeroFill="False"
+              Description="AppBarIcon names every glyph in Symbols.ttf. SymbolIcon shows one, from the enum or a raw glyph string; AppBarCommand, NavBarCommand and CommandBar buttons take the same values. Search the set below.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="IconCell" x:DataType="pages:IconEntry">
+      <StackPanel Width="110" Height="76" Margin="4" ToolTip.Tip="{Binding Name}">
+        <win:SymbolIcon Icon="{Binding Icon}" FontSize="26" />
+        <TextBlock Text="{Binding Name}" Classes="win-type-xx-small" TextAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,6,0,0" />
+      </StackPanel>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <StackPanel Classes="screen" Spacing="12">
+      <win:SearchBox Name="Filter" PlaceholderText="Filter icons, e.g. camera" MaxWidth="360" HorizontalAlignment="Left" SearchHistoryDisabled="True" />
+      <TextBlock Name="Count" Classes="demo-status" />
+      <ItemsControl Name="Icons" ItemTemplate="{StaticResource IconCell}">
+        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+      </ItemsControl>
+    </StackPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="SymbolIcon" Description="From an AppBarIcon, at a larger size, from a raw glyph, and disabled.">
+    <WrapPanel Classes="demo-row" ItemSpacing="20">
+      <win:SymbolIcon Icon="Accept" />
+      <win:SymbolIcon Icon="Camera" FontSize="28" />
+      <win:SymbolIcon Glyph="&#xE0D5;" FontSize="40" />
+      <win:SymbolIcon Icon="Delete" IsEnabled="False" />
+    </WrapPanel>
+  </g:Scenario>
+</g:SamplePage>

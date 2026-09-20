@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AvaWin.Animations/AvaWin.Animations.csproj" />
+    <Project Path="src/AvaWin.Theme/AvaWin.Theme.csproj" />
+    <Project Path="src/AvaWin.Controls/AvaWin.Controls.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AvaWin.Animations.Tests/AvaWin.Animations.Tests.csproj" />
+    <Project Path="tests/AvaWin.Theme.Tests/AvaWin.Theme.Tests.csproj" />
+    <Project Path="tests/AvaWin.Controls.Tests/AvaWin.Controls.Tests.csproj" />
+  </Folder>
+  <Folder Name="/solution-items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="NOTICE.md" />
+  </Folder>
+</Solution>

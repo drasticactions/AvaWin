@@ -1,0 +1,82 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:win="https://github.com/avawin"
+        xmlns:g="using:AvaWin.Gallery.Framework">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ControlTheme x:Key="{x:Type g:SamplePage}" TargetType="g:SamplePage">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="ClipToBounds" Value="False" />
+        <Setter Property="Template">
+          <ControlTemplate>
+            <StackPanel Spacing="16">
+              <TextBlock Name="PART_Description"
+                         Text="{TemplateBinding Description}"
+                         IsVisible="{TemplateBinding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                         Classes="win-type-small" TextWrapping="Wrap" MaxWidth="720" HorizontalAlignment="Left"
+                         Foreground="{DynamicResource WinTextSecondaryBrush}" />
+              <Border Name="PART_Hero"
+                      Height="{TemplateBinding HeroHeight}"
+                      ClipToBounds="True"
+                      BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1"
+                      Background="{DynamicResource WinPageBackgroundBrush}">
+                <ContentPresenter Content="{TemplateBinding Hero}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+              </Border>
+              <ItemsControl ItemsSource="{TemplateBinding Scenarios}" ClipToBounds="False">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Spacing="28" />
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+              </ItemsControl>
+            </StackPanel>
+          </ControlTemplate>
+        </Setter>
+      </ControlTheme>
+
+      <ControlTheme x:Key="{x:Type g:Scenario}" TargetType="g:Scenario">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="ClipToBounds" Value="False" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+          <ControlTemplate>
+            <StackPanel Spacing="8">
+              <TextBlock Text="{TemplateBinding Title}" Classes="win-type-x-large" />
+              <TextBlock Text="{TemplateBinding Description}"
+                         IsVisible="{TemplateBinding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                         Classes="win-type-small" TextWrapping="Wrap" MaxWidth="720" HorizontalAlignment="Left"
+                         Foreground="{DynamicResource WinTextSecondaryBrush}" />
+              <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Margin="0,8,0,0"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+            </StackPanel>
+          </ControlTemplate>
+        </Setter>
+      </ControlTheme>
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <Style Selector=":is(SelectingItemsControl)">
+    <Setter Property="SelectingItemsControl.AutoScrollToSelectedItem" Value="False" />
+  </Style>
+
+  <Style Selector="WrapPanel.demo-row">
+    <Setter Property="ItemSpacing" Value="12" />
+    <Setter Property="LineSpacing" Value="12" />
+  </Style>
+  <Style Selector="StackPanel.demo-column">
+    <Setter Property="Spacing" Value="12" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+  </Style>
+  <Style Selector="TextBlock.demo-status">
+    <Setter Property="Foreground" Value="{DynamicResource WinTextSecondaryBrush}" />
+    <Setter Property="Margin" Value="0,4,0,0" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+  <Style Selector="g|SamplePage:narrow g|ResponsiveColumns">
+    <Setter Property="IsStacked" Value="True" />
+  </Style>
+  <Style Selector="Panel.screen, Border.screen, Grid.screen, StackPanel.screen, DockPanel.screen, g|ResponsiveColumns.screen">
+    <Setter Property="Margin" Value="20" />
+  </Style>
+</Styles>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-browser</TargetFramework>
+    <RootNamespace>AvaWin.Gallery.Browser</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AvaWinIsLibrary>false</AvaWinIsLibrary>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- IL2026/IL2045/IL2072/IL2075: linker warnings inside Avalonia.DesignerSupport (Avalonia's code, not ours); IL2121 follows from hiding them. -->
+    <NoWarn>$(NoWarn);CS1591;IL2026;IL2045;IL2072;IL2075;IL2121</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaWin.Gallery\AvaWin.Gallery.csproj" />
+  </ItemGroup>
+
+</Project>

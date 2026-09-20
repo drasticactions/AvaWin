@@ -1,0 +1,256 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin.Controls"
+                    xmlns:theme="using:AvaWin"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Width="400" Height="300" Padding="10">
+      <win:ListView>
+        <win:ListViewItem Content="Item one" />
+        <win:ListViewItem Content="Selected" IsSelected="True" />
+        <win:ListViewItem Content="Item three" />
+      </win:ListView>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type win:ListView}" TargetType="win:ListView">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource WinTextBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeBody}" />
+    <Setter Property="ClipToBounds" Value="True" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="True" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="PART_Root" Background="{TemplateBinding Background}">
+          <ScrollViewer Name="PART_ScrollViewer"
+                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                        IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                        AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
+            <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+          </ScrollViewer>
+          <ProgressBar Name="PART_Progress"
+                       Classes="ring large"
+                       IsIndeterminate="True"
+                       Width="{DynamicResource WinListViewProgressSize}"
+                       Height="{DynamicResource WinListViewProgressSize}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:horizontal">
+      <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+      <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" />
+    </Style>
+    <Style Selector="^:loading /template/ ProgressBar#PART_Progress">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type win:ListViewItem}" TargetType="win:ListViewItem">
+    <Setter Property="Background" Value="{DynamicResource ListViewItemBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource WinTextBrush}" />
+    <Setter Property="Margin" Value="{DynamicResource WinListViewItemMarginVertical}" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="MinHeight" Value="{DynamicResource WinListItemMinHeight}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="ClipToBounds" Value="False" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Transitions">
+      <Transitions>
+        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.167" Easing="0.1,0.9,0.2,1" />
+      </Transitions>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Container" Background="Transparent">
+          <Panel>
+            <Border Name="PART_SelectionBackground"
+                    IsVisible="False"
+                    Background="{DynamicResource ListViewItemSelectionBackground}" />
+            <ContentPresenter Name="PART_ContentPresenter"
+                              Background="{TemplateBinding Background}"
+                              Foreground="{TemplateBinding Foreground}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            <Border Name="PART_SelectionBorder"
+                    IsVisible="False"
+                    IsHitTestVisible="False"
+                    BorderBrush="{DynamicResource ListViewItemSelectionBorderBrush}"
+                    BorderThickness="{DynamicResource WinListSelectionBorderThickness}" />
+            <Panel Name="PART_Checkmark"
+                   IsVisible="False"
+                   IsHitTestVisible="False"
+                   Width="{DynamicResource WinListViewCheckmarkSize}"
+                   Height="{DynamicResource WinListViewCheckmarkSize}"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top">
+              <Polygon Name="PART_CheckmarkTriangle" Points="0,0 40,0 40,40" Stretch="Fill" Fill="{DynamicResource ListViewItemCheckmarkBackground}" />
+              <TextBlock Text="&#xE081;"
+                         FontFamily="{DynamicResource WinSymbolFontFamily}"
+                         FontSize="{DynamicResource WinListViewCheckmarkFontSize}"
+                         Foreground="{DynamicResource ListViewItemCheckmarkForeground}"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Top"
+                         Margin="{DynamicResource WinListViewCheckmarkPadding}" />
+            </Panel>
+            <Border Name="PART_HoverOutline"
+                    IsVisible="False"
+                    IsHitTestVisible="False"
+                    Margin="-3"
+                    BorderBrush="{DynamicResource ListViewItemHoverOutlineBrush}"
+                    BorderThickness="{DynamicResource WinListItemHoverOutlineThickness}" />
+            <Border Name="PART_FocusOutline"
+                    IsVisible="False"
+                    IsHitTestVisible="False"
+                    Margin="-2"
+                    BorderBrush="{DynamicResource ListViewItemFocusOutlineBrush}"
+                    BorderThickness="{DynamicResource WinListFocusOutlineThickness}" />
+            <Border Name="PART_SelectionModeBorder"
+                    IsVisible="False"
+                    IsHitTestVisible="False"
+                    BorderBrush="{DynamicResource ListViewItemSelectionBorderBrush}"
+                    BorderThickness="{DynamicResource WinListSelectionBorderThickness}" />
+            <Border Name="PART_PhoneCheck"
+                    IsVisible="False"
+                    IsHitTestVisible="False"
+                    Width="{DynamicResource WinListViewPhoneCheckSize}"
+                    Height="{DynamicResource WinListViewPhoneCheckSize}"
+                    Margin="{DynamicResource WinListViewPhoneCheckMargin}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    BorderBrush="{DynamicResource ListViewPhoneCheckBorderBrush}"
+                    BorderThickness="{DynamicResource WinListViewPhoneCheckBorderThickness}">
+              <TextBlock Name="PART_PhoneCheckGlyph"
+                         Text="&#xE081;"
+                         IsVisible="False"
+                         FontFamily="{DynamicResource WinSymbolFontFamily}"
+                         FontSize="18"
+                         Foreground="{DynamicResource ListViewPhoneCheckBorderBrush}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         RenderTransform="translate(-2px, -0.5px)" />
+            </Border>
+          </Panel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:dragsource">
+      <Setter Property="Opacity" Value="0.65" />
+    </Style>
+
+    <Style Selector="^:pointerover /template/ Border#PART_HoverOutline">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:pointerover">
+      <Setter Property="ZIndex" Value="1" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="RenderTransform" Value="scale(0.975)" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_FocusOutline">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:backdrop /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource ListViewItemBackgroundBackdrop}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource WinTextDisabledBrush}" />
+    </Style>
+
+    <Style Selector="^:selected /template/ Border#PART_SelectionBorder">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:selected /template/ Panel#PART_Checkmark">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:selected:pointerover /template/ Border#PART_SelectionBorder">
+      <Setter Property="BorderBrush" Value="{DynamicResource ListViewItemSelectionBorderBrushPointerOver}" />
+    </Style>
+    <Style Selector="^:selected:pointerover /template/ Polygon#PART_CheckmarkTriangle">
+      <Setter Property="Fill" Value="{DynamicResource ListViewItemCheckmarkBackgroundPointerOver}" />
+    </Style>
+
+    <Style Selector="^[(theme|ListStyle.SelectionStyle)=Filled]:pointerover /template/ Border#PART_HoverOutline">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[(theme|ListStyle.SelectionStyle)=Filled]:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource ListViewItemBackgroundPointerOverFilled}" />
+    </Style>
+    <Style Selector="^[(theme|ListStyle.SelectionStyle)=Filled]:selected /template/ Border#PART_SelectionBorder">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[(theme|ListStyle.SelectionStyle)=Filled]:selected /template/ Panel#PART_Checkmark">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^[(theme|ListStyle.SelectionStyle)=Filled]:selected /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource ListViewItemSelectionBackground}" />
+      <Setter Property="Foreground" Value="{DynamicResource ListViewItemForegroundSelected}" />
+    </Style>
+    <Style Selector="^[(theme|ListStyle.SelectionStyle)=Filled]:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource ListViewItemSelectionBackgroundPointerOver}" />
+    </Style>
+
+    <Style Selector="^:selectionmode /template/ Border#PART_SelectionBorder, ^:selectionmode /template/ Panel#PART_Checkmark">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:selectionmode /template/ Border#PART_PhoneCheck">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:selectionmode:selected /template/ TextBlock#PART_PhoneCheckGlyph">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:selectionmode:pressed /template/ Border#PART_PhoneCheck">
+      <Setter Property="Background" Value="{DynamicResource ListViewPhoneCheckBackgroundPressed}" />
+    </Style>
+    <Style Selector="^:selectionmode:nonselectable /template/ Border#PART_PhoneCheck">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type win:ListViewGroupHeader}" TargetType="win:ListViewGroupHeader">
+    <Setter Property="Foreground" Value="{DynamicResource ListViewGroupHeaderForeground}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeXLarge}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightXLarge}" />
+    <Setter Property="Padding" Value="{DynamicResource WinListViewGroupHeaderPadding}" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="PART_Root">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          <Border Name="PART_FocusOutline"
+                  IsVisible="False"
+                  IsHitTestVisible="False"
+                  BorderBrush="{DynamicResource ListViewGroupHeaderFocusOutlineBrush}"
+                  BorderThickness="{DynamicResource WinFocusOutlineThickness}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:focus-visible /template/ Border#PART_FocusOutline">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource WinTextPressedBrush}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

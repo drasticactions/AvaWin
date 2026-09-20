@@ -1,0 +1,54 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.FlipViewPage"
+              x:DataType="vm:PhotosViewModel"
+              Description="A FlipView shows one item at a time. Hover the edges for the paging arrows, swipe on touch, or use the arrow keys. CurrentPage is the index; NextAsync and PreviousAsync animate; PageSelected fires when the new page settles.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="PhotoPage" x:DataType="vm:Photo">
+      <Grid>
+        <Image Source="{Binding Image}" Stretch="UniformToFill" />
+        <Border VerticalAlignment="Bottom" Background="#A0000000" Padding="20,12">
+          <StackPanel>
+            <TextBlock Text="{Binding Title}" Classes="win-type-x-large" Foreground="White" />
+            <TextBlock Text="{Binding Caption}" Classes="win-type-small" Foreground="#CCFFFFFF" />
+          </StackPanel>
+        </Border>
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="PhotoThumb" x:DataType="vm:Photo">
+      <Grid Width="320" Height="200">
+        <Image Source="{Binding Image}" Stretch="UniformToFill" />
+        <TextBlock Text="{Binding Title}" Classes="win-type-medium" Foreground="White" VerticalAlignment="Bottom" Margin="12,8" />
+      </Grid>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <DockPanel>
+      <Grid DockPanel.Dock="Bottom" ColumnDefinitions="Auto,Auto,*,Auto" Margin="20,10">
+        <Button Content="Previous" Click="OnPrevious" />
+        <Button Grid.Column="1" Content="Next" Click="OnNext" Margin="10,0,0,0" />
+        <TextBlock Grid.Column="2" Text="{Binding Status}" Classes="demo-status" VerticalAlignment="Center" Margin="16,0" />
+        <TextBlock Grid.Column="3" Text="{Binding Position}" Classes="win-type-medium" VerticalAlignment="Center" />
+      </Grid>
+      <win:FlipView Name="Viewer" ItemsSource="{Binding Photos}" ItemTemplate="{StaticResource PhotoPage}" SelectedIndex="{Binding CurrentPage}" MinHeight="0" PageSelected="OnPageSelected" />
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Vertical with item spacing" Description="Orientation=Vertical pages up and down. ItemSpacing leaves a gap between pages so the neighbors peek in while a swipe is in progress.">
+    <Border BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" Width="320" Height="220" HorizontalAlignment="Left">
+      <win:FlipView ItemsSource="{Binding Featured}" ItemTemplate="{StaticResource PhotoThumb}" Orientation="Vertical" ItemSpacing="20" MinHeight="0" />
+    </Border>
+  </g:Scenario>
+
+  <g:Scenario Title="Jump to a page" Description="Setting CurrentPage moves without the paging animation, like the currentPage setter.">
+    <WrapPanel Classes="demo-row">
+      <Button Content="First" Click="OnFirst" />
+      <Button Content="Middle" Click="OnMiddle" />
+      <Button Content="Last" Click="OnLast" />
+    </WrapPanel>
+  </g:Scenario>
+</g:SamplePage>

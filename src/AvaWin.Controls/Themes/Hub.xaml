@@ -1,0 +1,148 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin.Controls"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Width="800" Height="400">
+      <win:Hub>
+        <win:HubSection Header="Section one" Width="300"><TextBlock Text="content" /></win:HubSection>
+        <win:HubSection Header="Static" IsHeaderStatic="True" Width="300"><TextBlock Text="content" /></win:HubSection>
+      </win:Hub>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type win:Hub}" TargetType="win:Hub">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="PART_Root" Background="{TemplateBinding Background}">
+          <ScrollViewer Name="PART_Viewport"
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Disabled"
+                        IsScrollChainingEnabled="False">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            Margin="{DynamicResource WinHubSurfacePadding}" />
+          </ScrollViewer>
+          <ProgressBar Name="PART_Progress"
+                       Classes="ring"
+                       IsIndeterminate="True"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="{DynamicResource WinHubProgressTop}"
+                       IsVisible="False" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:vertical /template/ ScrollViewer#PART_Viewport">
+      <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+      <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+    <Style Selector="^:vertical /template/ ItemsPresenter#PART_ItemsPresenter">
+      <Setter Property="Margin" Value="{DynamicResource WinHubSurfacePaddingVertical}" />
+    </Style>
+    <Style Selector="^:loading /template/ ProgressBar#PART_Progress">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinHubHeaderButton" TargetType="Button">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="{DynamicResource WinHubHeaderPadding}" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="Foreground" Value="{DynamicResource HubSectionHeaderForeground}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinHubHeaderFontSize}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightXLarge}" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Padding="{TemplateBinding Padding}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource HubSectionHeaderForegroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource HubSectionHeaderForegroundPressed}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Root">
+      <Setter Property="BorderBrush" Value="{DynamicResource HubSectionHeaderBorderBrushFocused}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type win:HubSection}" TargetType="win:HubSection">
+    <Setter Property="Padding" Value="{DynamicResource WinHubSectionPadding}" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Foreground" Value="{DynamicResource WinTextBrush}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeBody}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <DockPanel Name="PART_Root" Margin="{TemplateBinding Padding}">
+          <Panel Name="PART_Header" DockPanel.Dock="Top" Margin="{DynamicResource WinHubHeaderMargin}">
+            <Button Name="PART_HeaderButton" Theme="{StaticResource WinHubHeaderButton}">
+              <StackPanel Orientation="Horizontal">
+                <ContentPresenter Name="PART_HeaderPresenter"
+                                  Content="{TemplateBinding Header}"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  VerticalAlignment="Center" />
+                <TextBlock Name="PART_Chevron"
+                           Text="&#xE26B;"
+                           FontFamily="{DynamicResource WinSymbolFontFamily}"
+                           FontSize="{DynamicResource WinHubChevronFontSize}"
+                           Margin="{DynamicResource WinHubChevronMargin}"
+                           VerticalAlignment="Center" />
+              </StackPanel>
+            </Button>
+            <ContentPresenter Name="PART_StaticHeader"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              FontSize="{DynamicResource WinHubHeaderFontSize}"
+                              FontWeight="{DynamicResource WinFontWeightXLarge}"
+                              Foreground="{DynamicResource HubSectionHeaderForeground}"
+                              Padding="{DynamicResource WinHubHeaderPadding}"
+                              HorizontalAlignment="Left"
+                              IsVisible="False" />
+          </Panel>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </DockPanel>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:static /template/ Button#PART_HeaderButton">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:static /template/ ContentPresenter#PART_StaticHeader">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:vertical">
+      <Setter Property="Padding" Value="{DynamicResource WinHubSectionPaddingVertical}" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+    <Style Selector="^:vertical /template/ Panel#PART_Header">
+      <Setter Property="Margin" Value="{DynamicResource WinHubHeaderMarginVertical}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

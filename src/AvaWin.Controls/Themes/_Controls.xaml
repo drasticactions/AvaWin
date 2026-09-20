@@ -1,0 +1,112 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:win="using:AvaWin.Controls"
+        xmlns:theme="using:AvaWin"
+        x:ClassModifier="internal">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/SymbolIcon.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/BackButton.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/AppBar.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/SettingsFlyout.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/ContentDialog.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/NavBar.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/Hub.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/Pivot.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/ListView.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/ItemContainer.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/FlipView.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/SemanticZoom.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/Rating.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Controls/Themes/SearchBox.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <Style Selector="win|SettingsFlyoutPresenter /template/ ContentPresenter#PART_HeaderPresenter TextBlock">
+    <Setter Property="LineHeight" Value="33" />
+    <Setter Property="TextWrapping" Value="NoWrap" />
+    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+  </Style>
+  <Style Selector="win|NavBarContainer:vertical win|NavBarCommand">
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="Margin" Value="{DynamicResource WinNavBarCommandMarginVertical}" />
+  </Style>
+  <Style Selector="win|NavBarContainer StackPanel#PART_PageIndicators > Button.win-navbar-pageindicator">
+    <Setter Property="Theme" Value="{StaticResource WinNavBarPageIndicator}" />
+  </Style>
+  <Style Selector="win|Pivot win|PivotHeadersPanel#PART_HeadersPanel > Button.win-pivot-header">
+    <Setter Property="Theme" Value="{StaticResource WinPivotHeaderButton}" />
+  </Style>
+  <Style Selector="win|Pivot:locked win|PivotHeadersPanel#PART_HeadersPanel > Button.win-pivot-header:not(.selected)">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+  <Style Selector="win|ListView:horizontal win|ListViewItem">
+    <Setter Property="Margin" Value="{DynamicResource WinListViewItemMarginHorizontal}" />
+  </Style>
+  <Style Selector="win|ListView.win-grid win|ListViewItem">
+    <Setter Property="Margin" Value="{DynamicResource WinListViewItemMarginGrid}" />
+  </Style>
+  <Style Selector="win|ListView.win-listlayout:vertical win|ListViewItem">
+    <Setter Property="Transitions">
+      <Transitions>
+        <ThicknessTransition Property="Margin" Duration="0:0:0.25" Easing="0.17,0.79,0.215,1.0025" />
+      </Transitions>
+    </Setter>
+  </Style>
+  <Style Selector="win|ListView.win-listlayout:vertical:selectionmode win|ListViewItem">
+    <Setter Property="Margin" Value="48,10,24,0" />
+  </Style>
+  <Style Selector="win|ListView:selectionmode:not(.win-listlayout) win|ListViewItem:not(:nonselectable) /template/ Border#PART_SelectionModeBorder,
+                   win|ListView.win-listlayout:horizontal:selectionmode win|ListViewItem:not(:nonselectable) /template/ Border#PART_SelectionModeBorder">
+    <Setter Property="IsVisible" Value="True" />
+  </Style>
+  <Style Selector="win|ListView:selectionmode:not(.win-listlayout) win|ListViewItem /template/ Border#PART_PhoneCheck,
+                   win|ListView.win-listlayout:horizontal:selectionmode win|ListViewItem /template/ Border#PART_PhoneCheck">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+
+  <Style Selector="win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource WinSelectionForegroundBrush}" />
+  </Style>
+  <Style Selector="win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected HyperlinkButton">
+    <Setter Property="Foreground" Value="{DynamicResource WinSelectionForegroundBrush}" />
+  </Style>
+  <Style Selector="win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected HyperlinkButton:pointerover">
+    <Setter Property="Foreground" Value="#CCFFFFFF" />
+  </Style>
+  <Style Selector="win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected HyperlinkButton:pressed">
+    <Setter Property="Foreground" Value="#99FFFFFF" />
+  </Style>
+  <Style Selector="win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected Button, win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected TextBox, win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected ComboBox">
+    <Setter Property="Background" Value="#CCFFFFFF" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="Foreground" Value="#FF000000" />
+  </Style>
+  <Style Selector="win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected Button TextBlock, win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected ComboBox TextBlock">
+    <Setter Property="Foreground" Value="#FF000000" />
+  </Style>
+  <Style Selector="win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected ProgressBar">
+    <Setter Property="Foreground" Value="{DynamicResource WinSelectionForegroundBrush}" />
+    <Setter Property="Background" Value="#29FFFFFF" />
+  </Style>
+  <Style Selector="win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected Slider">
+    <Setter Property="Foreground" Value="{DynamicResource WinSelectionForegroundBrush}" />
+    <Setter Property="Background" Value="#29FFFFFF" />
+  </Style>
+  <Style Selector="win|ListViewItem[(theme|ListStyle.SelectionStyle)=Filled]:selected CheckBox">
+    <Setter Property="Foreground" Value="{DynamicResource WinSelectionForegroundBrush}" />
+  </Style>
+  <Style Selector="win|Rating.small win|RatingStar">
+    <Setter Property="Width" Value="{DynamicResource WinRatingStarWidthSmall}" />
+    <Setter Property="Padding" Value="{DynamicResource WinRatingStarPaddingSmall}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinRatingStarSizeSmall}" />
+  </Style>
+  <Style Selector="win|SettingsFlyoutPresenter StackPanel.win-settings-section">
+    <Setter Property="Margin" Value="0,0,0,14" />
+  </Style>
+  <Style Selector="win|SettingsFlyoutPresenter StackPanel.win-settings-section > :is(Control)">
+    <Setter Property="Margin" Value="0,0,0,25" />
+  </Style>
+</Styles>

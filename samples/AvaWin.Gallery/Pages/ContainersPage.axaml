@@ -1,0 +1,87 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.ContainersPage"
+              x:DataType="vm:MusicViewModel"
+              HeroFill="False"
+              Description="Layout containers, including the Expander and GroupBox headers in the type ramp, TabControl drawn as pivot headers, and the 2px scrollbars that fade out on touch.">
+  <g:SamplePage.Hero>
+    <g:ResponsiveColumns Classes="screen">
+      <StackPanel Spacing="12">
+        <TextBlock Text="Album details" Classes="win-type-x-large" />
+        <Expander Header="Northern Lights" IsExpanded="True">
+          <StackPanel Spacing="6" Margin="0,8">
+            <TextBlock Text="Aurora Field · 2014 · 5 tracks" />
+            <TextBlock Text="Recorded on the coast over one winter; the band's first release." TextWrapping="Wrap" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+          </StackPanel>
+        </Expander>
+        <Expander Header="Terracotta">
+          <TextBlock Text="The Clay Hands · 2013 · 4 tracks" Margin="0,8" />
+        </Expander>
+        <Expander Header="Green Ridge">
+          <TextBlock Text="Moss &amp; Stone · 2012 · 6 tracks" Margin="0,8" />
+        </Expander>
+        <Expander Header="Unavailable" IsEnabled="False" />
+      </StackPanel>
+      <StackPanel Spacing="16">
+        <GroupBox Header="Playback">
+          <StackPanel Spacing="8" Margin="0,8,0,0">
+            <CheckBox Content="Crossfade tracks" IsChecked="True" />
+            <CheckBox Content="Normalize volume" />
+            <ToggleSwitch Content="Gapless" OnContent="On" OffContent="Off" IsChecked="True" />
+          </StackPanel>
+        </GroupBox>
+        <TabControl Height="150">
+          <TabItem Header="lyrics">
+            <ScrollViewer Margin="0,12,0,0">
+              <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource WinTextSecondaryBrush}"
+                         Text="Under a glass fjord the ice hums low, we counted the lights and let the boat go. Every line is a wave that carries the shore, every chorus a door. Under a glass fjord the ice hums low, we counted the lights and let the boat go." />
+            </ScrollViewer>
+          </TabItem>
+          <TabItem Header="credits">
+            <TextBlock Text="Written and produced by Aurora Field." Margin="0,12,0,0" />
+          </TabItem>
+          <TabItem Header="store" IsEnabled="False" />
+        </TabControl>
+      </StackPanel>
+    </g:ResponsiveColumns>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="ScrollViewer" Description="Content wider and taller than its viewport. The scrollbars are thin and only appear while the pointer is over the content; hover one to expand it.">
+    <Border Height="200" MaxWidth="480" HorizontalAlignment="Left" BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1">
+      <ScrollViewer HorizontalScrollBarVisibility="Auto">
+      <ItemsControl ItemsSource="{Binding Songs}" Width="640" Margin="12">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:Song">
+            <TextBlock Classes="win-type-medium" Margin="0,0,0,6">
+              <Run Text="{Binding Title}" /><Run Text=" — " /><Run Text="{Binding Subtitle}" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+            </TextBlock>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+      </ScrollViewer>
+    </Border>
+  </g:Scenario>
+
+  <g:Scenario Title="ScrollBar" Description="The bars on their own, kept expanded (AllowAutoHide=False).">
+    <WrapPanel Classes="demo-row">
+      <ScrollBar Orientation="Vertical" Height="150" Maximum="100" ViewportSize="30" Value="20" AllowAutoHide="False" />
+      <ScrollBar Orientation="Horizontal" Width="250" Maximum="100" ViewportSize="30" Value="20" AllowAutoHide="False" VerticalAlignment="Top" />
+    </WrapPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="TabStrip and HeaderedContentControl" Description="A TabStrip is the header row without content panes; HeaderedContentControl is the plain header-over-content primitive.">
+    <StackPanel Classes="demo-column">
+      <TabStrip SelectedIndex="0">
+        <TabStripItem Content="one" />
+        <TabStripItem Content="two" />
+        <TabStripItem Content="three" />
+      </TabStrip>
+      <HeaderedContentControl Header="Header">
+        <TextBlock Text="Content under a header." />
+      </HeaderedContentControl>
+    </StackPanel>
+  </g:Scenario>
+</g:SamplePage>

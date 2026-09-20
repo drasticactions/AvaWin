@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AvaWin.Gallery.Desktop</RootNamespace>
+    <AvaWinIsLibrary>false</AvaWinIsLibrary>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <!-- AOT check: dotnet publish -c Release -r osx-arm64 /p:PublishAot=true -->
+    <IsAotCompatible>true</IsAotCompatible>
+    <TrimMode>full</TrimMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Wayland" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaWin.Gallery\AvaWin.Gallery.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,9 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:g="using:AvaWin.Gallery"
+        x:Class="AvaWin.Gallery.Desktop.MainWindow"
+        Title="AvaWin Gallery"
+        Width="1200" Height="800"
+        MinWidth="400" MinHeight="500">
+  <g:MainView Name="View" />
+</Window>

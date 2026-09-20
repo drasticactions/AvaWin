@@ -1,0 +1,91 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/Separator.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/MenuScrollViewer.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/MenuFlyoutPresenter.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/Menu.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/MenuItem.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/Button.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ToggleButton.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/RepeatButton.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TextBox.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ListBoxItem.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/HyperlinkButton.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/DropDownButton.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/SplitButton.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ListBox.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/CheckBox.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/RadioButton.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ToggleSwitch.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/Slider.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ProgressBar.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ComboBox.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ComboBoxItem.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ButtonSpinner.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/NumericUpDown.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/AutoCompleteBox.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/SelectableTextBlock.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/Label.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/PathIcon.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ToolTip.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/FlyoutPresenter.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ContextMenu.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/PopupRoot.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/OverlayPopupHost.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/Window.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/WindowDrawnDecorations.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/EmbeddableControlRoot.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/AdornerLayer.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ThemeVariantScope.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TextSelectionHandle.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ScrollBar.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ScrollViewer.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ItemsControl.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/HeaderedContentControl.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/GridSplitter.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/GroupBox.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/Expander.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/SplitView.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TabControl.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TabItem.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TabStrip.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TabStripItem.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TransitioningContentControl.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/Carousel.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/PipsPager.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/RefreshContainer.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/RefreshVisualizer.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TreeView.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TreeViewItem.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/DataValidationErrors.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/DateTimePickerShared.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/DatePicker.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TimePicker.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/CalendarItem.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/CalendarButton.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/CalendarDayButton.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/Calendar.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/CalendarDatePicker.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/CommandBar.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ContentPage.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/NavigationPage.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/DrawerPage.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TabbedPage.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/CarouselPage.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/NotificationCard.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/WindowNotificationManager.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/ManagedFileChooser.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TableView.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TableViewRow.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TableViewCell.xaml" />
+        <MergeResourceInclude Source="avares://AvaWin.Theme/Controls/TableViewColumnHeader.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <StyleInclude Source="avares://AvaWin.Theme/Controls/TextBlock.xaml" />
+</Styles>

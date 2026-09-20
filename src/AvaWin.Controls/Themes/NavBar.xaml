@@ -1,0 +1,259 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin.Controls"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Width="700" Padding="10">
+      <win:NavBarContainer>
+        <win:NavBarCommand Label="Home" Icon="Home" />
+        <win:NavBarCommand Label="Favorites" Icon="Favorite" SplitButton="True" />
+        <win:NavBarCommand Label="Settings" Icon="Settings" SplitButton="True" SplitOpened="True" />
+        <win:NavBarCommand Label="Help" Icon="Help" />
+      </win:NavBarContainer>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type win:NavBarPresenter}" TargetType="win:NavBarPresenter" BasedOn="{StaticResource {x:Type win:AppBarPresenter}}">
+    <Setter Property="MinHeight" Value="{DynamicResource WinNavBarMinHeight}" />
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinNavBarArrow" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource WinNavBarArrowWidth}" />
+    <Setter Property="Margin" Value="{DynamicResource WinNavBarArrowMargin}" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="{DynamicResource NavBarArrowBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource NavBarArrowForeground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinSymbolFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinNavBarArrowFontSize}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root" Background="{TemplateBinding Background}" ClipToBounds="True">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource NavBarArrowBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource NavBarArrowForegroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource NavBarArrowBackgroundPressed}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource NavBarArrowForegroundPressed}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinNavBarPageIndicator" TargetType="Button">
+    <Setter Property="Width" Value="{DynamicResource WinNavBarPageIndicatorWidth}" />
+    <Setter Property="Height" Value="{DynamicResource WinNavBarPageIndicatorHeight}" />
+    <Setter Property="Margin" Value="{DynamicResource WinNavBarPageIndicatorMargin}" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Background" Value="{DynamicResource NavBarPageIndicatorBackground}" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root" Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^.current /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource NavBarPageIndicatorBackgroundCurrent}" />
+    </Style>
+    <Style Selector="^:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource NavBarPageIndicatorBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource NavBarPageIndicatorBackgroundPressed}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type win:NavBarContainer}" TargetType="win:NavBarContainer">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_Root" RowDefinitions="Auto,*" Background="{TemplateBinding Background}">
+          <StackPanel Name="PART_PageIndicators"
+                      Grid.Row="0"
+                      Orientation="Horizontal"
+                      HorizontalAlignment="Center" />
+          <ScrollViewer Name="PART_Viewport"
+                        Grid.Row="1"
+                        Padding="{DynamicResource WinNavBarViewportPadding}"
+                        HorizontalScrollBarVisibility="Hidden"
+                        VerticalScrollBarVisibility="Disabled"
+                        HorizontalSnapPointsType="MandatorySingle"
+                        IsScrollChainingEnabled="False">
+            <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+          </ScrollViewer>
+          <Button Name="PART_LeftArrow"
+                  Grid.Row="1"
+                  Theme="{StaticResource WinNavBarArrow}"
+                  Content="&#xE0E2;"
+                  HorizontalAlignment="Left"
+                  IsVisible="False" />
+          <Button Name="PART_RightArrow"
+                  Grid.Row="1"
+                  Theme="{StaticResource WinNavBarArrow}"
+                  Content="&#xE0E3;"
+                  HorizontalAlignment="Right"
+                  IsVisible="False" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover:hasprevious /template/ Button#PART_LeftArrow">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:pointerover:hasnext /template/ Button#PART_RightArrow">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:vertical /template/ StackPanel#PART_PageIndicators">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:vertical /template/ ScrollViewer#PART_Viewport">
+      <Setter Property="Padding" Value="{DynamicResource WinNavBarViewportPaddingVertical}" />
+      <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+      <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+      <Setter Property="HorizontalSnapPointsType" Value="None" />
+      <Setter Property="MaxHeight" Value="{DynamicResource WinNavBarVerticalMaxHeight}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinNavBarCommandButton" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource NavBarCommandBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource NavBarCommandForeground}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="{DynamicResource WinControlBorderThickness}" />
+    <Setter Property="Padding" Value="{DynamicResource WinNavBarCommandPadding}" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+    <Style Selector="^:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource NavBarCommandBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource NavBarCommandBackgroundPressed}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource NavBarCommandForegroundPressed}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Root">
+      <Setter Property="BorderBrush" Value="{DynamicResource NavBarCommandBorderBrushFocused}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource WinTextDisabledBrush}" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="{x:Type win:NavBarCommand}" TargetType="win:NavBarCommand">
+    <Setter Property="MinWidth" Value="{DynamicResource WinNavBarCommandWidth}" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Margin" Value="{DynamicResource WinNavBarCommandMargin}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinNavBarCommandLabelFontSize}" />
+    <Setter Property="Foreground" Value="{DynamicResource NavBarCommandForeground}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_Root" ColumnDefinitions="*,Auto">
+          <Button Name="PART_Button"
+                  Grid.Column="0"
+                  Theme="{StaticResource WinNavBarCommandButton}"
+                  FontSize="{TemplateBinding FontSize}">
+            <Panel>
+              <Grid Name="PART_IconLabel" ColumnDefinitions="Auto,*">
+                <ContentPresenter Name="PART_Icon"
+                                  Grid.Column="0"
+                                  Content="{TemplateBinding IconContent}"
+                                  Width="{DynamicResource WinNavBarCommandIconSize}"
+                                  Height="{DynamicResource WinNavBarCommandIconSize}"
+                                  Margin="0,0,10,0"
+                                  FontFamily="{DynamicResource WinSymbolFontFamily}"
+                                  FontSize="{DynamicResource WinNavBarCommandIconFontSize}"
+                                  HorizontalContentAlignment="Center"
+                                  VerticalContentAlignment="Center"
+                                  IsVisible="False" />
+                <TextBlock Name="PART_Label"
+                           Grid.Column="1"
+                           Text="{TemplateBinding Label}"
+                           Margin="0,10"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap"
+                           VerticalAlignment="Center" />
+              </Grid>
+              <ContentPresenter Name="PART_Content"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                IsVisible="False" />
+            </Panel>
+          </Button>
+          <Button Name="PART_SplitButton"
+                  Grid.Column="1"
+                  Theme="{StaticResource WinNavBarCommandButton}"
+                  Width="{DynamicResource WinNavBarSplitButtonWidth}"
+                  Margin="2,0,0,0"
+                  Padding="0"
+                  Content="&#xE019;"
+                  FontFamily="{DynamicResource WinSymbolFontFamily}"
+                  FontSize="{DynamicResource WinNavBarSplitButtonFontSize}"
+                  HorizontalContentAlignment="Center"
+                  IsVisible="False" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:hasicon /template/ ContentPresenter#PART_Icon">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:content /template/ Grid#PART_IconLabel">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="^:content /template/ ContentPresenter#PART_Content">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:split /template/ Button#PART_SplitButton">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="^:splitopened /template/ Button#PART_SplitButton">
+      <Setter Property="Content" Value="&#xE018;" />
+      <Setter Property="Background" Value="{DynamicResource NavBarCommandBackgroundOpened}" />
+      <Setter Property="Foreground" Value="{DynamicResource NavBarCommandForegroundOpened}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

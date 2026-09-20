@@ -1,0 +1,89 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.PivotPage"
+              x:DataType="vm:MusicViewModel"
+              Description="A Pivot is the Windows Phone 8.1 way to switch between views of one thing: the headers scroll as a loop, the selected one is highlighted, and swiping the content moves to the next item. The gallery uses it here as a music app.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="AlbumTile" x:DataType="vm:Album">
+      <StackPanel Width="140" Margin="0,0,20,20">
+        <Border Height="140" ClipToBounds="True">
+          <Image Source="{Binding Cover.Image}" Stretch="UniformToFill" />
+        </Border>
+        <TextBlock Text="{Binding Title}" Classes="win-type-medium" Margin="0,6,0,0" TextTrimming="CharacterEllipsis" />
+        <TextBlock Text="{Binding Artist}" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+      </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="SongRow" x:DataType="vm:Song">
+      <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,14">
+        <StackPanel>
+          <TextBlock Text="{Binding Title}" Classes="win-type-large" />
+          <TextBlock Text="{Binding Subtitle}" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        </StackPanel>
+        <TextBlock Grid.Column="1" Text="{Binding Duration}" Classes="win-type-small" VerticalAlignment="Top" />
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="NameRow" x:DataType="x:String">
+      <TextBlock Text="{Binding}" Classes="win-type-x-large" Margin="0,0,0,14" />
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <DockPanel>
+      <TextBlock DockPanel.Dock="Bottom" Classes="demo-status" Text="{Binding Status}" Margin="20,8,20,12" />
+      <win:Pivot Name="MusicPivot" Title="MUSIC" SelectedIndex="{Binding SelectedIndex}" PivotSelectionChanged="OnSelectionChanged">
+        <win:PivotItem Header="albums">
+          <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Albums}" ItemTemplate="{StaticResource AlbumTile}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+            </ItemsControl>
+          </ScrollViewer>
+        </win:PivotItem>
+        <win:PivotItem Header="artists">
+          <ItemsControl ItemsSource="{Binding Artists}" ItemTemplate="{StaticResource NameRow}" />
+        </win:PivotItem>
+        <win:PivotItem Header="songs">
+          <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Songs}" ItemTemplate="{StaticResource SongRow}" />
+          </ScrollViewer>
+        </win:PivotItem>
+        <win:PivotItem Header="playlists">
+          <ItemsControl ItemsSource="{Binding Playlists}" ItemTemplate="{StaticResource NameRow}" />
+        </win:PivotItem>
+      </win:Pivot>
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Select from code" Description="SelectedIndex is a two-way property: the app can move the pivot, and PivotSelectionChanged reports the index and item after every move.">
+    <WrapPanel Classes="demo-row">
+      <Button Content="albums" Click="OnSelect" Tag="0" />
+      <Button Content="artists" Click="OnSelect" Tag="1" />
+      <Button Name="SelectSongs" Content="songs" Click="OnSelect" Tag="2" />
+      <Button Content="playlists" Click="OnSelect" Tag="3" />
+    </WrapPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Locked" Description="IsLocked keeps the pivot on its current item: the other headers fade and swiping is ignored. Use it while a view is busy or mid-edit.">
+    <Border BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" Height="240" MaxWidth="480" HorizontalAlignment="Left">
+      <win:Pivot Title="NOW PLAYING" IsLocked="True">
+        <win:PivotItem Header="song">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Glass Fjord" Classes="win-type-x-large" />
+            <TextBlock Text="Aurora Field · Northern Lights" Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+            <ProgressBar Value="35" Margin="0,12,0,0" />
+          </StackPanel>
+        </win:PivotItem>
+        <win:PivotItem Header="lyrics">
+          <TextBlock Text="Not while locked" />
+        </win:PivotItem>
+        <win:PivotItem Header="queue">
+          <TextBlock Text="Not while locked" />
+        </win:PivotItem>
+      </win:Pivot>
+    </Border>
+  </g:Scenario>
+</g:SamplePage>

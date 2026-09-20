@@ -1,0 +1,105 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.FeedbackPage"
+              x:DataType="vm:UploadViewModel"
+              HeroFill="False"
+              Description="Progress and status controls">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="UploadRow" x:DataType="vm:Upload">
+      <Grid ColumnDefinitions="60,*,Auto" Margin="0,0,0,14">
+        <Border Height="60" ClipToBounds="True">
+          <Image Source="{Binding Photo.Image}" Stretch="UniformToFill" />
+        </Border>
+        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center" Spacing="6">
+          <TextBlock Text="{Binding Photo.Title}" Classes="win-type-medium" />
+          <ProgressBar Value="{Binding Progress}" />
+        </StackPanel>
+        <TextBlock Grid.Column="2" Text="{Binding State}" Classes="win-type-xx-small" VerticalAlignment="Center" Margin="12,0,0,0" MinWidth="56" TextAlignment="Right" />
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="ContactRow" x:DataType="vm:Contact">
+      <TextBlock Text="{Binding Name}" Margin="10,7" />
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <g:ResponsiveColumns Classes="screen">
+      <StackPanel Spacing="12">
+        <TextBlock Text="Uploading to Harbor" Classes="win-type-x-large" />
+        <ItemsControl ItemsSource="{Binding Uploads}" ItemTemplate="{StaticResource UploadRow}" />
+        <StackPanel Orientation="Horizontal" Spacing="12" IsVisible="{Binding IsPreparing}">
+          <ProgressBar IsIndeterminate="True" Classes="ring" />
+          <TextBlock Text="Preparing the rest..." VerticalAlignment="Center" />
+        </StackPanel>
+        <Button Content="Resume" Classes="accent" Command="{Binding ResumeCommand}" />
+      </StackPanel>
+      <NotificationCard NotificationType="Information" VerticalAlignment="Top">
+        <StackPanel Margin="20" Spacing="8">
+          <TextBlock Text="Upload in progress" Classes="win-type-large" />
+          <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+        </StackPanel>
+      </NotificationCard>
+    </g:ResponsiveColumns>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="ProgressBar" Description="Determinate in three sizes, indeterminate, and the paused and error classes; ShowProgressText prints the value.">
+    <StackPanel Classes="demo-column" Width="360">
+      <ProgressBar Value="50" />
+      <ProgressBar Value="50" Classes="medium" />
+      <ProgressBar Value="50" Classes="large" />
+      <ProgressBar IsIndeterminate="True" />
+      <ProgressBar Value="50" Classes="paused" />
+      <ProgressBar Value="50" Classes="error" />
+      <ProgressBar Value="50" IsEnabled="False" />
+      <ProgressBar Value="50" ShowProgressText="True" Classes="medium" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Progress ring" Description="The ring class turns an indeterminate bar into the dotted ring, in three sizes.">
+    <WrapPanel Classes="demo-row" ItemSpacing="24">
+      <ProgressBar IsIndeterminate="True" Classes="ring" />
+      <ProgressBar IsIndeterminate="True" Classes="ring medium" />
+      <ProgressBar IsIndeterminate="True" Classes="ring large" />
+    </WrapPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="NotificationCard" Description="Information, Success, Warning and Error, with the status bar at saturation.">
+    <WrapPanel Classes="demo-row" ItemSpacing="16" LineSpacing="16">
+      <NotificationCard NotificationType="Information" Width="280">
+        <StackPanel Margin="20" Spacing="6"><TextBlock Text="Information" Classes="win-type-large" /><TextBlock Text="Body text for the card." TextWrapping="Wrap" /></StackPanel>
+      </NotificationCard>
+      <NotificationCard NotificationType="Success" Width="280">
+        <StackPanel Margin="20" Spacing="6"><TextBlock Text="Success" Classes="win-type-large" /><TextBlock Text="Body text for the card." TextWrapping="Wrap" /></StackPanel>
+      </NotificationCard>
+      <NotificationCard NotificationType="Warning" Width="280">
+        <StackPanel Margin="20" Spacing="6"><TextBlock Text="Warning" Classes="win-type-large" /><TextBlock Text="Body text for the card." TextWrapping="Wrap" /></StackPanel>
+      </NotificationCard>
+      <NotificationCard NotificationType="Error" Width="280">
+        <StackPanel Margin="20" Spacing="6"><TextBlock Text="Error" Classes="win-type-large" /><TextBlock Text="Body text for the card." TextWrapping="Wrap" /></StackPanel>
+      </NotificationCard>
+    </WrapPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Validation" Description="DataValidationErrors draws the error border and the message under the field.">
+    <TextBox Name="Invalid" Text="not an email" Width="280" HorizontalAlignment="Left" />
+  </g:Scenario>
+
+  <g:Scenario Title="Pull to refresh" Description="RefreshContainer wraps a scrolling list; pulling down on touch shows the RefreshVisualizer, and RequestRefresh does the same from code.">
+    <StackPanel Classes="demo-column">
+      <Border BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" Width="320" Height="200">
+        <RefreshContainer Name="Refresher">
+          <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Contacts}" ItemTemplate="{StaticResource ContactRow}" />
+          </ScrollViewer>
+        </RefreshContainer>
+      </Border>
+      <WrapPanel Classes="demo-row">
+        <Button Content="Refresh" Click="OnRefresh" />
+        <TextBlock Name="RefreshStatus" Classes="demo-status" VerticalAlignment="Center" Text="Pull the list down, or click Refresh." />
+      </WrapPanel>
+    </StackPanel>
+  </g:Scenario>
+</g:SamplePage>

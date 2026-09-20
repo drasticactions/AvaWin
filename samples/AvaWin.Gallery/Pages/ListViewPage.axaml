@@ -1,0 +1,138 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.ListViewPage"
+              x:DataType="vm:ListViewViewModel"
+              Description="ListView on an Avalonia virtualizing panel: ListLayout, GridLayout and CellSpanningLayout, grouped data, tap and swipe selection with the bordered or filled chrome, drag and reorder, and incremental loading. The hero is a People app: a horizontal grouped grid on wide screens, a grouped list on narrow ones.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="ContactTile" x:DataType="vm:Contact">
+      <Grid Width="120" Height="120" Background="{Binding Brush}">
+        <TextBlock Text="{Binding Initials}" Classes="win-type-xx-large" Foreground="White" Margin="10,4,0,0" />
+        <TextBlock Text="{Binding Name}" Classes="win-type-small" Foreground="White" VerticalAlignment="Bottom" Margin="10,0,10,8" TextTrimming="CharacterEllipsis" />
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="ContactRow" x:DataType="vm:Contact">
+      <Grid ColumnDefinitions="40,*" Margin="10,7">
+        <Border Width="40" Height="40" Background="{Binding Brush}">
+          <TextBlock Text="{Binding Initials}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+          <TextBlock Text="{Binding Name}" Classes="win-type-medium" />
+          <TextBlock Text="{Binding City}" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="GroupHeader" x:DataType="vm:ContactGroup">
+      <TextBlock Text="{Binding Key}" />
+    </DataTemplate>
+    <DataTemplate x:Key="PhotoCell" x:DataType="vm:Photo">
+      <Grid>
+        <Image Source="{Binding Image}" Stretch="UniformToFill" />
+        <TextBlock Text="{Binding Title}" Classes="win-type-small" Foreground="White" VerticalAlignment="Bottom" Margin="8,0,8,6" TextTrimming="CharacterEllipsis" />
+      </Grid>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+  <g:SamplePage.Styles>
+    <Style Selector="win|ListView.people">
+      <Setter Property="Layout">
+        <win:GridLayout Orientation="Horizontal" MaximumRowsOrColumns="4" />
+      </Setter>
+      <Setter Property="ItemTemplate" Value="{StaticResource ContactTile}" />
+    </Style>
+    <Style Selector="g|SamplePage:narrow win|ListView.people">
+      <Setter Property="Layout">
+        <win:ListLayout />
+      </Setter>
+      <Setter Property="ItemTemplate" Value="{StaticResource ContactRow}" />
+    </Style>
+  </g:SamplePage.Styles>
+
+  <g:SamplePage.Hero>
+    <DockPanel>
+      <TextBlock DockPanel.Dock="Bottom" Classes="demo-status" Text="{Binding Status}" Margin="20,8,20,12" />
+      <win:ListView Name="People" Classes="people" Margin="20,16,20,0"
+                    ItemsSource="{Binding Contacts}"
+                    GroupKeySelector="{Binding GroupKey}"
+                    GroupsSource="{Binding Groups}"
+                    GroupsKeySelector="{Binding GroupsKey}"
+                    GroupHeaderTemplate="{StaticResource GroupHeader}"
+                    TapBehavior="ToggleSelect"
+                    SelectionMode="Multi"
+                    ItemInvoked="OnInvoked"
+                    GroupHeaderInvoked="OnGroupInvoked"
+                    SelectionChanged="OnSelectionChanged" />
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Selection chrome and tap behavior" Description="Left: the default bordered chrome with DirectSelect (click selects, Ctrl toggles, Shift ranges). Right: SelectionStyle=Filled with ToggleSelect, where every tap toggles. Swipe an item on touch to select it.">
+    <g:ResponsiveColumns>
+      <win:ListView Height="260" ItemsSource="{Binding Contacts}" ItemTemplate="{StaticResource ContactRow}" SelectionMode="Multi" TapBehavior="DirectSelect" SelectionStyle="Bordered" Loaded="OnSelectSome" />
+      <win:ListView Height="260" ItemsSource="{Binding Contacts}" ItemTemplate="{StaticResource ContactRow}" SelectionMode="Multi" TapBehavior="ToggleSelect" SelectionStyle="Filled" Loaded="OnSelectSome" />
+    </g:ResponsiveColumns>
+  </g:Scenario>
+
+  <g:Scenario Title="GridLayout with headers on the left" Description="A vertical grid; GroupHeaderPosition=Left puts each group's header beside its tiles, the Windows 8.1 photo-app layout.">
+    <win:ListView Height="320" ItemsSource="{Binding Contacts}" GroupKeySelector="{Binding GroupKey}" GroupsSource="{Binding Groups}" GroupsKeySelector="{Binding GroupsKey}" GroupHeaderTemplate="{StaticResource GroupHeader}" ItemTemplate="{StaticResource ContactTile}" TapBehavior="ToggleSelect" SelectionStyle="Filled">
+      <win:ListView.Layout>
+        <win:GridLayout Orientation="Vertical" GroupHeaderPosition="Left" />
+      </win:ListView.Layout>
+    </win:ListView>
+  </g:Scenario>
+
+  <g:Scenario Title="CellSpanningLayout" Description="Items of different sizes on a cell grid: ItemInfo returns each item's width and height in pixels and the layout packs them into an occupancy map, like the Windows Store's tiles.">
+    <win:ListView Name="Mosaic" Height="320" ItemsSource="{Binding Photos}" ItemTemplate="{StaticResource PhotoCell}" TapBehavior="ToggleSelect" />
+  </g:Scenario>
+
+  <g:Scenario Title="Drag and reorder" Description="ItemsDraggable and ItemsReorderable: drag a row and drop it between two others. ItemDragBetween reports the insert index while you drag; ItemDragDrop commits it.">
+    <StackPanel>
+      <win:ListView Name="Reorder" Height="240" MaxWidth="480" HorizontalAlignment="Left" ItemsSource="{Binding Reorderable}" ItemTemplate="{StaticResource ContactRow}" ItemsDraggable="True" ItemsReorderable="True" TapBehavior="ToggleSelect" />
+      <TextBlock Classes="demo-status" Text="{Binding DragStatus}" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Phone selection mode" Description="On Windows Phone a list shows check boxes only while selection mode is active; IsSelectionModeActive turns it on, usually from an AppBar 'select' command.">
+    <StackPanel Spacing="8">
+      <ToggleSwitch OnContent="Selection mode" OffContent="Selection mode" IsChecked="{Binding IsSelectionModeActive}" />
+      <win:ListView Height="220" MaxWidth="480" HorizontalAlignment="Left" ItemsSource="{Binding Reorderable}" ItemTemplate="{StaticResource ContactRow}" TapBehavior="ToggleSelect" IsSelectionModeActive="{Binding IsSelectionModeActive}" Loaded="OnSelectSome" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Incremental loading" Description="An ItemsSource that implements ISupportIncrementalLoading is asked for more pages as you approach the end. PagesToLoad and PagesToLoadThreshold tune how early.">
+    <StackPanel>
+      <win:ListView Height="220" MaxWidth="480" HorizontalAlignment="Left" ItemsSource="{Binding Incremental}" ItemTemplate="{StaticResource ContactRow}" PagesToLoad="2" />
+      <TextBlock Classes="demo-status" Text="{Binding IncrementalStatus}" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Add and remove with layout animations" Description="WinAnimations.CreateAddToListAnimation and CreateDeleteFromListAnimation move the neighbors out of the way while the item fades.">
+    <StackPanel Spacing="8">
+      <win:ListView Name="Editable" Height="200" MaxWidth="480" HorizontalAlignment="Left" ItemsSource="{Binding Editable}" ItemTemplate="{StaticResource ContactRow}" />
+      <WrapPanel Classes="demo-row">
+        <Button Content="Insert at 1" Click="OnInsert" />
+        <Button Content="Remove first" Click="OnRemove" />
+      </WrapPanel>
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="ItemContainer" Description="The selection chrome on its own, for one item outside a list: ItemContainer with the same TapBehavior and SelectionStyle options.">
+    <StackPanel Classes="demo-column" Width="360">
+      <win:ItemContainer>
+        <StackPanel Margin="10,7"><TextBlock Text="Invoke only (default)" Classes="win-type-medium" /><TextBlock Text="Click raises Invoked" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" /></StackPanel>
+      </win:ItemContainer>
+      <win:ItemContainer TapBehavior="ToggleSelect" IsSelected="True">
+        <StackPanel Margin="10,7"><TextBlock Text="Toggle select" Classes="win-type-medium" /><TextBlock Text="Click toggles selection" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" /></StackPanel>
+      </win:ItemContainer>
+      <win:ItemContainer TapBehavior="ToggleSelect" IsSelected="True" SelectionStyle="Filled">
+        <StackPanel Margin="10,7"><TextBlock Text="Filled" Classes="win-type-medium" /><TextBlock Text="SelectionStyle = Filled" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" /></StackPanel>
+      </win:ItemContainer>
+      <win:ItemContainer TapBehavior="ToggleSelect" IsSelectionDisabled="True">
+        <StackPanel Margin="10,7"><TextBlock Text="Selection disabled" Classes="win-type-medium" /><TextBlock Text="IsSelectionDisabled" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" /></StackPanel>
+      </win:ItemContainer>
+      <win:ItemContainer IsEnabled="False">
+        <StackPanel Margin="10,7"><TextBlock Text="Disabled" Classes="win-type-medium" /></StackPanel>
+      </win:ItemContainer>
+    </StackPanel>
+  </g:Scenario>
+</g:SamplePage>

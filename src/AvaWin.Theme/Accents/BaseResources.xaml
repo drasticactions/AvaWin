@@ -1,0 +1,762 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ResourceDictionary.ThemeDictionaries>
+    <ResourceDictionary x:Key="Default">
+      <SolidColorBrush x:Key="WinTextBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinTextSecondaryBrush" Color="{DynamicResource SystemBaseMediumColor}" />
+      <SolidColorBrush x:Key="WinTextTertiaryBrush" Color="{DynamicResource SystemListMediumColor}" />
+      <SolidColorBrush x:Key="WinTextDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinTextHoverBrush" Color="{DynamicResource SystemBaseMediumHighColor}" />
+      <SolidColorBrush x:Key="WinTextPressedBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinLinkBrush" Color="{DynamicResource WinLinkColor}" />
+      <SolidColorBrush x:Key="WinLinkHoverBrush" Color="{DynamicResource WinLinkColor}" Opacity="0.8" />
+      <SolidColorBrush x:Key="WinLinkPressedBrush" Color="{DynamicResource WinLinkColor}" Opacity="0.6" />
+      <SolidColorBrush x:Key="WinPlaceholderBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinPlaceholderDisabledBrush" Color="#38000000" />
+      <SolidColorBrush x:Key="WinTextSelectionBrush" Color="{DynamicResource WinTextSelectionColor}" />
+      <SolidColorBrush x:Key="WinTextSelectionForegroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinErrorBrush" Color="{DynamicResource SystemErrorTextColor}" />
+      <SolidColorBrush x:Key="WinPageBackgroundBrush" Color="{DynamicResource SystemAltHighColor}" />
+      <SolidColorBrush x:Key="WinChromeBackgroundBrush" Color="{DynamicResource SystemChromeLowColor}" />
+      <SolidColorBrush x:Key="WinOverlayBackgroundBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinOverlayBorderBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinPaneBackgroundBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinPaneBorderBrush" Color="#3D000000" />
+      <SolidColorBrush x:Key="WinTooltipBackgroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinTooltipBorderBrush" Color="{DynamicResource SystemChromeGrayColor}" />
+      <SolidColorBrush x:Key="WinTooltipForegroundBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinSeparatorBrush" Color="{DynamicResource SystemChromeHighColor}" />
+      <SolidColorBrush x:Key="WinFocusOutlineBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinOverlayDimBrush" Color="{DynamicResource SystemChromeBlackMediumLowColor}" />
+      <SolidColorBrush x:Key="WinButtonBackgroundBrush" Color="#B3B6B6B6" />
+      <SolidColorBrush x:Key="WinButtonBorderBrush" Color="#33000000" />
+      <SolidColorBrush x:Key="WinButtonForegroundBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinButtonBackgroundHoverBrush" Color="#D1CDCDCD" />
+      <SolidColorBrush x:Key="WinButtonBorderHoverBrush" Color="#73A4A4A4" />
+      <SolidColorBrush x:Key="WinButtonForegroundHoverBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinButtonBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinButtonBorderPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinButtonForegroundPressedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinButtonBackgroundDisabledBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+      <SolidColorBrush x:Key="WinButtonBorderDisabledBrush" Color="#14000000" />
+      <SolidColorBrush x:Key="WinButtonForegroundDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBackgroundBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBorderBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinAccentButtonForegroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBackgroundHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinAccentButtonBorderHoverBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinAccentButtonForegroundHoverBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBorderPressedBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinAccentButtonForegroundPressedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinAccentButtonBackgroundDisabledBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBorderDisabledBrush" Color="#14000000" />
+      <SolidColorBrush x:Key="WinAccentButtonForegroundDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinButtonHoverWashBrush" Color="{DynamicResource SystemListLowColor}" />
+      <SolidColorBrush x:Key="WinToggleButtonBackgroundCheckedHoverBrush" Color="#FF212121" />
+      <SolidColorBrush x:Key="WinToggleButtonBorderIndeterminateBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinInputBackgroundBrush" Color="#CCFFFFFF" />
+      <SolidColorBrush x:Key="WinInputBorderBrush" Color="#45000000" />
+      <SolidColorBrush x:Key="WinInputForegroundBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinInputBackgroundHoverBrush" Color="#DEFFFFFF" />
+      <SolidColorBrush x:Key="WinInputBorderHoverBrush" Color="#70000000" />
+      <SolidColorBrush x:Key="WinInputBackgroundFocusedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinInputBorderFocusedBrush" Color="#45000000" />
+      <SolidColorBrush x:Key="WinSelectBorderFocusedBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinInputBackgroundDisabledBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+      <SolidColorBrush x:Key="WinInputBorderDisabledBrush" Color="#26000000" />
+      <SolidColorBrush x:Key="WinInputForegroundDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinCheckGlyphBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinCheckBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCheckGlyphPressedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinCheckBorderBrush" Color="#45000000" />
+      <SolidColorBrush x:Key="WinCheckBackgroundBrush" Color="#CCFFFFFF" />
+      <SolidColorBrush x:Key="WinCheckBorderHoverBrush" Color="#70000000" />
+      <SolidColorBrush x:Key="WinCheckBackgroundHoverBrush" Color="#DEFFFFFF" />
+      <SolidColorBrush x:Key="WinCheckBorderDisabledBrush" Color="#26000000" />
+      <SolidColorBrush x:Key="WinCheckBackgroundDisabledBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+      <SolidColorBrush x:Key="WinCheckGlyphDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinDropDownItemBackgroundHoverBrush" Color="{DynamicResource SystemChromeMediumColor}" />
+      <SolidColorBrush x:Key="WinDropDownItemBackgroundSelectedBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinDropDownItemForegroundSelectedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinDropDownItemBackgroundSelectedHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinDropDownItemBackgroundSelectedDisabledBrush" Color="#8C000000" />
+      <SolidColorBrush x:Key="WinDropDownItemForegroundSelectedDisabledBrush" Color="#99FFFFFF" />
+      <SolidColorBrush x:Key="WinDropDownItemForegroundBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinDropDownItemForegroundDisabledBrush" Color="{DynamicResource SystemChromeBlackMediumLowColor}" />
+      <SolidColorBrush x:Key="WinDropDownBackgroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinDropDownBorderBrush" Color="#45000000" />
+      <SolidColorBrush x:Key="WinListItemBackgroundBrush" Color="{DynamicResource SystemAltHighColor}" />
+      <SolidColorBrush x:Key="WinListItemBackdropBrush" Color="#3B9B9B9B" />
+      <SolidColorBrush x:Key="WinListItemHoverOutlineBrush" Color="{DynamicResource SystemListMediumColor}" />
+      <SolidColorBrush x:Key="WinListItemFilledHoverBrush" Color="{DynamicResource SystemListMediumColor}" />
+      <SolidColorBrush x:Key="WinSelectionBorderBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSelectionBorderHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSelectionFillBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSelectionFillHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSelectionForegroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSelectionCheckmarkBackgroundBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSelectionCheckmarkBackgroundHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSelectionCheckmarkBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSelectionHintBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinListFocusOutlineBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinGroupHeaderForegroundBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinProgressTrackBrush" Color="#33000000" />
+      <SolidColorBrush x:Key="WinProgressFillBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinProgressIndeterminateBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinProgressIndeterminateTrackBrush" Color="#59000000" />
+      <SolidColorBrush x:Key="WinSliderTrackBrush" Color="#1A000000" />
+      <SolidColorBrush x:Key="WinSliderTrackHoverBrush" Color="#26000000" />
+      <SolidColorBrush x:Key="WinSliderFillBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSliderFillHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSliderFillDisabledBrush" Color="#33000000" />
+      <SolidColorBrush x:Key="WinSliderThumbBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinSliderThumbDisabledBrush" Color="{DynamicResource SystemChromeDisabledLowColor}" />
+      <SolidColorBrush x:Key="WinTickBrush" Color="#80000000" />
+      <SolidColorBrush x:Key="WinToggleTrackBorderBrush" Color="#59000000" />
+      <SolidColorBrush x:Key="WinToggleTrackBorderDisabledBrush" Color="{DynamicResource SystemBaseLowColor}" />
+      <SolidColorBrush x:Key="WinToggleThumbBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinToggleThumbDisabledBrush" Color="{DynamicResource SystemChromeDisabledLowColor}" />
+      <SolidColorBrush x:Key="WinToggleOffFillBrush" Color="#59000000" />
+      <SolidColorBrush x:Key="WinToggleOffFillHoverBrush" Color="#4A000000" />
+      <SolidColorBrush x:Key="WinToggleOffFillPressedBrush" Color="#42000000" />
+      <SolidColorBrush x:Key="WinToggleOffFillDisabledBrush" Color="#1F000000" />
+      <SolidColorBrush x:Key="WinToggleOnFillBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinToggleOnFillHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinToggleOnFillPressedBrush" Color="{DynamicResource SystemAccentColorLight2}" />
+      <SolidColorBrush x:Key="WinToggleOnFillDisabledBrush" Color="#1F000000" />
+      <SolidColorBrush x:Key="WinMenuItemBackgroundHoverBrush" Color="{DynamicResource SystemChromeMediumColor}" />
+      <SolidColorBrush x:Key="WinMenuItemBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinMenuItemForegroundPressedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinMenuItemForegroundHoverBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinMenuItemForegroundDisabledBrush" Color="#1A000000" />
+      <SolidColorBrush x:Key="WinScrollBarThumbBrush" Color="{DynamicResource SystemChromeHighColor}" />
+      <SolidColorBrush x:Key="WinScrollBarThumbHoverBrush" Color="{DynamicResource SystemBaseMediumColor}" />
+      <SolidColorBrush x:Key="WinScrollBarThumbPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinScrollBarTrackBrush" Color="{DynamicResource SystemChromeLowColor}" />
+      <SolidColorBrush x:Key="WinSuggestionFlyoutBackgroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSuggestionFlyoutBorderBrush" Color="{DynamicResource SystemChromeAltLowColor}" />
+      <SolidColorBrush x:Key="WinSuggestionForegroundBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinSuggestionBackgroundHoverBrush" Color="#FFE5E5E5" />
+      <SolidColorBrush x:Key="WinSpinnerButtonBackgroundHoverBrush" Color="#21000000" />
+      <SolidColorBrush x:Key="WinSpinnerButtonBackgroundPressedBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinSpinnerButtonForegroundPressedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinCommandForegroundBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCommandForegroundPressedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinCommandForegroundDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinCommandForegroundSelectedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinCommandForegroundSelectedPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinCommandRingBorderBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundHoverBrush" Color="{DynamicResource SystemListLowColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBorderDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundSelectedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundSelectedHoverBrush" Color="#FF212121" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundSelectedDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinCommandLabelForegroundDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinAppBarInvokeButtonBackgroundHoverBrush" Color="#D1CDCDCD" />
+      <SolidColorBrush x:Key="WinBackButtonBackgroundHoverBrush" Color="{DynamicResource SystemListLowColor}" />
+      <SolidColorBrush x:Key="WinBackButtonBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinBackButtonForegroundPressedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinSettingsFlyoutBackgroundBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinSettingsFlyoutBorderBrush" Color="#3D000000" />
+      <SolidColorBrush x:Key="WinNotificationBorderBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinContentDialogBackgroundBrush" Color="#FFF2F2F2" />
+      <SolidColorBrush x:Key="WinContentDialogBackdropBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinNavPageIndicatorBrush" Color="#4D000000" />
+      <SolidColorBrush x:Key="WinNavPageIndicatorCurrentBrush" Color="#A8000000" />
+      <SolidColorBrush x:Key="WinNavPageIndicatorHoverBrush" Color="#70000000" />
+      <SolidColorBrush x:Key="WinNavPageIndicatorPressedBrush" Color="#94000000" />
+      <SolidColorBrush x:Key="WinNavArrowBackgroundBrush" Color="#FFE7E7E7" />
+      <SolidColorBrush x:Key="WinNavArrowForegroundBrush" Color="#FF5C5C5C" />
+      <SolidColorBrush x:Key="WinNavArrowBackgroundHoverBrush" Color="#FFDADADA" />
+      <SolidColorBrush x:Key="WinNavArrowForegroundHoverBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinNavArrowBackgroundPressedBrush" Color="#FF5D5D5D" />
+      <SolidColorBrush x:Key="WinNavArrowForegroundPressedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinNavCommandBackgroundBrush" Color="#17000000" />
+      <SolidColorBrush x:Key="WinNavCommandBackgroundHoverBrush" Color="#4FC7C7C7" />
+      <SolidColorBrush x:Key="WinNavCommandBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinNavCommandForegroundPressedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinHubHeaderHoverBrush" Color="{DynamicResource SystemBaseMediumHighColor}" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonBackgroundBrush" Color="#59D5D5D5" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonForegroundBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonBackgroundHoverBrush" Color="#F0D7D7D7" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonForegroundHoverBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonBackgroundPressedBrush" Color="#BD292929" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonForegroundPressedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSemanticZoomButtonBackgroundBrush" Color="#54D8D8D8" />
+      <SolidColorBrush x:Key="WinSemanticZoomButtonBackgroundHoverBrush" Color="#FFD8D8D8" />
+      <SolidColorBrush x:Key="WinSemanticZoomButtonBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinSemanticZoomButtonForegroundBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinSemanticZoomButtonForegroundPressedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinSemanticZoomZoomedOutBackgroundBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinRatingUserBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinRatingTentativeBrush" Color="{DynamicResource SystemAccentColorLight2}" />
+      <SolidColorBrush x:Key="WinRatingAverageBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinRatingEmptyBrush" Color="#59000000" />
+      <SolidColorBrush x:Key="WinSearchBoxBorderBrush" Color="#45000000" />
+      <SolidColorBrush x:Key="WinSearchBoxBackgroundBrush" Color="#CCFFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxForegroundBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinSearchBoxBackgroundHoverBrush" Color="#DEFFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxBorderHoverBrush" Color="#45000000" />
+      <SolidColorBrush x:Key="WinSearchBoxBorderFocusedBrush" Color="{DynamicResource SystemChromeAltLowColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxBackgroundFocusedBrush" Color="#CCFFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonForegroundBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonBackgroundHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonBackgroundPressedBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonForegroundPressedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonBackgroundFocusedBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonForegroundFocusedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxBackgroundDisabledBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxBorderDisabledBrush" Color="#26000000" />
+      <SolidColorBrush x:Key="WinSearchBoxForegroundDisabledBrush" Color="#38000000" />
+      <SolidColorBrush x:Key="WinSearchBoxFlyoutBackgroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxFlyoutBorderBrush" Color="{DynamicResource SystemChromeAltLowColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxSuggestionForegroundBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxSuggestionBackgroundHoverBrush" Color="#FFE5E5E5" />
+      <SolidColorBrush x:Key="WinSearchBoxSuggestionBackgroundSelectedBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxSuggestionBackgroundSelectedHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSearchBoxSuggestionSeparatorBrush" Color="#FF7A7A7A" />
+      <SolidColorBrush x:Key="WinSearchBoxHighlightBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxHighlightSelectedBrush" Color="#FFA38BDA" />
+      <SolidColorBrush x:Key="WinHubHeaderPressedBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinPivotNavButtonBackgroundBrush" Color="#59D5D5D5" />
+      <SolidColorBrush x:Key="WinPivotNavButtonForegroundBrush" Color="{DynamicResource SystemBaseMediumColor}" />
+      <SolidColorBrush x:Key="WinPivotNavButtonBackgroundHoverBrush" Color="#F0D7D7D7" />
+      <SolidColorBrush x:Key="WinPivotNavButtonForegroundHoverBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinPivotNavButtonBackgroundPressedBrush" Color="#BD292929" />
+      <SolidColorBrush x:Key="WinPivotNavButtonForegroundPressedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinTransparentBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinStatusInfoBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinStatusSuccessBrush" Color="#FF128B44" />
+      <SolidColorBrush x:Key="WinStatusWarningBrush" Color="#FFFFC316" />
+      <SolidColorBrush x:Key="WinStatusErrorBrush" Color="#FFE81123" />
+      <SolidColorBrush x:Key="WinWindowCloseHoverBrush" Color="#FFE81123" />
+      <SolidColorBrush x:Key="WinWindowClosePressedBrush" Color="#FFF1707A" />
+      <SolidColorBrush x:Key="WinCaptionButtonHoverBrush" Color="{DynamicResource SystemListLowColor}" />
+      <SolidColorBrush x:Key="WinCaptionButtonPressedBrush" Color="{DynamicResource SystemListMediumColor}" />
+    </ResourceDictionary>
+    <ResourceDictionary x:Key="Dark">
+      <SolidColorBrush x:Key="WinTextBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinTextSecondaryBrush" Color="{DynamicResource SystemBaseMediumColor}" />
+      <SolidColorBrush x:Key="WinTextTertiaryBrush" Color="{DynamicResource SystemListMediumColor}" />
+      <SolidColorBrush x:Key="WinTextDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinTextHoverBrush" Color="{DynamicResource SystemBaseMediumHighColor}" />
+      <SolidColorBrush x:Key="WinTextPressedBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinLinkBrush" Color="{DynamicResource WinLinkOnDarkColor}" />
+      <SolidColorBrush x:Key="WinLinkHoverBrush" Color="{DynamicResource WinLinkOnDarkColor}" Opacity="0.8" />
+      <SolidColorBrush x:Key="WinLinkPressedBrush" Color="{DynamicResource WinLinkOnDarkColor}" Opacity="0.6" />
+      <SolidColorBrush x:Key="WinPlaceholderBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinPlaceholderDisabledBrush" Color="#38FFFFFF" />
+      <SolidColorBrush x:Key="WinTextSelectionBrush" Color="{DynamicResource WinTextSelectionColor}" />
+      <SolidColorBrush x:Key="WinTextSelectionForegroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinErrorBrush" Color="{DynamicResource SystemErrorTextColor}" />
+      <SolidColorBrush x:Key="WinPageBackgroundBrush" Color="{DynamicResource SystemAltHighColor}" />
+      <SolidColorBrush x:Key="WinChromeBackgroundBrush" Color="{DynamicResource SystemChromeLowColor}" />
+      <SolidColorBrush x:Key="WinOverlayBackgroundBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinOverlayBorderBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinPaneBackgroundBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinPaneBorderBrush" Color="#3DFFFFFF" />
+      <SolidColorBrush x:Key="WinTooltipBackgroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinTooltipBorderBrush" Color="{DynamicResource SystemChromeGrayColor}" />
+      <SolidColorBrush x:Key="WinTooltipForegroundBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinSeparatorBrush" Color="{DynamicResource SystemChromeHighColor}" />
+      <SolidColorBrush x:Key="WinFocusOutlineBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinOverlayDimBrush" Color="{DynamicResource SystemChromeBlackMediumLowColor}" />
+      <SolidColorBrush x:Key="WinButtonBackgroundBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinButtonBorderBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinButtonForegroundBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinButtonBackgroundHoverBrush" Color="#21FFFFFF" />
+      <SolidColorBrush x:Key="WinButtonBorderHoverBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinButtonForegroundHoverBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinButtonBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinButtonBorderPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinButtonForegroundPressedBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinButtonBackgroundDisabledBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+      <SolidColorBrush x:Key="WinButtonBorderDisabledBrush" Color="#66FFFFFF" />
+      <SolidColorBrush x:Key="WinButtonForegroundDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBackgroundBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBorderBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinAccentButtonForegroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBackgroundHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinAccentButtonBorderHoverBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinAccentButtonForegroundHoverBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBorderPressedBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinAccentButtonForegroundPressedBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinAccentButtonBackgroundDisabledBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+      <SolidColorBrush x:Key="WinAccentButtonBorderDisabledBrush" Color="#66FFFFFF" />
+      <SolidColorBrush x:Key="WinAccentButtonForegroundDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinButtonHoverWashBrush" Color="{DynamicResource SystemListLowColor}" />
+      <SolidColorBrush x:Key="WinToggleButtonBackgroundCheckedHoverBrush" Color="#FFDEDEDE" />
+      <SolidColorBrush x:Key="WinToggleButtonBorderIndeterminateBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinInputBackgroundBrush" Color="#CCFFFFFF" />
+      <SolidColorBrush x:Key="WinInputBorderBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinInputForegroundBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinInputBackgroundHoverBrush" Color="#DEFFFFFF" />
+      <SolidColorBrush x:Key="WinInputBorderHoverBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinInputBackgroundFocusedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinInputBorderFocusedBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinSelectBorderFocusedBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinInputBackgroundDisabledBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+      <SolidColorBrush x:Key="WinInputBorderDisabledBrush" Color="#66FFFFFF" />
+      <SolidColorBrush x:Key="WinInputForegroundDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinCheckGlyphBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinCheckBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCheckGlyphPressedBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinCheckBorderBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinCheckBackgroundBrush" Color="#CCFFFFFF" />
+      <SolidColorBrush x:Key="WinCheckBorderHoverBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinCheckBackgroundHoverBrush" Color="#DEFFFFFF" />
+      <SolidColorBrush x:Key="WinCheckBorderDisabledBrush" Color="#66FFFFFF" />
+      <SolidColorBrush x:Key="WinCheckBackgroundDisabledBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+      <SolidColorBrush x:Key="WinCheckGlyphDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinDropDownItemBackgroundHoverBrush" Color="{DynamicResource SystemChromeMediumColor}" />
+      <SolidColorBrush x:Key="WinDropDownItemBackgroundSelectedBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinDropDownItemForegroundSelectedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinDropDownItemBackgroundSelectedHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinDropDownItemBackgroundSelectedDisabledBrush" Color="#66FFFFFF" />
+      <SolidColorBrush x:Key="WinDropDownItemForegroundSelectedDisabledBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinDropDownItemForegroundBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinDropDownItemForegroundDisabledBrush" Color="{DynamicResource SystemChromeBlackMediumLowColor}" />
+      <SolidColorBrush x:Key="WinDropDownBackgroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinDropDownBorderBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinListItemBackgroundBrush" Color="{DynamicResource SystemAltHighColor}" />
+      <SolidColorBrush x:Key="WinListItemBackdropBrush" Color="#3B9B9B9B" />
+      <SolidColorBrush x:Key="WinListItemHoverOutlineBrush" Color="{DynamicResource SystemListMediumColor}" />
+      <SolidColorBrush x:Key="WinListItemFilledHoverBrush" Color="{DynamicResource SystemListMediumColor}" />
+      <SolidColorBrush x:Key="WinSelectionBorderBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSelectionBorderHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSelectionFillBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSelectionFillHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSelectionForegroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSelectionCheckmarkBackgroundBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSelectionCheckmarkBackgroundHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSelectionCheckmarkBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSelectionHintBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinListFocusOutlineBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinGroupHeaderForegroundBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinProgressTrackBrush" Color="#59FFFFFF" />
+      <SolidColorBrush x:Key="WinProgressFillBrush" Color="{DynamicResource WinAccentOnDarkColor}" />
+      <SolidColorBrush x:Key="WinProgressIndeterminateBrush" Color="{DynamicResource WinAccentOnDarkVividColor}" />
+      <SolidColorBrush x:Key="WinProgressIndeterminateTrackBrush" Color="#59FFFFFF" />
+      <SolidColorBrush x:Key="WinSliderTrackBrush" Color="#29FFFFFF" />
+      <SolidColorBrush x:Key="WinSliderTrackHoverBrush" Color="#2EFFFFFF" />
+      <SolidColorBrush x:Key="WinSliderFillBrush" Color="{DynamicResource WinAccentOnDarkColor}" />
+      <SolidColorBrush x:Key="WinSliderFillHoverBrush" Color="{DynamicResource WinAccentOnDarkHoverColor}" />
+      <SolidColorBrush x:Key="WinSliderFillDisabledBrush" Color="#3BFFFFFF" />
+      <SolidColorBrush x:Key="WinSliderThumbBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinSliderThumbDisabledBrush" Color="{DynamicResource SystemChromeDisabledLowColor}" />
+      <SolidColorBrush x:Key="WinTickBrush" Color="#80FFFFFF" />
+      <SolidColorBrush x:Key="WinToggleTrackBorderBrush" Color="#59FFFFFF" />
+      <SolidColorBrush x:Key="WinToggleTrackBorderDisabledBrush" Color="{DynamicResource SystemBaseLowColor}" />
+      <SolidColorBrush x:Key="WinToggleThumbBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinToggleThumbDisabledBrush" Color="{DynamicResource SystemChromeDisabledLowColor}" />
+      <SolidColorBrush x:Key="WinToggleOffFillBrush" Color="#42FFFFFF" />
+      <SolidColorBrush x:Key="WinToggleOffFillHoverBrush" Color="#4AFFFFFF" />
+      <SolidColorBrush x:Key="WinToggleOffFillPressedBrush" Color="#59FFFFFF" />
+      <SolidColorBrush x:Key="WinToggleOffFillDisabledBrush" Color="#1FFFFFFF" />
+      <SolidColorBrush x:Key="WinToggleOnFillBrush" Color="{DynamicResource WinAccentOnDarkColor}" />
+      <SolidColorBrush x:Key="WinToggleOnFillHoverBrush" Color="{DynamicResource WinAccentOnDarkHoverColor}" />
+      <SolidColorBrush x:Key="WinToggleOnFillPressedBrush" Color="{DynamicResource WinAccentOnDarkPressedColor}" />
+      <SolidColorBrush x:Key="WinToggleOnFillDisabledBrush" Color="#FF7E7E7E" />
+      <SolidColorBrush x:Key="WinMenuItemBackgroundHoverBrush" Color="{DynamicResource SystemChromeMediumColor}" />
+      <SolidColorBrush x:Key="WinMenuItemBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinMenuItemForegroundPressedBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinMenuItemForegroundHoverBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinMenuItemForegroundDisabledBrush" Color="#1AFFFFFF" />
+      <SolidColorBrush x:Key="WinScrollBarThumbBrush" Color="{DynamicResource SystemChromeHighColor}" />
+      <SolidColorBrush x:Key="WinScrollBarThumbHoverBrush" Color="{DynamicResource SystemBaseMediumColor}" />
+      <SolidColorBrush x:Key="WinScrollBarThumbPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinScrollBarTrackBrush" Color="{DynamicResource SystemChromeLowColor}" />
+      <SolidColorBrush x:Key="WinSuggestionFlyoutBackgroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSuggestionFlyoutBorderBrush" Color="{DynamicResource SystemChromeAltLowColor}" />
+      <SolidColorBrush x:Key="WinSuggestionForegroundBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinSuggestionBackgroundHoverBrush" Color="#FFE5E5E5" />
+      <SolidColorBrush x:Key="WinSpinnerButtonBackgroundHoverBrush" Color="#21000000" />
+      <SolidColorBrush x:Key="WinSpinnerButtonBackgroundPressedBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinSpinnerButtonForegroundPressedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinCommandForegroundBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCommandForegroundPressedBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinCommandForegroundDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinCommandForegroundSelectedBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinCommandForegroundSelectedPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinCommandRingBorderBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundHoverBrush" Color="{DynamicResource SystemListLowColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBorderDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundSelectedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundSelectedHoverBrush" Color="#FFDEDEDE" />
+      <SolidColorBrush x:Key="WinCommandRingBackgroundSelectedDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinCommandLabelForegroundDisabledBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinAppBarInvokeButtonBackgroundHoverBrush" Color="#21FFFFFF" />
+      <SolidColorBrush x:Key="WinBackButtonBackgroundHoverBrush" Color="{DynamicResource SystemListLowColor}" />
+      <SolidColorBrush x:Key="WinBackButtonBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinBackButtonForegroundPressedBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinSettingsFlyoutBackgroundBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinSettingsFlyoutBorderBrush" Color="#3DFFFFFF" />
+      <SolidColorBrush x:Key="WinNotificationBorderBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinContentDialogBackgroundBrush" Color="#FF2B2B2B" />
+      <SolidColorBrush x:Key="WinContentDialogBackdropBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinNavPageIndicatorBrush" Color="#66FFFFFF" />
+      <SolidColorBrush x:Key="WinNavPageIndicatorCurrentBrush" Color="#CCFFFFFF" />
+      <SolidColorBrush x:Key="WinNavPageIndicatorHoverBrush" Color="#99FFFFFF" />
+      <SolidColorBrush x:Key="WinNavPageIndicatorPressedBrush" Color="#B3FFFFFF" />
+      <SolidColorBrush x:Key="WinNavArrowBackgroundBrush" Color="#FF4A4A4A" />
+      <SolidColorBrush x:Key="WinNavArrowForegroundBrush" Color="#FF1E1E1E" />
+      <SolidColorBrush x:Key="WinNavArrowBackgroundHoverBrush" Color="#FFCACACA" />
+      <SolidColorBrush x:Key="WinNavArrowForegroundHoverBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinNavArrowBackgroundPressedBrush" Color="#FF1E1E1E" />
+      <SolidColorBrush x:Key="WinNavArrowForegroundPressedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinNavCommandBackgroundBrush" Color="#1CFFFFFF" />
+      <SolidColorBrush x:Key="WinNavCommandBackgroundHoverBrush" Color="#38FFFFFF" />
+      <SolidColorBrush x:Key="WinNavCommandBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinNavCommandForegroundPressedBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinHubHeaderHoverBrush" Color="{DynamicResource SystemBaseMediumHighColor}" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonBackgroundBrush" Color="#59D5D5D5" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonForegroundBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonBackgroundHoverBrush" Color="#F0D7D7D7" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonForegroundHoverBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonBackgroundPressedBrush" Color="#BD292929" />
+      <SolidColorBrush x:Key="WinFlipViewNavButtonForegroundPressedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSemanticZoomButtonBackgroundBrush" Color="#54D8D8D8" />
+      <SolidColorBrush x:Key="WinSemanticZoomButtonBackgroundHoverBrush" Color="#FFD8D8D8" />
+      <SolidColorBrush x:Key="WinSemanticZoomButtonBackgroundPressedBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinSemanticZoomButtonForegroundBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinSemanticZoomButtonForegroundPressedBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinSemanticZoomZoomedOutBackgroundBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinRatingUserBrush" Color="{DynamicResource WinAccentOnDarkColor}" />
+      <SolidColorBrush x:Key="WinRatingTentativeBrush" Color="{DynamicResource SystemAccentColorLight3}" />
+      <SolidColorBrush x:Key="WinRatingAverageBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinRatingEmptyBrush" Color="#59FFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxBorderBrush" Color="#CCFFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxBackgroundBrush" Color="#CCFFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxForegroundBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinSearchBoxBackgroundHoverBrush" Color="#DEFFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxBorderHoverBrush" Color="#DEFFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxBorderFocusedBrush" Color="{DynamicResource SystemChromeAltLowColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxBackgroundFocusedBrush" Color="#FFFFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonForegroundBrush" Color="#99000000" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonBackgroundHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonBackgroundPressedBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonForegroundPressedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonBackgroundFocusedBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxButtonForegroundFocusedBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxBackgroundDisabledBrush" Color="{DynamicResource SystemChromeDisabledHighColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxBorderDisabledBrush" Color="#66FFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxForegroundDisabledBrush" Color="#66FFFFFF" />
+      <SolidColorBrush x:Key="WinSearchBoxFlyoutBackgroundBrush" Color="{DynamicResource SystemChromeWhiteColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxFlyoutBorderBrush" Color="{DynamicResource SystemChromeAltLowColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxSuggestionForegroundBrush" Color="{DynamicResource SystemChromeBlackHighColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxSuggestionBackgroundHoverBrush" Color="#FFE5E5E5" />
+      <SolidColorBrush x:Key="WinSearchBoxSuggestionBackgroundSelectedBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxSuggestionBackgroundSelectedHoverBrush" Color="{DynamicResource SystemAccentColorLight1}" />
+      <SolidColorBrush x:Key="WinSearchBoxSuggestionSeparatorBrush" Color="#FF7A7A7A" />
+      <SolidColorBrush x:Key="WinSearchBoxHighlightBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinSearchBoxHighlightSelectedBrush" Color="#FFA38BDA" />
+      <SolidColorBrush x:Key="WinHubHeaderPressedBrush" Color="{DynamicResource SystemBaseMediumLowColor}" />
+      <SolidColorBrush x:Key="WinPivotNavButtonBackgroundBrush" Color="#4CD5D5D5" />
+      <SolidColorBrush x:Key="WinPivotNavButtonForegroundBrush" Color="{DynamicResource SystemBaseMediumColor}" />
+      <SolidColorBrush x:Key="WinPivotNavButtonBackgroundHoverBrush" Color="#EF313131" />
+      <SolidColorBrush x:Key="WinPivotNavButtonForegroundHoverBrush" Color="{DynamicResource SystemBaseHighColor}" />
+      <SolidColorBrush x:Key="WinPivotNavButtonBackgroundPressedBrush" Color="#BFBFBFBF" />
+      <SolidColorBrush x:Key="WinPivotNavButtonForegroundPressedBrush" Color="#FF000000" />
+      <SolidColorBrush x:Key="WinTransparentBrush" Color="#00000000" />
+      <SolidColorBrush x:Key="WinStatusInfoBrush" Color="{DynamicResource SystemAccentColor}" />
+      <SolidColorBrush x:Key="WinStatusSuccessBrush" Color="#FF128B44" />
+      <SolidColorBrush x:Key="WinStatusWarningBrush" Color="#FFFFC316" />
+      <SolidColorBrush x:Key="WinStatusErrorBrush" Color="#FFE81123" />
+      <SolidColorBrush x:Key="WinWindowCloseHoverBrush" Color="#FFE81123" />
+      <SolidColorBrush x:Key="WinWindowClosePressedBrush" Color="#FFF1707A" />
+      <SolidColorBrush x:Key="WinCaptionButtonHoverBrush" Color="{DynamicResource SystemListLowColor}" />
+      <SolidColorBrush x:Key="WinCaptionButtonPressedBrush" Color="{DynamicResource SystemListMediumColor}" />
+    </ResourceDictionary>
+  </ResourceDictionary.ThemeDictionaries>
+
+  <FontFamily x:Key="WinFontFamily">fonts:AvaWin#Selawik, Segoe UI, Segoe WP, sans-serif</FontFamily>
+  <FontFamily x:Key="WinSymbolFontFamily">fonts:AvaWin#Symbols, Segoe UI Symbol, Segoe MDL2 Assets</FontFamily>
+  <FontFamily x:Key="WinMonospaceFontFamily">Consolas, Menlo, monospace</FontFamily>
+
+  <x:Double x:Key="WinFontSizeXXLarge">56</x:Double>
+  <FontWeight x:Key="WinFontWeightXXLarge">Light</FontWeight>
+  <x:Double x:Key="WinLineHeightXXLarge">64</x:Double>
+  <x:Double x:Key="WinFontSizeXLarge">26.5</x:Double>
+  <FontWeight x:Key="WinFontWeightXLarge">Light</FontWeight>
+  <x:Double x:Key="WinLineHeightXLarge">32</x:Double>
+  <x:Double x:Key="WinFontSizeLarge">14.5</x:Double>
+  <FontWeight x:Key="WinFontWeightLarge">SemiBold</FontWeight>
+  <x:Double x:Key="WinLineHeightLarge">20</x:Double>
+  <x:Double x:Key="WinFontSizeMedium">14.5</x:Double>
+  <FontWeight x:Key="WinFontWeightMedium">Normal</FontWeight>
+  <x:Double x:Key="WinLineHeightMedium">20</x:Double>
+  <x:Double x:Key="WinFontSizeSmall">14.5</x:Double>
+  <FontWeight x:Key="WinFontWeightSmall">SemiLight</FontWeight>
+  <x:Double x:Key="WinLineHeightSmall">20</x:Double>
+  <x:Double x:Key="WinFontSizeXSmall">14.5</x:Double>
+  <FontWeight x:Key="WinFontWeightXSmall">SemiLight</FontWeight>
+  <x:Double x:Key="WinLineHeightXSmall">20</x:Double>
+  <x:Double x:Key="WinFontSizeXXSmall">12</x:Double>
+  <FontWeight x:Key="WinFontWeightXXSmall">Normal</FontWeight>
+  <x:Double x:Key="WinLineHeightXXSmall">20</x:Double>
+  <x:Double x:Key="WinFontSizeBody">14.5</x:Double>
+  <FontWeight x:Key="WinFontWeightBody">SemiLight</FontWeight>
+  <x:Double x:Key="WinFontSizeButton">14.5</x:Double>
+  <FontWeight x:Key="WinFontWeightButton">SemiBold</FontWeight>
+  <x:Double x:Key="WinFontSizeInput">14.5</x:Double>
+  <FontWeight x:Key="WinFontWeightInput">Normal</FontWeight>
+  <x:Double x:Key="WinFontSizeSelect">14.5</x:Double>
+  <FontWeight x:Key="WinFontWeightSelect">Normal</FontWeight>
+  <x:Double x:Key="WinFontSizeCommandLabel">12</x:Double>
+  <FontWeight x:Key="WinFontWeightCommandLabel">Normal</FontWeight>
+  <x:Double x:Key="WinFontSizeCommandGlyph">18.5</x:Double>
+  <FontWeight x:Key="WinFontWeightCommandGlyph">Normal</FontWeight>
+  <x:Double x:Key="WinFontSizeHeader">26.5</x:Double>
+  <FontWeight x:Key="WinFontWeightHeader">Light</FontWeight>
+  <x:Double x:Key="WinFontSizePivotHeader">60</x:Double>
+  <FontWeight x:Key="WinFontWeightPivotHeader">Normal</FontWeight>
+  <x:Double x:Key="WinFontSizePivotTitle">18.5</x:Double>
+  <FontWeight x:Key="WinFontWeightPivotTitle">SemiBold</FontWeight>
+  <x:Double x:Key="WinFontSizeNavGlyph">21.5</x:Double>
+  <FontWeight x:Key="WinFontWeightNavGlyph">Normal</FontWeight>
+  <x:Double x:Key="WinFontSizeTooltip">12</x:Double>
+  <FontWeight x:Key="WinFontWeightTooltip">Normal</FontWeight>
+  <x:Double x:Key="WinFontSizeCaption">12</x:Double>
+  <FontWeight x:Key="WinFontWeightCaption">Normal</FontWeight>
+  <x:Double x:Key="WinFontSizeToggleHeader">16</x:Double>
+  <FontWeight x:Key="WinFontWeightToggleHeader">SemiLight</FontWeight>
+  <x:Double x:Key="WinFontSizeListGroupHeader">26.5</x:Double>
+  <FontWeight x:Key="WinFontWeightListGroupHeader">Light</FontWeight>
+
+  <Thickness x:Key="WinControlBorderThickness">2</Thickness>
+  <Thickness x:Key="WinInputBorderThickness">2</Thickness>
+  <CornerRadius x:Key="WinControlCornerRadius">0</CornerRadius>
+  <Thickness x:Key="WinButtonPadding">8,4</Thickness>
+  <x:Double x:Key="WinButtonMinHeight">32</x:Double>
+  <x:Double x:Key="WinButtonMinWidth">90</x:Double>
+  <Thickness x:Key="WinTextBoxPadding">8,0</Thickness>
+  <x:Double x:Key="WinTextBoxMinHeight">28</x:Double>
+  <x:Double x:Key="WinTextBoxMinWidth">64</x:Double>
+  <Thickness x:Key="WinTextAreaPadding">8,4,17,4</Thickness>
+  <x:Double x:Key="WinTextAreaMinHeight">39</x:Double>
+  <x:Double x:Key="WinCheckBoxSize">21</x:Double>
+  <x:Double x:Key="WinRadioButtonSize">23</x:Double>
+  <x:Double x:Key="WinRadioButtonDotSize">9</x:Double>
+  <Thickness x:Key="WinCheckBoxContentMargin">5,0,0,0</Thickness>
+  <x:Double x:Key="WinComboBoxMinHeight">32</x:Double>
+  <x:Double x:Key="WinComboBoxMinWidth">80</x:Double>
+  <Thickness x:Key="WinComboBoxPadding">8,4</Thickness>
+  <Thickness x:Key="WinComboBoxChevronPadding">6,0</Thickness>
+  <x:Boolean x:Key="WinComboBoxChevronVisible">True</x:Boolean>
+  <x:Double x:Key="WinProgressBarWidth">180</x:Double>
+  <x:Double x:Key="WinProgressBarWidthMedium">280</x:Double>
+  <x:Double x:Key="WinProgressBarHeight">6</x:Double>
+  <x:Double x:Key="WinProgressBarIndeterminateHeight">4</x:Double>
+  <x:Double x:Key="WinProgressRingSize">20</x:Double>
+  <x:Double x:Key="WinProgressRingSizeMedium">40</x:Double>
+  <x:Double x:Key="WinProgressRingSizeLarge">60</x:Double>
+  <x:Double x:Key="WinSliderWidth">280</x:Double>
+  <x:Double x:Key="WinSliderHeightVertical">191</x:Double>
+  <x:Double x:Key="WinSliderTrackThickness">11</x:Double>
+  <x:Double x:Key="WinSliderThumbWidth">11</x:Double>
+  <x:Double x:Key="WinSliderThumbHeight">11</x:Double>
+  <x:Double x:Key="WinSliderThumbWidthVertical">11</x:Double>
+  <x:Double x:Key="WinSliderThumbHeightVertical">11</x:Double>
+  <Thickness x:Key="WinToolTipPadding">10,6,10,7</Thickness>
+  <x:Double x:Key="WinToolTipMaxWidth">380</x:Double>
+  <Thickness x:Key="WinFlyoutPadding">20,25,20,20</Thickness>
+  <x:Double x:Key="WinFlyoutMinWidth">26</x:Double>
+  <x:Double x:Key="WinFlyoutMaxWidth">466</x:Double>
+  <x:Double x:Key="WinFlyoutOffset">5</x:Double>
+  <Thickness x:Key="WinMenuPadding">0,5</Thickness>
+  <Thickness x:Key="WinMenuItemPadding">20,10,20,12</Thickness>
+  <x:Double x:Key="WinMenuItemMinHeight">40</x:Double>
+  <x:Double x:Key="WinMenuMinHeight">38</x:Double>
+  <Thickness x:Key="WinMenuSeparatorMargin">20,9,20,10</Thickness>
+  <Thickness x:Key="WinFocusOutlineThickness">1</Thickness>
+  <Thickness x:Key="WinListFocusOutlineThickness">2</Thickness>
+  <Thickness x:Key="WinListItemHoverOutlineThickness">3</Thickness>
+  <Thickness x:Key="WinListSelectionBorderThickness">4</Thickness>
+  <Thickness x:Key="WinListItemPadding">10,7</Thickness>
+  <x:Double x:Key="WinListItemMinHeight">40</x:Double>
+  <Thickness x:Key="WinListBoxPadding">0,0,24,0</Thickness>
+  <x:Double x:Key="WinScrollBarThickness">3</x:Double>
+  <x:Double x:Key="WinScrollBarExpandedThickness">12</x:Double>
+  <x:Double x:Key="WinScrollBarButtonSize">17</x:Double>
+  <Thickness x:Key="WinZeroThickness">0</Thickness>
+  <x:Double x:Key="WinCheckBoxMinHeight">21</x:Double>
+  <x:Double x:Key="WinRadioButtonMinHeight">23</x:Double>
+  <x:Double x:Key="WinToggleTrackWidth">50</x:Double>
+  <x:Double x:Key="WinToggleTrackHeight">19</x:Double>
+  <x:Double x:Key="WinToggleThumbWidth">12</x:Double>
+  <x:Double x:Key="WinToggleThumbHeight">19</x:Double>
+  <x:Double x:Key="WinToggleFillWidth">35</x:Double>
+  <x:Double x:Key="WinToggleFillHeight">13</x:Double>
+  <x:Double x:Key="WinToggleKnobTravel">38</x:Double>
+  <x:Double x:Key="WinToggleHeaderMaxWidth">470</x:Double>
+  <Thickness x:Key="WinToggleHeaderMargin">0,10,0,7</Thickness>
+  <x:Double x:Key="WinToggleValueMinWidth">65</x:Double>
+  <Thickness x:Key="WinToggleValueMargin">0,0,20,0</Thickness>
+  <x:Double x:Key="WinSliderHorizontalHeight">11</x:Double>
+  <x:Double x:Key="WinSliderVerticalWidth">11</x:Double>
+  <x:Double x:Key="WinProgressRingDotSize">3</x:Double>
+  <x:Double x:Key="WinProgressRingDotSizeMedium">5</x:Double>
+  <x:Double x:Key="WinProgressRingDotSizeLarge">7</x:Double>
+  <x:Double x:Key="WinSuggestionListMaxHeight">272</x:Double>
+  <Thickness x:Key="WinSuggestionListPadding">0,5,0,10</Thickness>
+  <Thickness x:Key="WinSuggestionItemPadding">18,9,18,11</Thickness>
+  <x:Double x:Key="WinSuggestionItemMinHeight">40</x:Double>
+  <Thickness x:Key="WinComboBoxItemPadding">8,4</Thickness>
+  <x:Double x:Key="WinIconSize">20</x:Double>
+  <Thickness x:Key="WinMenuBarItemPadding">12,6</Thickness>
+  <x:Double x:Key="WinMenuBarHeight">40</x:Double>
+  <x:Double x:Key="WinMenuSeparatorHeight">1</x:Double>
+  <x:Double x:Key="WinFlyoutMaxHeight">758</x:Double>
+  <x:Double x:Key="WinCaptionButtonWidth">46</x:Double>
+  <x:Double x:Key="WinCaptionButtonHeight">32</x:Double>
+  <x:Double x:Key="WinScrollBarGlyphFontSize">10.5</x:Double>
+  <x:Double x:Key="WinHorizontalMenuMinWidth">32</x:Double>
+  <Thickness x:Key="WinHorizontalMenuItemPadding">12,6</Thickness>
+  <Thickness x:Key="WinHorizontalMenuItemMargin">0</Thickness>
+  <Thickness x:Key="WinMenuScrollerMargin">0</Thickness>
+  <Thickness x:Key="WinMenuChevronMargin">12,0,0,0</Thickness>
+  <TransformOperations x:Key="WinScrollThumbCollapsedTransformVertical">scaleX(0.25)</TransformOperations>
+  <TransformOperations x:Key="WinScrollThumbCollapsedTransformHorizontal">scaleY(0.25)</TransformOperations>
+  <x:Double x:Key="WinPivotHeaderUnselectedOpacityValue">0.2</x:Double>
+  <x:Double x:Key="WinPivotHeaderUnselectedOpacityDarkValue">0.4</x:Double>
+  <Thickness x:Key="WinTabItemPadding">9,0</Thickness>
+  <Thickness x:Key="WinTabItemMargin">0</Thickness>
+  <Thickness x:Key="WinGroupBoxPadding">8</Thickness>
+  <x:Double x:Key="WinSplitViewOpenPaneLength">345</x:Double>
+  <x:Double x:Key="WinSplitViewCompactPaneLength">48</x:Double>
+  <x:Double x:Key="WinTreeViewItemMinHeight">40</x:Double>
+  <x:Double x:Key="WinRefreshIndicatorSize">20</x:Double>
+  <x:Double x:Key="WinCalendarDayButtonSize">40</x:Double>
+  <x:Double x:Key="WinAppBarMinHeight">80</x:Double>
+  <x:Double x:Key="WinAppBarReducedHeight">60</x:Double>
+  <x:Double x:Key="WinAppBarMinimalHeight">25</x:Double>
+  <x:Double x:Key="WinAppBarEllipsisWidth">56</x:Double>
+  <x:Double x:Key="WinAppBarEllipsisHeight">21</x:Double>
+  <x:Double x:Key="WinAppBarEllipsisFontSize">19</x:Double>
+  <x:Double x:Key="WinCommandRingSize">40</x:Double>
+  <Thickness x:Key="WinCommandRingBorderThickness">2</Thickness>
+  <CornerRadius x:Key="WinCommandRingCornerRadius">20</CornerRadius>
+  <x:Double x:Key="WinCommandWidth">100</x:Double>
+  <Thickness x:Key="WinCommandPadding">0,8</Thickness>
+  <Thickness x:Key="WinCommandIconMargin">28,0</Thickness>
+  <Thickness x:Key="WinCommandIconMarginReduced">8,0</Thickness>
+  <x:Double x:Key="WinCommandLabelMaxWidth">88</x:Double>
+  <Thickness x:Key="WinCommandLabelMargin">0,5,0,-1</Thickness>
+  <x:Double x:Key="WinCommandGlyphFontSize">18.5</x:Double>
+  <x:Double x:Key="WinCommandLabelFontSize">12</x:Double>
+  <Thickness x:Key="WinCommandSeparatorMargin">30,10,29,30</Thickness>
+  <Thickness x:Key="WinCommandSeparatorMarginReduced">10,10,9,10</Thickness>
+  <Thickness x:Key="WinCommandContentPadding">30,8</Thickness>
+  <Thickness x:Key="WinCommandContentPaddingReduced">10,8</Thickness>
+  <x:Double x:Key="WinSettingsFlyoutNarrowWidth">345</x:Double>
+  <x:Double x:Key="WinSettingsFlyoutWideWidth">645</x:Double>
+  <Thickness x:Key="WinSettingsFlyoutHeaderPadding">40,32,40,0</Thickness>
+  <x:Double x:Key="WinSettingsFlyoutHeaderHeight">48</x:Double>
+  <Thickness x:Key="WinSettingsFlyoutTitlePadding">40,0,0,0</Thickness>
+  <Thickness x:Key="WinSettingsFlyoutContentPadding">40,33,40,0</Thickness>
+  <x:Double x:Key="WinBackButtonSize">41</x:Double>
+  <x:Double x:Key="WinBackButtonSizeSmall">30</x:Double>
+  <CornerRadius x:Key="WinBackButtonCornerRadius">20.5</CornerRadius>
+  <CornerRadius x:Key="WinBackButtonCornerRadiusSmall">15</CornerRadius>
+  <x:Double x:Key="WinBackButtonGlyphFontSize">18.5</x:Double>
+  <x:Double x:Key="WinBackButtonGlyphFontSizeSmall">10.5</x:Double>
+  <x:Double x:Key="WinNavigationBarHeight">48</x:Double>
+  <x:Double x:Key="WinNavBarMinHeight">60</x:Double>
+  <x:Double x:Key="WinNavBarCommandWidth">210</x:Double>
+  <Thickness x:Key="WinNavBarCommandMargin">5</Thickness>
+  <Thickness x:Key="WinNavBarCommandMarginVertical">30,10</Thickness>
+  <Thickness x:Key="WinNavBarCommandPadding">10,5</Thickness>
+  <x:Double x:Key="WinNavBarCommandIconSize">40</x:Double>
+  <x:Double x:Key="WinNavBarCommandIconFontSize">26.5</x:Double>
+  <x:Double x:Key="WinNavBarCommandLabelFontSize">14.5</x:Double>
+  <x:Double x:Key="WinNavBarSplitButtonWidth">40</x:Double>
+  <x:Double x:Key="WinNavBarSplitButtonFontSize">14.5</x:Double>
+  <x:Double x:Key="WinNavBarArrowWidth">17</x:Double>
+  <Thickness x:Key="WinNavBarArrowMargin">0,20</Thickness>
+  <x:Double x:Key="WinNavBarArrowFontSize">21.5</x:Double>
+  <Thickness x:Key="WinNavBarViewportPadding">0,15</Thickness>
+  <Thickness x:Key="WinNavBarViewportPaddingVertical">0,10</Thickness>
+  <x:Double x:Key="WinNavBarVerticalMaxHeight">250</x:Double>
+  <x:Double x:Key="WinNavBarPageIndicatorWidth">40</x:Double>
+  <x:Double x:Key="WinNavBarPageIndicatorHeight">4</x:Double>
+  <Thickness x:Key="WinNavBarPageIndicatorMargin">2.5,5,2.5,11</Thickness>
+  <Thickness x:Key="WinListViewItemMarginHorizontal">5,10,5,0</Thickness>
+  <Thickness x:Key="WinListViewItemMarginVertical">7,10,24,0</Thickness>
+  <Thickness x:Key="WinListViewItemMarginGrid">5</Thickness>
+  <x:Double x:Key="WinListViewGroupLeaderMargin">70</x:Double>
+  <Thickness x:Key="WinListViewGroupHeaderPadding">2,10,10,10</Thickness>
+  <x:Double x:Key="WinListViewCheckmarkSize">40</x:Double>
+  <x:Double x:Key="WinListViewCheckmarkFontSize">14.67</x:Double>
+  <Thickness x:Key="WinListViewCheckmarkPadding">2</Thickness>
+  <x:Double x:Key="WinListViewPhoneSelectionOffset">41</x:Double>
+  <x:Double x:Key="WinListViewPhoneCheckSize">26</x:Double>
+  <Thickness x:Key="WinListViewPhoneCheckBorderThickness">2.5</Thickness>
+  <Thickness x:Key="WinListViewPhoneCheckMargin">-26,12,0,0</Thickness>
+  <x:Double x:Key="WinListViewProgressSize">60</x:Double>
+  <x:Double x:Key="WinFlipViewNavButtonWidth">69</x:Double>
+  <x:Double x:Key="WinFlipViewNavButtonHeight">39</x:Double>
+  <x:Double x:Key="WinFlipViewNavButtonFontSize">21.5</x:Double>
+  <x:Double x:Key="WinFlipViewDefaultHeight">400</x:Double>
+  <x:Double x:Key="WinSemanticZoomButtonSize">25</x:Double>
+  <Thickness x:Key="WinSemanticZoomButtonMargin">0,0,4,21</Thickness>
+  <x:Double x:Key="WinSemanticZoomButtonFontSize">14.5</x:Double>
+  <x:Double x:Key="WinSemanticZoomDefaultHeight">400</x:Double>
+  <x:Double x:Key="WinRatingStarSize">28</x:Double>
+  <x:Double x:Key="WinRatingStarWidth">40</x:Double>
+  <Thickness x:Key="WinRatingStarPadding">6,0</Thickness>
+  <x:Double x:Key="WinRatingStarSizeSmall">14</x:Double>
+  <x:Double x:Key="WinRatingStarWidthSmall">20</x:Double>
+  <Thickness x:Key="WinRatingStarPaddingSmall">3,0</Thickness>
+  <x:Double x:Key="WinSearchBoxWidth">266</x:Double>
+  <x:Double x:Key="WinSearchBoxHeight">28</x:Double>
+  <x:Double x:Key="WinSearchBoxButtonWidth">28</x:Double>
+  <x:Double x:Key="WinSearchBoxButtonFontSize">20</x:Double>
+  <Thickness x:Key="WinSearchBoxInputPadding">6,0,28,0</Thickness>
+  <Thickness x:Key="WinSearchBoxFlyoutPadding">0,5,0,10</Thickness>
+  <x:Double x:Key="WinSearchBoxFlyoutMaxHeight">272</x:Double>
+  <x:Double x:Key="WinSearchBoxFlyoutOffset">2</x:Double>
+  <Thickness x:Key="WinSearchBoxQueryPadding">18,9,18,11</Thickness>
+  <x:Double x:Key="WinSearchBoxResultHeight">60</x:Double>
+  <Thickness x:Key="WinSearchBoxResultImagePadding">0,10,10,10</Thickness>
+  <x:Double x:Key="WinSearchBoxResultImageSize">40</x:Double>
+  <Thickness x:Key="WinSearchBoxSeparatorPadding">18,0</Thickness>
+  <x:Double x:Key="WinSearchBoxSeparatorHeight">40</x:Double>
+  <Thickness x:Key="WinHubSectionPadding">40,0</Thickness>
+  <Thickness x:Key="WinHubSectionPaddingVertical">40,14</Thickness>
+  <Thickness x:Key="WinHubSurfacePadding">80,0</Thickness>
+  <Thickness x:Key="WinHubSurfacePaddingVertical">0,15</Thickness>
+  <Thickness x:Key="WinHubHeaderMargin">0,133,0,4</Thickness>
+  <Thickness x:Key="WinHubHeaderMarginVertical">0,5,0,4</Thickness>
+  <x:Double x:Key="WinHubHeaderFontSize">26.5</x:Double>
+  <Thickness x:Key="WinHubHeaderPadding">0,0,3,0</Thickness>
+  <Thickness x:Key="WinHubChevronMargin">7,0,0,0</Thickness>
+  <x:Double x:Key="WinHubChevronFontSize">20</x:Double>
+  <Thickness x:Key="WinHubProgressTop">0,10,0,0</Thickness>
+  <x:Double x:Key="WinPivotHeadersHeight">72</x:Double>
+  <x:Double x:Key="WinPivotHeaderFontSize">60</x:Double>
+  <Thickness x:Key="WinPivotHeaderPadding">9,0</Thickness>
+  <Thickness x:Key="WinPivotTitleMargin">18,12,0,-8</Thickness>
+  <x:Double x:Key="WinPivotTitleFontSize">18.5</x:Double>
+  <Thickness x:Key="WinPivotItemPadding">19,0</Thickness>
+  <Thickness x:Key="WinPivotItemTopOffset">0,28,0,0</Thickness>
+  <x:Double x:Key="WinPivotNavButtonWidth">18</x:Double>
+  <x:Double x:Key="WinPivotNavButtonHeight">40</x:Double>
+  <Thickness x:Key="WinPivotNavButtonMargin">0,30,0,0</Thickness>
+  <x:Double x:Key="WinPivotNavButtonFontSize">21.5</x:Double>
+  <x:Double x:Key="WinDatePickerMinWidth">296</x:Double>
+  <x:Double x:Key="WinOpaque">1</x:Double>
+  <x:Double x:Key="WinZeroDouble">0</x:Double>
+  <GridLength x:Key="WinZeroGridLength">0</GridLength>
+  <x:Double x:Key="WinControlBorderWidth">2</x:Double>
+  <x:Boolean x:Key="WinIsPhone">False</x:Boolean>
+  <x:Boolean x:Key="WinIsDesktop">True</x:Boolean>
+  <x:Double x:Key="WinPressedScale">0.975</x:Double>
+  <x:TimeSpan x:Key="WinPointerDownDuration">0:0:0.167</x:TimeSpan>
+  <x:TimeSpan x:Key="WinShortDuration">0:0:0.1</x:TimeSpan>
+</ResourceDictionary>

@@ -1,0 +1,95 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.PagesPage"
+              x:DataType="vm:MusicViewModel"
+              Description="The Page family (NavigationPage, TabbedPage, DrawerPage): a Light xx-large header, the round BackButton, and pivot-style tabs. AvaWin's BackButton wires itself to Page.Navigation, so a pushed page pops with no code.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="AlbumRow" x:DataType="vm:Album">
+      <Grid ColumnDefinitions="60,*" Margin="10,7">
+        <Border Height="60" ClipToBounds="True">
+          <Image Source="{Binding Cover.Image}" Stretch="UniformToFill" />
+        </Border>
+        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+          <TextBlock Text="{Binding Title}" Classes="win-type-medium" />
+          <TextBlock Text="{Binding Artist}" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="TrackRow" x:DataType="vm:Track">
+      <Grid ColumnDefinitions="32,*,Auto" Margin="0,0,0,10">
+        <TextBlock Text="{Binding Number}" Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        <TextBlock Grid.Column="1" Text="{Binding Title}" Classes="win-type-medium" />
+        <TextBlock Grid.Column="2" Text="{Binding Duration}" Classes="win-type-small" />
+      </Grid>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <NavigationPage Name="Nav">
+      <ContentPage Header="Albums">
+        <win:ListView Name="AlbumList" ItemsSource="{Binding Albums}" ItemTemplate="{StaticResource AlbumRow}" TapBehavior="InvokeOnly" SelectionMode="None" ItemInvoked="OnAlbumInvoked" Margin="20,0" />
+      </ContentPage>
+    </NavigationPage>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="TabbedPage" Description="Tabs are drawn as pivot headers. TabPlacement=Bottom gives the phone layout; a disabled page's tab is dimmed.">
+    <Border BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" Height="240" MaxWidth="560">
+      <TabbedPage>
+        <ContentPage Header="recent">
+          <TextBlock Text="Recently played albums appear here." Margin="20" TextWrapping="Wrap" />
+        </ContentPage>
+        <ContentPage Header="favorites">
+          <TextBlock Text="Albums you marked as favorites." Margin="20" TextWrapping="Wrap" />
+        </ContentPage>
+        <ContentPage Header="offline" TabbedPage.IsTabEnabled="False">
+          <TextBlock Text="Not available." Margin="20" />
+        </ContentPage>
+      </TabbedPage>
+    </Border>
+  </g:Scenario>
+
+  <g:Scenario Title="DrawerPage" Description="A drawer that slides over the content, or docks beside it when the page is wider than DrawerBreakpointLength. The toggle in the header opens it.">
+    <Border BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" Height="280" MaxWidth="560">
+      <DrawerPage Name="Drawer" DrawerLength="200" IsOpen="True" DrawerBreakpointLength="500">
+        <DrawerPage.Drawer>
+          <ContentPage Header="Library">
+            <StackPanel Margin="20,0" Spacing="10">
+              <TextBlock Text="albums" Classes="win-type-large" />
+              <TextBlock Text="artists" Classes="win-type-large" />
+              <TextBlock Text="songs" Classes="win-type-large" />
+              <TextBlock Text="playlists" Classes="win-type-large" />
+            </StackPanel>
+          </ContentPage>
+        </DrawerPage.Drawer>
+        <ContentPage Header="Now playing">
+          <StackPanel Margin="20,0" Spacing="6">
+            <TextBlock Text="Glass Fjord" Classes="win-type-x-large" />
+            <TextBlock Text="Aurora Field" Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+            <ToggleButton Content="Toggle drawer" IsChecked="{Binding #Drawer.IsOpen}" Margin="0,12,0,0" />
+          </StackPanel>
+        </ContentPage>
+      </DrawerPage>
+    </Border>
+  </g:Scenario>
+
+  <g:Scenario Title="SplitView" Description="Avalonia's SplitView with the pane color. CompactInline keeps a 48px strip when the pane is closed.">
+    <Border BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" Height="240" MaxWidth="560">
+      <SplitView Name="Split" DisplayMode="CompactInline" IsPaneOpen="True" OpenPaneLength="200">
+        <SplitView.Pane>
+          <StackPanel Margin="12" Spacing="8">
+            <TextBlock Text="Pane" Classes="win-type-large" />
+            <Button Content="Item one" HorizontalAlignment="Stretch" />
+            <Button Content="Item two" HorizontalAlignment="Stretch" />
+          </StackPanel>
+        </SplitView.Pane>
+        <StackPanel Margin="20" Spacing="8">
+          <TextBlock Text="Content" Classes="win-type-large" />
+          <ToggleButton Content="Pane open" IsChecked="{Binding #Split.IsPaneOpen}" />
+        </StackPanel>
+      </SplitView>
+    </Border>
+  </g:Scenario>
+</g:SamplePage>

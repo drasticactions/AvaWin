@@ -1,0 +1,87 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin.Controls"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <StackPanel Orientation="Horizontal" Spacing="12">
+        <win:BackButton IsAutoEnabled="False" />
+        <win:BackButton IsAutoEnabled="False" Classes="small" />
+        <win:BackButton IsAutoEnabled="False" IsEnabled="False" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type win:BackButton}" TargetType="win:BackButton">
+    <Setter Property="Width" Value="{DynamicResource WinBackButtonSize}" />
+    <Setter Property="Height" Value="{DynamicResource WinBackButtonSize}" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="CornerRadius" Value="{DynamicResource WinBackButtonCornerRadius}" />
+    <Setter Property="Background" Value="{DynamicResource BackButtonBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BackButtonBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource WinControlBorderThickness}" />
+    <Setter Property="Foreground" Value="{DynamicResource BackButtonForeground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinSymbolFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource WinBackButtonGlyphFontSize}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FocusAdorner" Value="{x:Null}" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="Transitions">
+      <Transitions>
+        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.167" Easing="0.1,0.9,0.2,1" />
+      </Transitions>
+    </Setter>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Root"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource BackButtonBackgroundPointerOver}" />
+    </Style>
+    <Style Selector="^:pressed">
+      <Setter Property="RenderTransform" Value="scale(0.975)" />
+    </Style>
+    <Style Selector="^:pressed /template/ Border#PART_Root">
+      <Setter Property="Background" Value="{DynamicResource BackButtonBackgroundPressed}" />
+    </Style>
+    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource BackButtonForegroundPressed}" />
+    </Style>
+    <Style Selector="^:focus-visible /template/ Border#PART_Root">
+      <Setter Property="BorderBrush" Value="{DynamicResource BackButtonBorderBrushFocused}" />
+    </Style>
+    <Style Selector="^:disabled">
+      <Setter Property="Opacity" Value="0" />
+      <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
+    <Style Selector="^:disabled /template/ Border#PART_Root">
+      <Setter Property="BorderBrush" Value="{DynamicResource BackButtonBorderBrushDisabled}" />
+    </Style>
+    <Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Foreground" Value="{DynamicResource BackButtonForegroundDisabled}" />
+    </Style>
+
+    <Style Selector="^.small">
+      <Setter Property="Width" Value="{DynamicResource WinBackButtonSizeSmall}" />
+      <Setter Property="Height" Value="{DynamicResource WinBackButtonSizeSmall}" />
+      <Setter Property="CornerRadius" Value="{DynamicResource WinBackButtonCornerRadiusSmall}" />
+      <Setter Property="FontSize" Value="{DynamicResource WinBackButtonGlyphFontSizeSmall}" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

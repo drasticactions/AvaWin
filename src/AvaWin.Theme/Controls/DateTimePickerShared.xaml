@@ -1,0 +1,107 @@
+
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Padding="20" Width="200">
+      <StackPanel Spacing="20">
+        <ListBoxItem Theme="{DynamicResource WinDateTimePickerItem}">Standard Item</ListBoxItem>
+        <ListBoxItem Theme="{DynamicResource WinDateTimePickerItem}" Classes="MonthItem">Month Item</ListBoxItem>
+        <RepeatButton Theme="{DynamicResource WinDateTimePickerButton}">Button</RepeatButton>
+        <RepeatButton Theme="{DynamicResource WinDateTimePickerUpButton}" IsVisible="True"/>
+        <RepeatButton Theme="{DynamicResource WinDateTimePickerDownButton}" IsVisible="True"/>
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="WinDateTimePickerItem" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+    <Setter Property="Padding" Value="{DynamicResource DatePickerFlyoutPresenterItemPadding}"/>
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="FontSize" Value="{DynamicResource WinFontSizeSelect}" />
+    <Setter Property="FontWeight" Value="{DynamicResource WinFontWeightSelect}" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+
+    <Style Selector="^:selected">
+      <Setter Property="IsHitTestVisible" Value="False"/>
+      <Style Selector="^/template/ Rectangle#PressedBackground">
+        <Setter Property="Fill" Value="Transparent"/>
+      </Style>
+      <Style Selector="^/template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource DateTimePickerFlyoutItemForegroundSelected}"/>
+      </Style>
+    </Style>
+    <Style Selector="^.MonthItem">
+      <Setter Property="Padding" Value="{DynamicResource DatePickerFlyoutPresenterMonthPadding}"/>
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinDateTimePickerButton" TargetType="Button">
+    <Setter Property="Background" Value="{DynamicResource DateTimePickerFlyoutButtonBackground}" />
+    <Setter Property="Height" Value="22" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="RenderTransform" Value="none" />
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}">
+          <ContentPresenter x:Name="PART_ContentPresenter"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{DynamicResource DateTimePickerFlyoutButtonBorderBrush}"
+                  BorderThickness="{DynamicResource DateTimeFlyoutButtonBorderThickness}"
+                  Content="{TemplateBinding Content}"
+                  Foreground="{DynamicResource DateTimePickerFlyoutButtonForeground}"
+                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                  Padding="{TemplateBinding Padding}"
+                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                  CornerRadius="{TemplateBinding CornerRadius}"/>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource DateTimePickerFlyoutButtonBackgroundPointerOver}"/>
+      <Setter Property="BorderBrush" Value="{DynamicResource DateTimePickerFlyoutButtonBorderBrushPointerOver}"/>
+      <Setter Property="Foreground" Value="{DynamicResource DateTimePickerFlyoutButtonForegroundPointerOver}"/>
+    </Style>
+
+    <Style Selector="^:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource DateTimePickerFlyoutButtonBackgroundPressed}"/>
+      <Setter Property="BorderBrush" Value="{DynamicResource DateTimePickerFlyoutButtonBorderBrushPressed}"/>
+      <Setter Property="Foreground" Value="{DynamicResource DateTimePickerFlyoutButtonForegroundPressed}"/>
+    </Style>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinDateTimePickerUpButton" TargetType="RepeatButton" BasedOn="{StaticResource WinDateTimePickerButton}">
+    <Setter Property="VerticalAlignment" Value="Top"/>
+    <Setter Property="Height" Value="22" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Background" Value="{DynamicResource DateTimePickerFlyoutPresenterBackground}" />
+    <Setter Property="IsVisible" Value="False"/>
+    <Setter Property="Content">
+      <Template>
+        <TextBlock Text="&#xE0E4;" FontFamily="{DynamicResource WinSymbolFontFamily}" FontSize="{DynamicResource ScrollBarButtonArrowIconFontSize}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Template>
+    </Setter>
+  </ControlTheme>
+
+  <ControlTheme x:Key="WinDateTimePickerDownButton" TargetType="RepeatButton" BasedOn="{StaticResource WinDateTimePickerButton}">
+    <Setter Property="VerticalAlignment" Value="Bottom"/>
+    <Setter Property="Height" Value="22" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Background" Value="{DynamicResource DateTimePickerFlyoutPresenterBackground}" />
+    <Setter Property="IsVisible" Value="False"/>
+    <Setter Property="Content">
+      <Template>
+        <TextBlock Text="&#xE0E5;" FontFamily="{DynamicResource WinSymbolFontFamily}" FontSize="{DynamicResource ScrollBarButtonArrowIconFontSize}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Template>
+    </Setter>
+  </ControlTheme>
+</ResourceDictionary>

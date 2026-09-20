@@ -1,0 +1,36 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:pages="using:AvaWin.Gallery.Pages"
+              x:Class="AvaWin.Gallery.Pages.ColorsPage"
+              HeroFill="False"
+              Description="Three layers of DynamicResource keys: the palette colors (SystemAccentColor, SystemBaseHighColor...), the semantic Win* brushes built from them, and Fluent-compatible aliases per control. Everything here re-resolves live when you change the variant, platform or accent in Settings.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="Swatch" x:DataType="pages:TokenSwatch">
+      <StackPanel Width="150" Margin="0,0,12,12">
+        <Border Height="56" Background="{Binding Brush}" BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" />
+        <TextBlock Text="{Binding Key}" Classes="win-type-xx-small" TextTrimming="CharacterEllipsis" Margin="0,4,0,0" ToolTip.Tip="{Binding Key}" />
+      </StackPanel>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <StackPanel Classes="screen" Spacing="16">
+      <TextBlock Text="Accent" Classes="win-type-x-large" />
+      <ItemsControl Name="AccentList" ItemTemplate="{StaticResource Swatch}">
+        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+      </ItemsControl>
+      <TextBlock Text="Base and Alt" Classes="win-type-x-large" />
+      <ItemsControl Name="BaseList" ItemTemplate="{StaticResource Swatch}">
+        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+      </ItemsControl>
+    </StackPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Semantic brushes" Description="The Win* keys a theme override should target: text, page and chrome backgrounds, selection, buttons, fields, commands.">
+    <ItemsControl Name="SemanticList" ItemTemplate="{StaticResource Swatch}">
+      <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+    </ItemsControl>
+  </g:Scenario>
+</g:SamplePage>

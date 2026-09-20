@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Headless.XUnit" />
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="Avalonia.HarfBuzz" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaWin.Theme\AvaWin.Theme.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The control theme XAML is read at test time to enumerate the resource keys each template consumes. -->
+    <Content Include="..\..\src\AvaWin.Theme\Controls\*.xaml" Link="ThemeXaml\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

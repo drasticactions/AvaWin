@@ -1,0 +1,62 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.ContentDialogPage"
+              x:DataType="vm:ChromeViewModel"
+              HeroFill="False"
+              Description="ContentDialog is the modal dialog: a dimmed backdrop over the whole window, a panel with a title, your content and up to two equal-width commands. ShowAsync completes with which command dismissed it; Escape dismisses with None; BeforeHide can cancel. Clicking the backdrop does nothing — it is modal, not light-dismiss.">
+  <g:SamplePage.Hero>
+    <g:ResponsiveColumns Classes="screen">
+      <Border ClipToBounds="True" MaxHeight="280">
+        <Image Source="{Binding Current.Image}" Stretch="UniformToFill" />
+      </Border>
+      <StackPanel Spacing="12">
+        <TextBlock Text="{Binding Current.Title}" Classes="win-type-x-large" />
+        <TextBlock Text="{Binding Current.Caption}" Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+        <WrapPanel Classes="demo-row" Margin="0,8,0,0">
+          <Button Name="DeleteButton" Content="Delete" Click="OnDelete" />
+          <Button Name="RenameButton" Content="Rename" Click="OnRename" />
+          <Button Name="InfoButton" Content="Details" Click="OnInfo" />
+        </WrapPanel>
+        <TextBlock Text="{Binding Status}" Classes="demo-status" />
+        <win:ContentDialog Name="DeleteDialog" Title="Delete this photo?" PrimaryCommandText="Delete" SecondaryCommandText="Cancel" BeforeHide="OnDeleteBeforeHide">
+          <StackPanel Spacing="12">
+            <TextBlock Text="It will be removed from every album and from your other devices. This can't be undone." TextWrapping="Wrap" />
+            <CheckBox Name="Confirm" Content="I understand" />
+          </StackPanel>
+        </win:ContentDialog>
+        <win:ContentDialog Name="RenameDialog" Title="Rename" PrimaryCommandText="Save" SecondaryCommandText="Cancel">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Title" />
+            <TextBox Name="NewTitle" />
+          </StackPanel>
+        </win:ContentDialog>
+        <win:ContentDialog Name="InfoDialog" Title="Details" PrimaryCommandText="Close">
+          <StackPanel Spacing="10">
+            <TextBlock Text="A single command takes the right half of the row; the content scrolls when there is more than fits." TextWrapping="Wrap" />
+            <TextBlock Text="File" Classes="win-type-large" />
+            <TextBlock Text="photo-01.jpg · 640 × 400 · 5 KB" />
+            <TextBlock Text="Taken" Classes="win-type-large" />
+            <TextBlock Text="{Binding Current.Caption}" />
+            <TextBlock Text="Albums" Classes="win-type-large" />
+            <TextBlock Text="Camera roll, Harbor, Trips" />
+            <TextBlock Text="Shared with" Classes="win-type-large" />
+            <TextBlock Text="Ava Adler, Ben Hayes, Cara Olsen, Dev Vogel, Eli Chen, Fay Jones, Gus Quist, Hana Rossi, Ivo Silva, Jun Tanaka" TextWrapping="Wrap" />
+            <TextBlock Text="Notes" Classes="win-type-large" />
+            <TextBlock Text="The light was perfect around six. Wider walkways, a new tram stop and space for the weekend market — worth a second visit once the pier reopens. Wider walkways, a new tram stop and space for the weekend market." TextWrapping="Wrap" />
+          </StackPanel>
+        </win:ContentDialog>
+      </StackPanel>
+    </g:ResponsiveColumns>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Events and canceling" Description="The Delete dialog only lets its primary command through once the box is checked: BeforeHide sets Cancel otherwise. The status line above logs every event.">
+    <TextBlock Classes="demo-status" Text="BeforeShow → AfterShow → BeforeHide(result) → AfterHide(result); ShowAsync completes after AfterHide." />
+  </g:Scenario>
+
+  <g:Scenario Title="Sizing" Description="The panel is as wide as the window between 320 and 456px, at least 184px tall and at most 758px; it is vertically centered in windows 640px or taller and attached to the top in shorter ones. Resize the window with the Details dialog open to see the rules.">
+    <Button Content="Show the Details dialog" Click="OnInfo" />
+  </g:Scenario>
+</g:SamplePage>

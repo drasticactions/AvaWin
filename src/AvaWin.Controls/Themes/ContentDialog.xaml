@@ -1,0 +1,83 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:win="using:AvaWin.Controls"
+                    x:ClassModifier="internal">
+  <Design.PreviewWith>
+    <Border Width="600" Height="500">
+      <win:ContentDialogPresenter Header="Delete this album?" PrimaryCommandText="Delete" SecondaryCommandText="Cancel">
+        <TextBlock Text="It will be removed from every device." TextWrapping="Wrap" />
+      </win:ContentDialogPresenter>
+    </Border>
+  </Design.PreviewWith>
+
+  <ControlTheme x:Key="{x:Type win:ContentDialogPresenter}" TargetType="win:ContentDialogPresenter">
+    <Setter Property="Background" Value="{DynamicResource ContentDialogBackground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ContentDialogBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource ContentDialogForeground}" />
+    <Setter Property="FontFamily" Value="{DynamicResource WinFontFamily}" />
+    <Setter Property="FontSize" Value="{DynamicResource ContentDialogContentFontSize}" />
+    <Setter Property="Padding" Value="{DynamicResource ContentDialogPadding}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="Focusable" Value="True" />
+    <Setter Property="KeyboardNavigation.TabNavigation" Value="Cycle" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Name="PART_Root">
+          <Border Name="PART_Backdrop"
+                  Background="{DynamicResource ContentDialogBackdrop}"
+                  Opacity="{DynamicResource ContentDialogBackdropOpacity}" />
+          <win:ContentDialogPanel>
+            <Border Name="PART_Dialog"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Padding="{TemplateBinding Padding}"
+                    MinWidth="{DynamicResource ContentDialogMinWidth}"
+                    MaxWidth="{DynamicResource ContentDialogMaxWidth}"
+                    MinHeight="{DynamicResource ContentDialogMinHeight}"
+                    MaxHeight="{DynamicResource ContentDialogMaxHeight}"
+                    HorizontalAlignment="Stretch">
+              <DockPanel>
+                <ContentPresenter Name="PART_Title"
+                                  DockPanel.Dock="Top"
+                                  Content="{TemplateBinding Header}"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  TextElement.FontSize="{DynamicResource ContentDialogTitleFontSize}"
+                                  TextElement.FontWeight="{DynamicResource ContentDialogTitleFontWeight}" />
+                <Grid Name="PART_Commands"
+                      DockPanel.Dock="Bottom"
+                      ColumnDefinitions="*,*"
+                      ColumnSpacing="{DynamicResource ContentDialogCommandSpacing}"
+                      Margin="{DynamicResource ContentDialogCommandsMargin}">
+                  <Button Name="PART_PrimaryCommand"
+                          Grid.Column="0"
+                          Content="{TemplateBinding PrimaryCommandText}"
+                          IsEnabled="{TemplateBinding IsPrimaryCommandEnabled}"
+                          HorizontalAlignment="Stretch" />
+                  <Button Name="PART_SecondaryCommand"
+                          Grid.Column="1"
+                          Content="{TemplateBinding SecondaryCommandText}"
+                          IsEnabled="{TemplateBinding IsSecondaryCommandEnabled}"
+                          HorizontalAlignment="Stretch" />
+                </Grid>
+                <ScrollViewer Name="PART_Scroller" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                  <ContentPresenter Name="PART_ContentPresenter"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </ScrollViewer>
+              </DockPanel>
+            </Border>
+          </win:ContentDialogPanel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+
+    <Style Selector="^:not(:commands) /template/ Grid#PART_Commands">
+      <Setter Property="IsVisible" Value="False" />
+    </Style>
+  </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>AvaWin.Gallery</RootNamespace>
+    <AvaWinIsLibrary>false</AvaWinIsLibrary>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <IsAotCompatible>true</IsAotCompatible>
+    <!-- CommunityToolkit.Mvvm 8.4 gates [ObservableProperty] on partial properties behind the preview language version -->
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaWin.Theme\AvaWin.Theme.csproj" />
+    <ProjectReference Include="..\..\src\AvaWin.Controls\AvaWin.Controls.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaWin.Gallery.Desktop" />
+  </ItemGroup>
+
+</Project>

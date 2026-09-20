@@ -1,0 +1,67 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.CommandBarPage"
+              x:DataType="vm:ChromeViewModel"
+              Description="Avalonia's in-page CommandBar drawn with the command rings and labels. Primary commands stay in the bar; secondary ones live behind the ellipsis. Unlike AppBar it is part of the layout, not an edge overlay.">
+  <g:SamplePage.Hero>
+    <DockPanel Margin="20,16,20,20">
+      <CommandBar DockPanel.Dock="Top" DefaultLabelPosition="Bottom">
+        <CommandBarToggleButton Label="Bold" Icon="&#xE19B;" IsChecked="True" />
+        <CommandBarToggleButton Label="Italic" Icon="&#xE199;" />
+        <CommandBarToggleButton Label="Underline" Icon="&#xE19A;" />
+        <CommandBarSeparator />
+        <CommandBarButton Label="Undo" Icon="&#xE10E;" />
+        <CommandBarButton Label="Redo" Icon="&#xE10D;" IsEnabled="False" />
+        <CommandBarSeparator />
+        <CommandBarButton Label="Attach" Icon="&#xE16C;" />
+        <CommandBarButton Label="Save" Icon="&#xE105;" />
+        <CommandBar.SecondaryCommands>
+          <CommandBarButton Label="Print" Icon="&#xE119;" />
+          <CommandBarButton Label="Settings" Icon="&#xE115;" />
+          <CommandBarButton Label="Help" Icon="&#xE11B;" />
+        </CommandBar.SecondaryCommands>
+      </CommandBar>
+      <TextBox Text="{Binding Note}" AcceptsReturn="True" TextWrapping="Wrap" Margin="0,16,0,0" VerticalContentAlignment="Top" />
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Label positions" Description="DefaultLabelPosition puts the labels under the icons, beside them, or hides them.">
+    <StackPanel Spacing="16">
+      <CommandBar DefaultLabelPosition="Right" MaxWidth="560" HorizontalAlignment="Left">
+        <CommandBarButton Label="Add" Icon="&#xE109;" />
+        <CommandBarToggleButton Label="Favorite" Icon="&#xE113;" IsChecked="True" />
+        <CommandBarSeparator />
+        <CommandBarButton Label="Camera" Icon="&#xE114;" />
+        <CommandBarButton Label="Delete" Icon="&#xE107;" IsEnabled="False" />
+        <CommandBar.SecondaryCommands>
+          <CommandBarButton Label="Settings" Icon="&#xE115;" />
+        </CommandBar.SecondaryCommands>
+      </CommandBar>
+      <CommandBar DefaultLabelPosition="Collapsed" MaxWidth="560" HorizontalAlignment="Left">
+        <CommandBarButton Label="Add" Icon="&#xE109;" />
+        <CommandBarToggleButton Label="Favorite" Icon="&#xE113;" IsChecked="True" />
+        <CommandBarSeparator />
+        <CommandBarButton Label="Camera" Icon="&#xE114;" />
+        <CommandBarButton Label="Delete" Icon="&#xE107;" IsEnabled="False" />
+        <CommandBar.SecondaryCommands>
+          <CommandBarButton Label="Settings" Icon="&#xE115;" />
+        </CommandBar.SecondaryCommands>
+      </CommandBar>
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Dynamic overflow" Description="With IsDynamicOverflowEnabled, primary commands that no longer fit move into the overflow menu. This bar is 300px wide.">
+    <CommandBar Width="300" HorizontalAlignment="Left" IsDynamicOverflowEnabled="True" DefaultLabelPosition="Bottom">
+      <CommandBarButton Label="Add" Icon="&#xE109;" />
+      <CommandBarButton Label="Camera" Icon="&#xE114;" />
+      <CommandBarButton Label="Favorite" Icon="&#xE113;" />
+      <CommandBarButton Label="Delete" Icon="&#xE107;" />
+      <CommandBarButton Label="Edit" Icon="&#xE104;" />
+      <CommandBarButton Label="Copy" Icon="&#xE16F;" />
+      <CommandBarButton Label="Paste" Icon="&#xE16D;" />
+    </CommandBar>
+  </g:Scenario>
+</g:SamplePage>

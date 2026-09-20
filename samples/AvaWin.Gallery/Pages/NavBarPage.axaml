@@ -1,0 +1,82 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.NavBarPage"
+              x:DataType="vm:ChromeViewModel"
+              Description="The NavBar is an AppBar for navigation: it drops from the top edge and holds a NavBarContainer, which lays commands out in rows and pages them sideways when there are too many. The gallery's own navigation (right-click, or the ellipsis then Navigation) is this control.">
+  <g:SamplePage.Hero>
+    <DockPanel>
+      <win:NavBarPresenter DockPanel.Dock="Top" Placement="Top" IsOpen="True">
+        <win:NavBarPresenter.Content>
+        <win:NavBarContainer Name="MainNav" MaxRows="1" Invoked="OnInvoked">
+          <win:NavBarCommand Label="Home" Icon="Home" Location="home" />
+          <win:NavBarCommand Label="Photos" Icon="Pictures" Location="photos" />
+          <win:NavBarCommand Label="Music" Icon="Audio" Location="music" />
+          <win:NavBarCommand Label="Mail" Icon="Mail" Location="mail" />
+          <win:NavBarCommand Label="Calendar" Icon="Calendar" Location="calendar" />
+          <win:NavBarCommand Label="People" Icon="People" Location="people" />
+          <win:NavBarCommand Label="Maps" Icon="Map" Location="maps" />
+          <win:NavBarCommand Label="Video" Icon="Video" Location="video" />
+          <win:NavBarCommand Label="Settings" Icon="Settings" Location="settings" />
+          <win:NavBarCommand Label="Help" Icon="Help" Location="help" />
+        </win:NavBarContainer>
+        </win:NavBarPresenter.Content>
+      </win:NavBarPresenter>
+      <Grid Margin="20,16" RowDefinitions="Auto,Auto,*">
+        <TextBlock Name="PageTitle" Text="Home" Classes="win-type-xx-large" />
+        <TextBlock Grid.Row="1" Text="{Binding Status}" Classes="demo-status" />
+        <Border Grid.Row="2" ClipToBounds="True" Margin="0,16,0,0" MaxHeight="360" VerticalAlignment="Top">
+          <Image Source="{Binding Current.Image}" Stretch="UniformToFill" />
+        </Border>
+      </Grid>
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Paged rows" Description="Twenty commands, MaxRows=2: the container fills two rows, then pages. Hover the edges for the paging arrows, or use the wheel; the dots below show the current page.">
+    <win:NavBarContainer Name="Paged" MaxRows="2" />
+  </g:Scenario>
+
+  <g:Scenario Title="Fixed size" Description="FixedSize=True keeps commands at their natural width instead of stretching them to fill the row.">
+    <win:NavBarContainer MaxRows="1" FixedSize="True">
+      <win:NavBarCommand Label="Home" Icon="Home" />
+      <win:NavBarCommand Label="Photos" Icon="Pictures" />
+      <win:NavBarCommand Label="Music" Icon="Audio" />
+      <win:NavBarCommand Label="Mail" Icon="Mail" />
+      <win:NavBarCommand Label="Calendar" Icon="Calendar" />
+    </win:NavBarContainer>
+  </g:Scenario>
+
+  <g:Scenario Title="Split buttons and data items" Description="SplitButton adds a chevron that raises SplitToggle instead of navigating. A container can also bind ItemsSource to plain data, which the Invoked event reports back.">
+    <StackPanel>
+      <win:NavBarContainer Name="Split" MaxRows="1" Invoked="OnSplitInvoked" SplitToggle="OnSplitToggle">
+        <win:NavBarCommand Label="Favorites" Icon="Favorite" SplitButton="True" />
+        <win:NavBarCommand Label="Opened" Icon="Folder" SplitButton="True" SplitOpened="True" />
+        <win:NavBarCommand Label="Disabled" Icon="Delete" IsEnabled="False" />
+      </win:NavBarContainer>
+      <win:NavBarContainer Name="Data" MaxRows="1" Invoked="OnSplitInvoked" ItemsSource="{Binding Recent}" />
+      <TextBlock Name="SplitStatus" Classes="demo-status" Text="Click a command" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Vertical layout" Description="Layout=Vertical stacks the commands, for a NavBar docked on a side.">
+    <win:NavBarContainer Layout="Vertical" MaxRows="1" Width="240" HorizontalAlignment="Left">
+      <win:NavBarCommand Label="Home" Icon="Home" />
+      <win:NavBarCommand Label="Photos" Icon="Pictures" />
+      <win:NavBarCommand Label="Music" Icon="Audio" />
+      <win:NavBarCommand Label="Mail" Icon="Mail" />
+    </win:NavBarContainer>
+  </g:Scenario>
+
+  <g:Scenario Title="Overlay NavBar" Description="A real NavBar over the window, docked at the bottom edge here because the gallery's own NavBar owns the top. It closes when a command is invoked.">
+    <StackPanel Classes="demo-column">
+      <win:NavBar Name="Overlay" Placement="Bottom" IsRightClickToggleEnabled="False">
+        <win:NavBar.Content>
+          <win:NavBarContainer Name="OverlayNav" MaxRows="1" Invoked="OnOverlayInvoked" />
+        </win:NavBar.Content>
+      </win:NavBar>
+      <Button Name="OpenNavBar" Content="Open NavBar (bottom edge)" Click="OnOpenOverlay" />
+    </StackPanel>
+  </g:Scenario>
+</g:SamplePage>

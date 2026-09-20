@@ -1,0 +1,81 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.TextInputPage"
+              x:DataType="vm:FormsViewModel"
+              HeroFill="False"
+              Description="Text entry with the 2px field border, the accent focus border and the clear (×) and reveal (eye) buttons. AutoCompleteBox drops the suggestion list under the field; NumericUpDown and ButtonSpinner put the spinners on the right.">
+  <g:SamplePage.Hero>
+    <g:ResponsiveColumns Classes="screen">
+      <StackPanel Spacing="8">
+        <TextBlock Text="New contact" Classes="win-type-x-large" Margin="0,0,0,8" />
+        <TextBlock Text="Name" Classes="win-type-small" />
+        <TextBox Text="{Binding Name}" Classes="clearButton" />
+        <TextBlock Text="Email" Classes="win-type-small" />
+        <TextBox Text="{Binding Email}" PlaceholderText="name@example.com" />
+        <TextBlock Text="Phone" Classes="win-type-small" />
+        <MaskedTextBox Mask="(000) 000-0000" />
+        <TextBlock Text="City" Classes="win-type-small" />
+        <AutoCompleteBox ItemsSource="{Binding Cities}" Text="{Binding City}" PlaceholderText="Start typing a city" FilterMode="StartsWith" />
+        <TextBlock Text="Age" Classes="win-type-small" />
+        <NumericUpDown Value="{Binding Age}" Minimum="0" Maximum="120" Width="160" HorizontalAlignment="Left" />
+      </StackPanel>
+      <StackPanel Spacing="8">
+        <TextBlock Text="Notes" Classes="win-type-small" Margin="0,44,0,0" />
+        <TextBox Text="{Binding Notes}" AcceptsReturn="True" TextWrapping="Wrap" Height="120" PlaceholderText="Anything worth remembering" />
+        <TextBlock Text="Password for shared albums" Classes="win-type-small" />
+        <TextBox Text="hunter2" PasswordChar="●" Classes="revealPasswordButton" />
+        <WrapPanel Classes="demo-row" Margin="0,12,0,0">
+          <Button Content="Save" Classes="accent" Command="{Binding SaveCommand}" />
+          <Button Content="Cancel" Command="{Binding CancelCommand}" />
+        </WrapPanel>
+        <TextBlock Text="{Binding Status}" Classes="demo-status" />
+      </StackPanel>
+    </g:ResponsiveColumns>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="TextBox states" Description="Placeholder, the clearButton and revealPasswordButton classes, multi-line, read-only, disabled, and the error class for invalid input.">
+    <g:ResponsiveColumns MaxWidth="640" HorizontalAlignment="Left">
+      <StackPanel Classes="demo-column" HorizontalAlignment="Stretch">
+        <TextBox Text="Single line" />
+        <TextBox PlaceholderText="Placeholder" />
+        <TextBox Text="With clear button" Classes="clearButton" />
+        <TextBox Text="password" PasswordChar="●" Classes="revealPasswordButton" />
+      </StackPanel>
+      <StackPanel Classes="demo-column" HorizontalAlignment="Stretch">
+        <TextBox Text="Multi-line text area&#x0A;second line&#x0A;third line" AcceptsReturn="True" Height="80" />
+        <TextBox Text="Read-only" IsReadOnly="True" />
+        <TextBox Text="Disabled" IsEnabled="False" />
+        <TextBox Text="Invalid" Classes="error" />
+      </StackPanel>
+    </g:ResponsiveColumns>
+  </g:Scenario>
+
+  <g:Scenario Title="NumericUpDown and ButtonSpinner" Description="Spinners on the right by default, or on the left with ButtonSpinnerLocation; AllowSpin=False shows the content without the arrows.">
+    <WrapPanel Classes="demo-row">
+      <NumericUpDown Value="42" Width="180" />
+      <NumericUpDown Value="42" ButtonSpinnerLocation="Left" Width="180" />
+      <NumericUpDown Value="42" IsEnabled="False" Width="180" />
+      <NumericUpDown Value="42" Classes="error" Width="180" />
+      <ButtonSpinner Content="Spinner content" Width="200" />
+      <ButtonSpinner Content="No spin" AllowSpin="False" Width="200" />
+    </WrapPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="AutoCompleteBox" Description="Type to filter; the suggestion list uses the drop-down chrome.">
+    <WrapPanel Classes="demo-row">
+      <AutoCompleteBox ItemsSource="{Binding Cities}" PlaceholderText="Type a city" Width="240" />
+      <AutoCompleteBox ItemsSource="{Binding Cities}" Text="Lis" Width="240" IsEnabled="False" />
+    </WrapPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="SelectableTextBlock and Label" Description="Selection uses the text selection color. Label supports an access key (Alt+L).">
+    <StackPanel Classes="demo-column">
+      <SelectableTextBlock Text="Select some of this text to see the selection color." TextWrapping="Wrap" MaxWidth="360" />
+      <Label Content="_Label with access key" />
+      <Label Content="Disabled label" IsEnabled="False" />
+    </StackPanel>
+  </g:Scenario>
+</g:SamplePage>

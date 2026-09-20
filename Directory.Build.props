@@ -1,0 +1,37 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <AvaloniaVersion>12.1.2</AvaloniaVersion>
+    <Version>0.1.0</Version>
+    <Authors>drasticactions</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/draticactions/avawin</PackageProjectUrl>
+    <PackageTags>avalonia;theme;avaloniaui;winjs;windows8;metro</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <AvaWinRepoRoot>$(MSBuildThisFileDirectory)</AvaWinRepoRoot>
+    <ValidateXcodeVersion>false</ValidateXcodeVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AvaWinIsLibrary)' != 'false'">
+    <IsTrimmable>true</IsTrimmable>
+    <IsAotCompatible>true</IsAotCompatible>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+    <TrimmerSingleWarn>false</TrimmerSingleWarn>
+    <ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(AvaWinIsLibrary)' != 'false'">
+    <None Include="$(AvaWinRepoRoot)NOTICE.md" Pack="true" PackagePath="\" Visible="false" />
+    <None Include="$(AvaWinRepoRoot)LICENSE.md" Pack="true" PackagePath="\" Visible="false" />
+  </ItemGroup>
+
+</Project>

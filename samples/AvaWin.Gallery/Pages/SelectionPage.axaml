@@ -1,0 +1,94 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.SelectionPage"
+              x:DataType="vm:FormsViewModel"
+              HeroFill="False"
+              Description="Selection controls">
+  <g:SamplePage.Hero>
+    <g:ResponsiveColumns Classes="screen">
+      <StackPanel Spacing="10">
+        <TextBlock Text="Photo settings" Classes="win-type-x-large" Margin="0,0,0,6" />
+        <TextBlock Text="Upload" Classes="win-type-medium" />
+        <CheckBox Content="Upload automatically" IsChecked="{Binding UploadAutomatically}" />
+        <CheckBox Content="Include location" IsChecked="{Binding IncludeLocation}" />
+        <ToggleSwitch Content="Wi-Fi only" OnContent="On" OffContent="Off" IsChecked="{Binding WifiOnly}" IsEnabled="{Binding UploadAutomatically}" />
+        <TextBlock Text="Quality" Classes="win-type-medium" Margin="0,8,0,0" />
+        <RadioButton Content="Low" GroupName="q" IsChecked="{Binding Quality, Converter={x:Static g:Converters.IsEqual}, ConverterParameter=Low}" />
+        <RadioButton Content="Medium" GroupName="q" IsChecked="{Binding Quality, Converter={x:Static g:Converters.IsEqual}, ConverterParameter=Medium}" />
+        <RadioButton Content="High" GroupName="q" IsChecked="{Binding Quality, Converter={x:Static g:Converters.IsEqual}, ConverterParameter=High}" />
+      </StackPanel>
+      <StackPanel Spacing="10">
+        <TextBlock Text="Default album" Classes="win-type-medium" Margin="0,44,0,0" />
+        <ComboBox ItemsSource="{Binding Albums}" SelectedItem="{Binding Album}" Width="320" HorizontalAlignment="Left" />
+        <TextBlock Text="{Binding JpegQuality, StringFormat='JPEG quality: {0:0}%'}" Classes="win-type-medium" Margin="0,8,0,0" />
+        <Slider Value="{Binding JpegQuality}" Minimum="10" Maximum="100" TickFrequency="10" TickPlacement="BottomRight" MaxWidth="320" HorizontalAlignment="Left" Width="320" />
+        <TextBlock Text="{Binding Summary}" Classes="demo-status" Margin="0,16,0,0" MaxWidth="320" HorizontalAlignment="Left" />
+      </StackPanel>
+    </g:ResponsiveColumns>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="CheckBox" Description="Unchecked, checked, indeterminate (IsThreeState), disabled, and a long label that wraps.">
+    <StackPanel Classes="demo-column">
+      <CheckBox Content="Unchecked" />
+      <CheckBox Content="Checked" IsChecked="True" />
+      <CheckBox Content="Indeterminate" IsThreeState="True" IsChecked="{x:Null}" />
+      <CheckBox Content="Disabled" IsEnabled="False" />
+      <CheckBox Content="Checked disabled" IsChecked="True" IsEnabled="False" />
+      <CheckBox Content="A check box whose label is long enough to wrap onto a second line" Width="240" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="RadioButton" Description="One choice per GroupName.">
+    <StackPanel Classes="demo-column">
+      <RadioButton Content="Option A" IsChecked="True" GroupName="demo" />
+      <RadioButton Content="Option B" GroupName="demo" />
+      <RadioButton Content="Option C" GroupName="demo" />
+      <RadioButton Content="Disabled" IsEnabled="False" />
+      <RadioButton Content="Checked disabled" IsChecked="True" IsEnabled="False" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="ToggleSwitch" Description="The header sits above, the On/Off content beside the switch.">
+    <StackPanel Classes="demo-column">
+      <ToggleSwitch Content="Header text" OnContent="On" OffContent="Off" />
+      <ToggleSwitch Content="Checked" OnContent="On" OffContent="Off" IsChecked="True" />
+      <ToggleSwitch OnContent="Yes" OffContent="No" />
+      <ToggleSwitch Content="Disabled" OnContent="On" OffContent="Off" IsEnabled="False" />
+      <ToggleSwitch Content="Checked disabled" OnContent="On" OffContent="Off" IsChecked="True" IsEnabled="False" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="ComboBox" Description="Placeholder, selected, editable and disabled; and the drop-down's items drawn inline to show their states.">
+    <WrapPanel Classes="demo-row" ItemSpacing="24">
+      <StackPanel Classes="demo-column">
+        <ComboBox ItemsSource="{Binding Albums}" PlaceholderText="Select..." Width="200" />
+        <ComboBox ItemsSource="{Binding Albums}" SelectedIndex="1" Width="200" />
+        <ComboBox ItemsSource="{Binding Albums}" SelectedIndex="1" IsEditable="True" Width="200" />
+        <ComboBox ItemsSource="{Binding Albums}" SelectedIndex="1" IsEnabled="False" Width="200" />
+      </StackPanel>
+      <Border Width="200" Background="{DynamicResource ComboBoxDropDownBackground}" BorderBrush="{DynamicResource ComboBoxDropDownBorderBrush}" BorderThickness="{DynamicResource ComboBoxDropdownBorderThickness}" VerticalAlignment="Top">
+        <StackPanel>
+          <ComboBoxItem Content="Item" />
+          <ComboBoxItem Content="Selected" IsSelected="True" />
+          <ComboBoxItem Content="Disabled" IsEnabled="False" />
+          <ComboBoxItem Content="Selected disabled" IsSelected="True" IsEnabled="False" />
+        </StackPanel>
+      </Border>
+    </WrapPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Slider" Description="Horizontal with and without ticks, disabled, and vertical.">
+    <WrapPanel Classes="demo-row" ItemSpacing="24">
+      <StackPanel Classes="demo-column" Width="300">
+        <Slider Value="50" />
+        <Slider Value="30" TickPlacement="BottomRight" TickFrequency="10" />
+        <Slider Value="50" IsEnabled="False" />
+      </StackPanel>
+      <Slider Value="50" Orientation="Vertical" Height="120" />
+      <Slider Value="50" Orientation="Vertical" Height="120" IsEnabled="False" />
+    </WrapPanel>
+  </g:Scenario>
+</g:SamplePage>

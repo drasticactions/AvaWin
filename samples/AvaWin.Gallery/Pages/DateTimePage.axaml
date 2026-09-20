@@ -1,0 +1,58 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.DateTimePage"
+              x:DataType="vm:FormsViewModel"
+              HeroFill="False"
+              Description="DatePicker and TimePicker are rows of drop-downs (month, day, year; hour, minute, period), not pop-up calendars. Avalonia's CalendarDatePicker and Calendar are restyled to match, with the accent selection and a flat month grid.">
+  <g:SamplePage.Hero>
+    <g:ResponsiveColumns Classes="screen">
+      <StackPanel Spacing="8">
+        <TextBlock Text="New event" Classes="win-type-x-large" Margin="0,0,0,8" />
+        <TextBlock Text="Title" Classes="win-type-small" />
+        <TextBox Text="{Binding EventTitle}" />
+        <TextBlock Text="Date" Classes="win-type-small" />
+        <DatePicker SelectedDate="{Binding EventDate}" />
+        <CheckBox Content="All day" IsChecked="{Binding AllDay}" Margin="0,4,0,0" />
+        <TextBlock Text="Start" Classes="win-type-small" />
+        <TimePicker SelectedTime="{Binding Start}" IsEnabled="{Binding !AllDay}" />
+        <TextBlock Text="End" Classes="win-type-small" />
+        <TimePicker SelectedTime="{Binding End}" IsEnabled="{Binding !AllDay}" />
+        <TextBlock Text="Reminder" Classes="win-type-small" />
+        <CalendarDatePicker SelectedDate="{Binding Reminder}" Width="240" HorizontalAlignment="Left" />
+        <TextBlock Text="{Binding EventSummary}" Classes="demo-status" Margin="0,12,0,0" />
+      </StackPanel>
+      <Calendar DisplayDate="2014-04-08" SelectedDate="2014-04-08" HorizontalAlignment="Left" Loaded="OnCalendarLoaded" />
+    </g:ResponsiveColumns>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="DatePicker" Description="With a value, empty, and disabled.">
+    <StackPanel Classes="demo-column">
+      <DatePicker SelectedDate="2014-04-08" />
+      <DatePicker />
+      <DatePicker SelectedDate="2014-04-08" IsEnabled="False" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="TimePicker" Description="12-hour with the AM/PM column, 24-hour (ClockIdentifier), and disabled.">
+    <StackPanel Classes="demo-column">
+      <TimePicker SelectedTime="09:30" />
+      <TimePicker SelectedTime="09:30" ClockIdentifier="24HourClock" />
+      <TimePicker IsEnabled="False" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="CalendarDatePicker" Description="A text field that drops a Calendar.">
+    <StackPanel Classes="demo-column">
+      <CalendarDatePicker SelectedDate="2014-04-08" Width="240" />
+      <CalendarDatePicker PlaceholderText="Pick a date" Width="240" />
+      <CalendarDatePicker SelectedDate="2014-04-08" Width="240" IsEnabled="False" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Calendar year view" Description="DisplayMode=Year shows the months; Decade the years.">
+    <Calendar DisplayDate="2014-04-08" DisplayMode="Year" HorizontalAlignment="Left" />
+  </g:Scenario>
+</g:SamplePage>

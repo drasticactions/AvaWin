@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaWin.Animations</RootNamespace>
+    <PackageId>AvaWin.Animations</PackageId>
+    <Description>Animations for AvaWin</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaWin.Animations.Tests" />
+    <InternalsVisibleTo Include="AvaWin.Theme" />
+    <InternalsVisibleTo Include="AvaWin.Controls" />
+  </ItemGroup>
+
+</Project>

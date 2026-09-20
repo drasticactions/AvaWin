@@ -1,0 +1,75 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.AnimationsPage"
+              x:DataType="vm:ChromeViewModel"
+              Description="Samples demonstrating various types of animations.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="PhotoScreen" x:DataType="vm:Photo">
+      <Grid>
+        <Image Source="{Binding Image}" Stretch="UniformToFill" />
+        <Border VerticalAlignment="Bottom" Background="#A0000000" Padding="20,12">
+          <StackPanel>
+            <TextBlock Text="{Binding Title}" Classes="win-type-x-large" Foreground="White" />
+            <TextBlock Text="{Binding Caption}" Classes="win-type-small" Foreground="#CCFFFFFF" />
+          </StackPanel>
+        </Border>
+      </Grid>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <DockPanel>
+      <Grid DockPanel.Dock="Bottom" ColumnDefinitions="Auto,Auto,*" Margin="20,10">
+        <ComboBox Name="Transition" SelectedIndex="0" Width="160">
+          <ComboBoxItem Content="EnterPage" />
+          <ComboBoxItem Content="Turnstile" />
+          <ComboBoxItem Content="Slide" />
+          <ComboBoxItem Content="Continuum" />
+        </ComboBox>
+        <Button Grid.Column="1" Name="NextPage" Content="Next page" Click="OnNextPage" Margin="10,0,0,0" />
+        <TextBlock Grid.Column="2" Text="{Binding Status}" Classes="demo-status" VerticalAlignment="Center" Margin="16,0" />
+      </Grid>
+      <TransitioningContentControl Name="Screens" ContentTemplate="{StaticResource PhotoScreen}" />
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Discrete animations" Description="Each button runs one WinAnimations method on the four tiles (the multi-element ones use the first tiles as the primary role). Reset clears any transform left by an exit animation.">
+    <StackPanel Spacing="12">
+      <WrapPanel Name="Tiles" ItemSpacing="10" LineSpacing="10" MinHeight="130" />
+      <WrapPanel Name="DiscreteButtons" ItemSpacing="8" LineSpacing="8" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Continuum" Description="Continuum animates roles, not a list: the page, the tapped list item, and that item's content. Forward grows the item into the new page; backward shrinks the page back to it.">
+    <StackPanel Spacing="12">
+      <Border Name="ContinuumPage" Background="{Binding Photos[1].Image, Converter={x:Static g:Converters.ImageBrush}}" Padding="20" Width="480" Height="200" HorizontalAlignment="Left">
+        <StackPanel>
+          <TextBlock Text="Page" Classes="win-type-x-large" Foreground="White" />
+          <TextBlock Text="incomingPage / outgoingPage (scales and fades)" Classes="win-type-xx-small" Foreground="White" />
+          <Border Name="ContinuumItem" Background="#80000000" Padding="12" Margin="0,12,0,0" HorizontalAlignment="Left">
+            <StackPanel Name="ContinuumContent" Spacing="4">
+              <TextBlock Text="Item content" Classes="win-type-large" Foreground="White" />
+              <TextBlock Text="content of the tapped item (rotates in)" Classes="win-type-xx-small" Foreground="White" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </Border>
+      <WrapPanel Name="ContinuumButtons" ItemSpacing="8" LineSpacing="8" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Layout animations" Description="Two-phase: create the animation (it records positions), change the layout, then execute it; neighbors slide to their new places.">
+    <StackPanel Spacing="12">
+      <StackPanel Name="Rows" Spacing="6" Width="300" HorizontalAlignment="Left" />
+      <WrapPanel ItemSpacing="8" LineSpacing="8">
+        <Button Content="AddToList" Click="OnAddToList" />
+        <Button Content="DeleteFromList" Click="OnDeleteFromList" />
+        <Button Content="Reposition (move first to last)" Click="OnReposition" />
+        <Button Content="Collapse / Expand row 2" Click="OnCollapse" />
+      </WrapPanel>
+    </StackPanel>
+  </g:Scenario>
+</g:SamplePage>

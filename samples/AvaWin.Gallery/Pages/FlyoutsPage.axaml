@@ -1,0 +1,120 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.FlyoutsPage"
+              x:DataType="vm:ChromeViewModel"
+              HeroFill="False"
+              Description="Light-dismiss surfaces: Flyout (a 2px-bordered panel anchored to a control, with placement and alignment), MenuFlyout and ContextMenu (the command menu), Menu (a menu bar) and ToolTip. Everything here opens from the photo card.">
+  <g:SamplePage.Hero>
+    <DockPanel>
+      <Menu DockPanel.Dock="Top">
+        <MenuItem Header="_File">
+          <MenuItem Header="New album" InputGesture="Ctrl+N" />
+          <MenuItem Header="Open..." InputGesture="Ctrl+O" />
+          <Separator />
+          <MenuItem Header="Exit" />
+        </MenuItem>
+        <MenuItem Header="_Edit">
+          <MenuItem Header="Undo" InputGesture="Ctrl+Z" />
+          <MenuItem Header="Redo" InputGesture="Ctrl+Y" IsEnabled="False" />
+          <Separator />
+          <MenuItem Header="Rotate">
+            <MenuItem Header="Left 90°" />
+            <MenuItem Header="Right 90°" />
+          </MenuItem>
+        </MenuItem>
+        <MenuItem Header="_View">
+          <MenuItem Header="Show captions" ToggleType="CheckBox" IsChecked="True" />
+          <MenuItem Header="Show dates" ToggleType="CheckBox" />
+        </MenuItem>
+        <MenuItem Header="Disabled" IsEnabled="False" />
+      </Menu>
+      <g:ResponsiveColumns Margin="20,16,20,20" ColumnSpacing="24">
+        <Border Name="Card" ClipToBounds="True" MaxHeight="300" ToolTip.Tip="Right-click for the context menu">
+          <Border.ContextMenu>
+            <ContextMenu>
+              <MenuItem Header="Open" />
+              <MenuItem Header="Set as lock screen" />
+              <MenuItem Header="Copy" InputGesture="Ctrl+C" />
+              <Separator />
+              <MenuItem Header="Favorite" ToggleType="CheckBox" IsChecked="{Binding IsFavorite}" />
+              <MenuItem Header="Delete" IsEnabled="False" />
+            </ContextMenu>
+          </Border.ContextMenu>
+          <Image Source="{Binding Current.Image}" Stretch="UniformToFill" />
+        </Border>
+        <StackPanel Spacing="12">
+          <TextBlock Text="{Binding Current.Title}" Classes="win-type-x-large" />
+          <TextBlock Text="{Binding Current.Caption}" Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+          <WrapPanel Classes="demo-row" Margin="0,8,0,0">
+            <Button Content="Share" ToolTip.Tip="Send a link to this photo">
+              <Button.Flyout>
+                <MenuFlyout>
+                  <MenuItem Header="Mail" />
+                  <MenuItem Header="People" />
+                  <MenuItem Header="Copy link" />
+                </MenuFlyout>
+              </Button.Flyout>
+            </Button>
+            <Button Content="Rename" ToolTip.Tip="Change the title">
+              <Button.Flyout>
+                <Flyout>
+                  <StackPanel Spacing="10" Width="240">
+                    <TextBlock Text="Title" Classes="win-type-medium" />
+                    <TextBox Text="{Binding Current.Title}" />
+                    <Button Content="Save" Classes="accent" />
+                  </StackPanel>
+                </Flyout>
+              </Button.Flyout>
+            </Button>
+            <Button Name="DeleteButton" Content="Delete" Click="OnDelete" ToolTip.Tip="Asks first" />
+          </WrapPanel>
+          <TextBlock Text="{Binding Status}" Classes="demo-status" />
+        </StackPanel>
+      </g:ResponsiveColumns>
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Flyout placement" Description="WinFlyoutPlacement chooses the edge (Auto picks the side with room); WinFlyoutAlignment slides the flyout along that edge, like the placement and alignment arguments.">
+    <StackPanel Classes="demo-column">
+      <WrapPanel Classes="demo-row">
+        <Button Content="Auto" Click="OnPlace" Tag="Auto" />
+        <Button Content="Top" Click="OnPlace" Tag="Top" />
+        <Button Content="Bottom" Click="OnPlace" Tag="Bottom" />
+        <Button Content="Left" Click="OnPlace" Tag="Left" />
+        <Button Content="Right" Click="OnPlace" Tag="Right" />
+      </WrapPanel>
+      <WrapPanel Classes="demo-row">
+        <Button Content="Bottom, Center" Click="OnAlign" Tag="Center" />
+        <Button Content="Bottom, Left" Click="OnAlign" Tag="Left" />
+        <Button Content="Bottom, Right" Click="OnAlign" Tag="Right" />
+      </WrapPanel>
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="Presenters inline" Description="The flyout and menu surfaces drawn in the page, to see every item state at once: normal, checked, gesture, submenu, disabled.">
+    <WrapPanel Classes="demo-row" ItemSpacing="24" LineSpacing="24">
+      <FlyoutPresenter>
+        <StackPanel Spacing="10">
+          <TextBlock Text="Delete this photo?" Classes="win-type-medium" />
+          <TextBlock Text="It will be removed from every album." Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}" />
+          <Button Content="Delete" Classes="accent" />
+        </StackPanel>
+      </FlyoutPresenter>
+      <MenuFlyoutPresenter MinWidth="240">
+        <MenuItem Header="Command" />
+        <MenuItem Header="Toggle checked" ToggleType="CheckBox" IsChecked="True" />
+        <MenuItem Header="Toggle unchecked" ToggleType="CheckBox" />
+        <MenuItem Header="Gesture" InputGesture="Ctrl+S" />
+        <MenuItem Header="Submenu">
+          <MenuItem Header="Child" />
+        </MenuItem>
+        <Separator />
+        <MenuItem Header="Disabled" IsEnabled="False" />
+      </MenuFlyoutPresenter>
+      <ToolTip Content="A tooltip, shown inline" Opacity="1" VerticalAlignment="Top" />
+    </WrapPanel>
+  </g:Scenario>
+</g:SamplePage>

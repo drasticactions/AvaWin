@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:win="https://github.com/avawin"
+             xmlns:g="using:AvaWin.Gallery"
+             xmlns:vm="using:AvaWin.Gallery.ViewModels"
+             x:Class="AvaWin.Gallery.Pages.HomePage">
+  <UserControl.Resources>
+    <Thickness x:Key="WinHubHeaderMargin">0,12,0,4</Thickness>
+    <DataTemplate x:Key="TileTemplate" x:DataType="g:GalleryPage">
+      <Grid Width="150" Height="150" ClipToBounds="True">
+        <Image Source="{Binding Photo, Converter={x:Static g:GalleryConverters.PhotoImage}}" Stretch="UniformToFill" />
+        <Border VerticalAlignment="Bottom" Background="#A0000000" Padding="10,6">
+          <TextBlock Text="{Binding Name}" Classes="win-type-medium" Foreground="White" TextTrimming="CharacterEllipsis" />
+        </Border>
+      </Grid>
+    </DataTemplate>
+  </UserControl.Resources>
+  <UserControl.Styles>
+    <Style Selector="win|ListView.tiles">
+      <Setter Property="TapBehavior" Value="InvokeOnly" />
+      <Setter Property="SelectionMode" Value="None" />
+      <Setter Property="SwipeBehavior" Value="None" />
+      <Setter Property="ItemTemplate" Value="{StaticResource TileTemplate}" />
+    </Style>
+  </UserControl.Styles>
+  <win:Hub Name="HubControl">
+    <win:HubSection Name="IntroSection" Header="About" IsHeaderStatic="True">
+      <StackPanel Name="Intro" Spacing="16" MaxWidth="420" HorizontalAlignment="Left">
+        <Border Height="200" ClipToBounds="True">
+          <Image Name="IntroImage" Stretch="UniformToFill" />
+        </Border>
+        <TextBlock Classes="win-type-medium" TextWrapping="Wrap"
+                   Text="An Avalonia theme and toolkit that reproduces the look and controls of Windows 8.1 and Windows Phone 8.1 via WinJS." />
+        <TextBlock Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}" TextWrapping="Wrap"
+                   Text="Pick a tile to open a control page. Right-click, or use the ellipsis at the bottom, for the navigation bar and settings." />
+      </StackPanel>
+    </win:HubSection>
+  </win:Hub>
+</UserControl>

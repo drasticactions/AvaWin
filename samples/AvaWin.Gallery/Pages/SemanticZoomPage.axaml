@@ -1,0 +1,59 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              x:Class="AvaWin.Gallery.Pages.SemanticZoomPage"
+              x:DataType="vm:PhotosViewModel"
+              Description="SemanticZoom pairs a zoomed-in view with a zoomed-out summary of the same data: pinch, Ctrl+wheel, Ctrl+Minus, or the button in the corner switches between them, and picking a group in the summary scrolls the detail view to it. Both views here are ListViews; any IZoomableView works.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="ContactTile" x:DataType="vm:Contact">
+      <Grid Width="110" Height="110" Background="{Binding Brush}">
+        <TextBlock Text="{Binding Initials}" Classes="win-type-x-large" Foreground="White" Margin="8,4,0,0" />
+        <TextBlock Text="{Binding Name}" Classes="win-type-xx-small" Foreground="White" VerticalAlignment="Bottom" Margin="8,0,8,6" TextTrimming="CharacterEllipsis" />
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="GroupHeader" x:DataType="vm:ContactGroup">
+      <TextBlock Text="{Binding Key}" />
+    </DataTemplate>
+    <DataTemplate x:Key="LetterTile" x:DataType="vm:ContactGroup">
+      <Grid Width="110" Height="110" Background="{DynamicResource WinSelectionFillBrush}">
+        <TextBlock Text="{Binding Key}" Classes="win-type-xx-large" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" />
+        <TextBlock Text="{Binding Count}" Classes="win-type-xx-small" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="8" />
+      </Grid>
+    </DataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <DockPanel>
+      <Grid DockPanel.Dock="Bottom" ColumnDefinitions="Auto,Auto,*" Margin="20,10">
+        <Button Name="ToggleZoom" Content="Toggle zoom" Click="OnToggle" />
+        <ToggleSwitch Grid.Column="1" Content="" OnContent="Locked" OffContent="Unlocked" IsChecked="{Binding #Zoom.IsLocked}" Margin="20,0,0,0" />
+        <TextBlock Grid.Column="2" Text="{Binding Status}" Classes="demo-status" VerticalAlignment="Center" Margin="16,0" />
+      </Grid>
+      <win:SemanticZoom Name="Zoom" ZoomChanged="OnZoomChanged" Margin="20,16,20,0">
+        <win:SemanticZoom.ZoomedInView>
+          <win:ListView ItemsSource="{Binding Contacts}" GroupKeySelector="{Binding GroupKey}" GroupsSource="{Binding Groups}" GroupsKeySelector="{Binding GroupsKey}" GroupHeaderTemplate="{StaticResource GroupHeader}" ItemTemplate="{StaticResource ContactTile}" TapBehavior="ToggleSelect">
+            <win:ListView.Layout>
+              <win:GridLayout Orientation="Horizontal" MaximumRowsOrColumns="3" />
+            </win:ListView.Layout>
+          </win:ListView>
+        </win:SemanticZoom.ZoomedInView>
+        <win:SemanticZoom.ZoomedOutView>
+          <win:ListView ItemsSource="{Binding Groups}" ItemTemplate="{StaticResource LetterTile}">
+            <win:ListView.Layout>
+              <win:GridLayout Orientation="Horizontal" MaximumRowsOrColumns="3" />
+            </win:ListView.Layout>
+          </win:ListView>
+        </win:SemanticZoom.ZoomedOutView>
+      </win:SemanticZoom>
+    </DockPanel>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="Zoom factor" Description="ZoomFactor (0.2–0.85) is how far the zoomed-in view shrinks during the cross-fade.">
+    <StackPanel Classes="demo-column" Width="320">
+      <Slider Minimum="0.2" Maximum="0.85" Value="{Binding #Zoom.ZoomFactor}" TickFrequency="0.05" />
+      <TextBlock Classes="demo-status" Text="{Binding #Zoom.ZoomFactor, StringFormat='ZoomFactor {0:0.00}'}" />
+    </StackPanel>
+  </g:Scenario>
+</g:SamplePage>

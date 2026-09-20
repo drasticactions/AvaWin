@@ -1,0 +1,102 @@
+<g:SamplePage xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:win="https://github.com/avawin"
+              xmlns:g="using:AvaWin.Gallery.Framework"
+              xmlns:vm="using:AvaWin.Gallery.ViewModels"
+              xmlns:gallery="using:AvaWin.Gallery"
+              x:Class="AvaWin.Gallery.Pages.CollectionsPage"
+              x:DataType="vm:MailViewModel"
+              Description="Collection controls, including ListBox, TreeView, TableView, and Carousel. ListBox rows use the same selection colors as ListView, TreeView draws the chevron expanders, TableView keeps the list vocabulary in a grid, and Carousel pages with the FlipView arrows.">
+  <g:SamplePage.Resources>
+    <DataTemplate x:Key="MessageRow" x:DataType="vm:Message">
+      <Grid ColumnDefinitions="*,Auto" Margin="10,7">
+        <StackPanel>
+          <TextBlock Text="{Binding From.Name}" Classes="win-type-medium" FontWeight="{Binding IsUnread, Converter={x:Static gallery:GalleryConverters.UnreadWeight}}" />
+          <TextBlock Text="{Binding Subject}" Classes="win-type-small" />
+          <TextBlock Text="{Binding Preview}" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" TextTrimming="CharacterEllipsis" />
+        </StackPanel>
+        <TextBlock Grid.Column="1" Text="{Binding When}" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" Margin="12,2,0,0" />
+      </Grid>
+    </DataTemplate>
+    <TreeDataTemplate x:Key="FolderNode" x:DataType="vm:Folder" ItemsSource="{Binding Children}">
+      <TextBlock Text="{Binding Label}" />
+    </TreeDataTemplate>
+  </g:SamplePage.Resources>
+
+  <g:SamplePage.Hero>
+    <g:ResponsiveColumns Classes="screen" ColumnSpacing="24">
+      <TreeView ItemsSource="{Binding Folders}" ItemTemplate="{StaticResource FolderNode}" Loaded="OnTreeLoaded" />
+      <ListBox ItemsSource="{Binding Messages}" ItemTemplate="{StaticResource MessageRow}" SelectedItem="{Binding SelectedMessage}" />
+      <StackPanel Spacing="8" DataContext="{Binding SelectedMessage}" x:DataType="vm:Message">
+        <TextBlock Text="{Binding Subject}" Classes="win-type-x-large" TextWrapping="Wrap" />
+        <TextBlock Classes="win-type-small" Foreground="{DynamicResource WinTextSecondaryBrush}">
+          <Run Text="{Binding From.Name}" /><Run Text=" · " /><Run Text="{Binding From.Email}" />
+        </TextBlock>
+        <TextBlock Text="{Binding Preview}" Classes="win-type-medium" TextWrapping="Wrap" Margin="0,12,0,0" />
+        <TextBlock Text="Sent from my Lumia" Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" Margin="0,20,0,0" />
+      </StackPanel>
+    </g:ResponsiveColumns>
+  </g:SamplePage.Hero>
+
+  <g:Scenario Title="TableView" Description="Columns bound to contact fields; the selected row uses the selection color and the headers the caption type.">
+    <TableView ItemsSource="{Binding Contacts}" Height="260" MaxWidth="640" HorizontalAlignment="Left" SelectedIndex="1">
+      <TableView.Columns>
+        <TableViewColumn Header="Name" Binding="{Binding Name}" Width="2*" x:DataType="vm:Contact" />
+        <TableViewColumn Header="City" Binding="{Binding City}" Width="*" x:DataType="vm:Contact" />
+        <TableViewColumn Header="Email" Binding="{Binding Email}" Width="3*" x:DataType="vm:Contact" />
+      </TableView.Columns>
+    </TableView>
+  </g:Scenario>
+
+  <g:Scenario Title="ListBox selection styles" Description="ListBox is the plain Avalonia list. It uses the filled style by default; the win-selectionstyle-bordered class gives it ListView's bordered chrome. Item 5 is disabled.">
+    <g:ResponsiveColumns MaxWidth="640" HorizontalAlignment="Left">
+      <ListBox SelectionMode="Multiple">
+        <ListBoxItem Content="Item 1" />
+        <ListBoxItem Content="Item 2" IsSelected="True" />
+        <ListBoxItem Content="Item 3" />
+        <ListBoxItem Content="Item 4" IsSelected="True" />
+        <ListBoxItem Content="Item 5" IsEnabled="False" />
+        <ListBoxItem Content="Item 6" />
+      </ListBox>
+      <ListBox SelectionMode="Multiple" Classes="win-selectionstyle-bordered">
+        <ListBoxItem Content="Item 1" />
+        <ListBoxItem Content="Item 2" IsSelected="True" />
+        <ListBoxItem Content="Item 3" />
+        <ListBoxItem Content="Item 4" IsSelected="True" />
+        <ListBoxItem Content="Item 5" IsEnabled="False" />
+        <ListBoxItem Content="Item 6" />
+      </ListBox>
+    </g:ResponsiveColumns>
+  </g:Scenario>
+
+  <g:Scenario Title="Carousel and PipsPager" Description="Carousel shows one page at a time with a transition; PipsPager is bound both ways to its SelectedIndex.">
+    <StackPanel Classes="demo-column">
+      <Carousel Name="Slides" Width="400" Height="240" ItemsSource="{Binding Photos}">
+        <Carousel.ItemTemplate>
+          <DataTemplate x:DataType="vm:Photo">
+            <Grid>
+              <Image Source="{Binding Image}" Stretch="UniformToFill" />
+              <TextBlock Text="{Binding Title}" Classes="win-type-large" Foreground="White" VerticalAlignment="Bottom" Margin="12,8" />
+            </Grid>
+          </DataTemplate>
+        </Carousel.ItemTemplate>
+      </Carousel>
+      <PipsPager NumberOfPages="5" SelectedPageIndex="{Binding #Slides.SelectedIndex, Mode=TwoWay}" HorizontalAlignment="Center" Width="400" />
+    </StackPanel>
+  </g:Scenario>
+
+  <g:Scenario Title="ItemsControl" Description="The template-only repeater, no selection.">
+    <ItemsControl ItemsSource="{Binding Contacts}" MaxWidth="640">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate><WrapPanel ItemSpacing="8" LineSpacing="8" /></ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="vm:Contact">
+          <Border Background="{Binding Brush}" Padding="10,4">
+            <TextBlock Text="{Binding FirstName}" Foreground="White" />
+          </Border>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </g:Scenario>
+</g:SamplePage>

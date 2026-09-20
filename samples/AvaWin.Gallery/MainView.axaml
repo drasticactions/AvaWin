@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:win="https://github.com/avawin"
+             xmlns:g="using:AvaWin.Gallery"
+             xmlns:vm="using:AvaWin.Gallery.ViewModels"
+             x:Class="AvaWin.Gallery.MainView"
+             x:DataType="vm:SettingsViewModel">
+  <DockPanel Name="Root">
+    <Grid DockPanel.Dock="Top" ColumnDefinitions="Auto,*" Margin="20,16,20,8">
+      <win:BackButton Name="BackButton" Grid.Column="0" IsAutoEnabled="False" VerticalAlignment="Center" Click="OnBack" />
+      <TransitioningContentControl Name="HeaderHost" Grid.Column="1" VerticalAlignment="Center" Margin="12,0,0,0" ClipToBounds="False">
+        <TransitioningContentControl.ContentTemplate>
+          <DataTemplate x:DataType="g:PageHeader">
+            <StackPanel>
+              <TextBlock Classes="win-type-xx-small" Foreground="{DynamicResource WinTextSecondaryBrush}" Text="{Binding Group}" />
+              <TextBlock Classes="win-type-xx-large" Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+          </DataTemplate>
+        </TransitioningContentControl.ContentTemplate>
+      </TransitioningContentControl>
+    </Grid>
+
+    <win:AppBar Name="CommandBar">
+      <win:AppBarCommand Name="HomeCommand" Id="home" Label="Home" Icon="Home" Click="OnHome" />
+      <win:AppBarCommand Name="NavToggle" Id="navigation" Label="Navigation" Icon="AllApps" Click="OnToggleNav" />
+      <win:AppBarCommand Name="SettingsToggle" Id="settings" Label="Settings" Icon="Settings" Click="OnToggleSettings" Section="Selection" />
+    </win:AppBar>
+
+    <win:SettingsFlyout Name="SettingsPane" Header="Settings" SettingsCommandId="gallery">
+      <StackPanel>
+        <StackPanel Classes="win-settings-section">
+          <TextBlock Text="Theme variant" Classes="win-type-small" />
+          <ComboBox ItemsSource="{Binding Variants}" SelectedItem="{Binding Variant}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Classes="win-settings-section">
+          <TextBlock Text="Platform" Classes="win-type-small" />
+          <ComboBox ItemsSource="{Binding Platforms}" SelectedItem="{Binding Platform}" HorizontalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Classes="win-settings-section">
+          <TextBlock Text="Accent" Classes="win-type-small" />
+          <CheckBox Content="System accent" IsChecked="{Binding UseSystemAccent}" />
+          <ListBox ItemsSource="{Binding AccentSwatches}" SelectedItem="{Binding Accent}" Height="90">
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="vm:AccentSwatch">
+                <Border Width="28" Height="28" Background="{Binding Brush}" ToolTip.Tip="{Binding Name}" />
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </StackPanel>
+        <StackPanel Classes="win-settings-section">
+          <CheckBox Content="Animations enabled" IsChecked="{Binding AnimationsEnabled}" />
+          <CheckBox Content="Slow animations (×5)" IsChecked="{Binding SlowAnimations}" />
+          <CheckBox Content="Disable all controls on the page" IsChecked="{Binding DisableAll}" />
+        </StackPanel>
+      </StackPanel>
+    </win:SettingsFlyout>
+
+    <win:NavBar Name="NavBar">
+      <win:NavBarContainer Name="NavContainer" MaxRows="2" Invoked="OnNavInvoked" />
+    </win:NavBar>
+
+    <ScrollViewer Name="PageScroller">
+      <TransitioningContentControl Name="PageHost" Margin="20,0,20,20" IsEnabled="{Binding !DisableAll}" VerticalContentAlignment="Top" ClipToBounds="False" />
+    </ScrollViewer>
+  </DockPanel>
+</UserControl>
