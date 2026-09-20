@@ -35,6 +35,7 @@ public class AvaWinTheme : Styles, IResourceNode
     public AvaWinTheme(IServiceProvider? sp = null)
     {
         AvaloniaXamlLoader.Load(sp, this);
+        SliderGestures.EnsureRegistered();
 
         _phoneMetrics = (IResourceProvider)GetAndRemove("PhoneMetrics");
         _overlays.Add(_phoneMetrics);
