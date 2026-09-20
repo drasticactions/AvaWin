@@ -9,6 +9,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Metadata;
+using Avalonia.Reactive;
 using Avalonia.VisualTree;
 using AvaWin.Animations;
 using AvaWin.Controls.Primitives;
@@ -63,6 +64,10 @@ public class AppBar : TemplatedControl
     public static readonly StyledProperty<bool> IgnoreSafeAreaProperty =
         AvaloniaProperty.Register<AppBar, bool>(nameof(IgnoreSafeArea));
 
+    /// <summary>Defines the <see cref="ContentInset"/> property.</summary>
+    public static readonly DirectProperty<AppBar, Thickness> ContentInsetProperty =
+        AvaloniaProperty.RegisterDirect<AppBar, Thickness>(nameof(ContentInset), o => o.ContentInset);
+
     /// <summary>Defines the <see cref="Opening"/> event.</summary>
     public static readonly RoutedEvent<CancelRoutedEventArgs> OpeningEvent = RoutedEvent.Register<AppBar, CancelRoutedEventArgs>(nameof(Opening), RoutingStrategies.Bubble);
 
@@ -81,13 +86,19 @@ public class AppBar : TemplatedControl
     private int _generation;
     private bool _reverting;
     private bool _closing;
+    private Thickness _contentInset;
 
     static AppBar()
     {
-        PlacementProperty.Changed.AddClassHandler<AppBar>((b, _) => b.UpdatePseudoClasses());
+        PlacementProperty.Changed.AddClassHandler<AppBar>((b, _) =>
+        {
+            b.UpdatePseudoClasses();
+            b.UpdateContentInset();
+        });
         ClosedDisplayModeProperty.Changed.AddClassHandler<AppBar>((b, _) =>
         {
             b.UpdatePseudoClasses();
+            b.UpdateContentInset();
             b.ApplyState(animate: false);
         });
         IsStickyProperty.Changed.AddClassHandler<AppBar>((b, _) => b.UpdatePseudoClasses());
@@ -108,6 +119,9 @@ public class AppBar : TemplatedControl
         Focusable = false;
         IsVisible = true;
         UpdatePseudoClasses();
+        // Strip heights are theme resources; track overlay and theme changes.
+        _presenter.GetResourceObservable("WinAppBarMinimalHeight").Subscribe(new AnonymousObserver<object?>(_ => UpdateContentInset()));
+        _presenter.GetResourceObservable("WinAppBarReducedHeight").Subscribe(new AnonymousObserver<object?>(_ => UpdateContentInset()));
     }
 
     /// <summary>Gets the attached <see cref="IsReducedProperty"/> value.</summary>
@@ -143,6 +157,13 @@ public class AppBar : TemplatedControl
 
     /// <summary>Whether a right-click on the page opens and closes a non-sticky bar.</summary>
     public bool IsRightClickToggleEnabled { get => GetValue(IsRightClickToggleEnabledProperty); set => SetValue(IsRightClickToggleEnabledProperty, value); }
+
+    /// <summary>The padding that keeps page content clear of the closed bar's strip; bind a Padding or Margin to it.</summary>
+    public Thickness ContentInset
+    {
+        get => _contentInset;
+        private set => SetAndRaise(ContentInsetProperty, ref _contentInset, value);
+    }
 
     /// <summary>Whether the bar docks to the physical screen edge instead of the safe area (status bar, notch, home indicator). Default false.</summary>
     public bool IgnoreSafeArea { get => GetValue(IgnoreSafeAreaProperty); set => SetValue(IgnoreSafeAreaProperty, value); }
@@ -369,6 +390,12 @@ public class AppBar : TemplatedControl
             var key = ClosedDisplayMode == AppBarClosedDisplayMode.Compact ? "WinAppBarReducedHeight" : "WinAppBarMinimalHeight";
             return _presenter.TryFindResource(key, out var value) && value is double height ? height : 0;
         }
+    }
+
+    private void UpdateContentInset()
+    {
+        var height = ClosedDisplayMode == AppBarClosedDisplayMode.None ? 0 : ClosedHeight;
+        ContentInset = Placement == AppBarPlacement.Top ? new Thickness(0, height, 0, 0) : new Thickness(0, 0, 0, height);
     }
 
     internal void UpdatePseudoClasses()

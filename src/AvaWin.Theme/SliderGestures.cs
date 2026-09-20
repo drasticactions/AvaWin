@@ -5,14 +5,9 @@ using Avalonia.Interactivity;
 namespace AvaWin;
 
 /// <summary>
-/// Keeps a touch drag on a <see cref="Slider"/> from being taken over by a scrolling ancestor.
+/// Keeps a touch drag on a <see cref="Slider"/> from being taken over by a scrolling ancestor. Thumb already opts
+/// out of gesture recognition; a press on the track does not, so a wobbling finger let the ScrollViewer capture it.
 /// </summary>
-/// <remarks>
-/// <see cref="Avalonia.Controls.Primitives.Thumb"/> already opts its pointer out of gesture recognition, but a press on
-/// the track (which Slider handles itself) does not. On a phone the thumb is small, so most touches land on the track;
-/// once the finger wobbles past the scroll start distance the ScrollViewer's ScrollGestureRecognizer captures the
-/// pointer, the slider stops following and the page scrolls instead.
-/// </remarks>
 internal static class SliderGestures
 {
     private static bool s_registered;

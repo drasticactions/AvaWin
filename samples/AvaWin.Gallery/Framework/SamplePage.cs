@@ -107,10 +107,9 @@ public class SamplePage : TemplatedControl
             return;
         }
 
-        // Hero bottom edge lands on the viewport's bottom edge at scroll offset 0: viewport minus the description
-        // block above it and the page host's bottom margin.
+        // Hero bottom edge lands on the viewport's bottom edge at scroll offset 0.
         var description = this.FindDescendantOfType<TextBlock>() is { Name: "PART_Description", IsVisible: true } d ? d.Bounds.Height + 16 : 0;
-        var margin = (_scroller.Content as Control)?.Margin.Bottom ?? 0;
+        var margin = ((_scroller.Content as Control)?.Margin.Bottom ?? 0) + _scroller.Padding.Bottom;
         HeroHeight = Math.Max(MinHeroHeight, _scroller.Viewport.Height - description - margin);
     }
 }

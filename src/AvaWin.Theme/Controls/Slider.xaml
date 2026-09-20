@@ -166,7 +166,7 @@
     </Style>
 
     <Style Selector="^:vertical">
-      <Setter Property="MinHeight" Value="{DynamicResource SliderHeightVertical}" />
+      <Setter Property="Height" Value="{DynamicResource SliderHeightVertical}" />
       <Setter Property="Template">
         <ControlTemplate>
           <DataValidationErrors>

@@ -62,7 +62,7 @@
       <win:NavBarContainer Name="NavContainer" MaxRows="2" Invoked="OnNavInvoked" />
     </win:NavBar>
 
-    <ScrollViewer Name="PageScroller">
+    <ScrollViewer Name="PageScroller" Padding="{Binding #CommandBar.ContentInset}">
       <TransitioningContentControl Name="PageHost" Margin="20,0,20,20" IsEnabled="{Binding !DisableAll}" VerticalContentAlignment="Top" ClipToBounds="False" />
     </ScrollViewer>
   </DockPanel>
