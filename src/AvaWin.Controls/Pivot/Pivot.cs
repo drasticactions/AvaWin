@@ -12,6 +12,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Media;
 using Avalonia.Input;
+using Avalonia.Input.GestureRecognizers;
 using Avalonia.Interactivity;
 using Avalonia.Media.Transformation;
 using Avalonia.VisualTree;
@@ -22,7 +23,8 @@ namespace AvaWin.Controls;
 /// <summary>
 /// A track of headers above one visible <see cref="PivotItem"/>. The selected header comes first and the others
 /// follow and wrap round. The selection changes on a header click, on Left, Right, Home or End on a focused header,
-/// on the hover navigation buttons, or on a horizontal swipe. It wraps around at the ends.
+/// on the hover navigation buttons, or on a horizontal swipe with the mouse, a finger or a pen. It wraps around at the
+/// ends.
 /// </summary>
 [TemplatePart("PART_Title", typeof(ContentPresenter))]
 [TemplatePart("PART_Headers", typeof(Grid))]
@@ -72,6 +74,8 @@ public sealed class Pivot : SelectingItemsControl
     private CancellationTokenSource? _transition;
     private Point? _swipeStart;
     private bool _swipeHandled;
+    private int _touchGestureId = -1;
+    private double _touchDistance;
 
     static Pivot()
     {
@@ -86,6 +90,17 @@ public sealed class Pivot : SelectingItemsControl
     public Pivot()
     {
         UpdatePseudoClasses();
+
+        // Touch and pen swipes need a recognizer: nested ScrollViewers capture the pointer after a few pixels of
+        // vertical drift, so raw pointer moves never reach the Pivot.
+        GestureRecognizers.Add(new ScrollGestureRecognizer
+        {
+            CanHorizontallyScroll = true,
+            CanVerticallyScroll = false,
+            IsScrollInertiaEnabled = false,
+        });
+        AddHandler(ScrollGestureEvent, OnScrollGesture);
+        AddHandler(ScrollGestureEndedEvent, OnScrollGestureEnded);
     }
 
     /// <summary>The small title above the headers.</summary>
@@ -221,13 +236,47 @@ public sealed class Pivot : SelectingItemsControl
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
-        if (IsLocked || ItemCount < 2 || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        if (IsLocked || ItemCount < 2 || e.Pointer.Type != PointerType.Mouse || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
         {
             return;
         }
 
         _swipeStart = e.GetPosition(this);
         _swipeHandled = false;
+    }
+
+    private void OnScrollGesture(object? sender, ScrollGestureEventArgs e)
+    {
+        // Gestures from nested scrollers bubble up here too; only the Pivot's own recognizer has it as the source.
+        if (!ReferenceEquals(e.Source, this) || IsLocked || ItemCount < 2)
+        {
+            return;
+        }
+
+        if (e.Id != _touchGestureId)
+        {
+            _touchGestureId = e.Id;
+            _touchDistance = 0;
+            _swipeHandled = false;
+        }
+
+        // Handling makes the recognizer capture the pointer, so nested scrollers no longer get it.
+        e.Handled = true;
+        _touchDistance += e.Delta.X;
+        if (!_swipeHandled && Math.Abs(_touchDistance) >= SwipeThreshold)
+        {
+            _swipeHandled = true;
+            Step(_touchDistance > 0 ? 1 : -1);
+        }
+    }
+
+    private void OnScrollGestureEnded(object? sender, ScrollGestureEndedEventArgs e)
+    {
+        if (e.Id == _touchGestureId)
+        {
+            _touchGestureId = -1;
+            _touchDistance = 0;
+        }
     }
 
     /// <inheritdoc/>
