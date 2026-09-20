@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build-test-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Build
+        run: dotnet build AvaWin.slnx -c Release
+      - name: Headless tests
+        run: |
+          dotnet run --project tests/AvaWin.Animations.Tests -c Release -f net10.0
+          dotnet run --project tests/AvaWin.Theme.Tests -c Release -f net10.0
+          dotnet run --project tests/AvaWin.Controls.Tests -c Release -f net10.0
+      - name: Pack
+        run: dotnet pack AvaWin.slnx -c Release -o artifacts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: artifacts/*.nupkg
