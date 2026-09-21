@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
@@ -118,6 +119,13 @@ internal static class AnimationRunner
     /// at once and does not write the end values of the tracks. The caller decides where to leave the control.
     /// Returns true when the run completed and false when it was canceled.
     /// </summary>
+    /// <remarks>
+    /// A control has one live run per property. Starting a run on a property that is still animating supersedes the
+    /// earlier run (it is canceled and reports false), and the new run starts from the value on screen at that
+    /// moment instead of its own From, as a CSS transition would. Without this, the runs would stack: Avalonia
+    /// layers animations on a property, and once the top one finished the ones beneath would show through and
+    /// replay until the last of them ended.
+    /// </remarks>
     public static async Task<bool> Run(Control control, IReadOnlyList<Track> tracks, CancellationToken cancellationToken)
     {
         if (tracks.Count == 0)
@@ -140,18 +148,22 @@ internal static class AnimationRunner
             return true;
         }
 
+        var run = Supersede(control, tracks);
+        using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, run.Cancellation.Token);
+        var token = cts.Token;
+
         // Write the end values as the base values first. Avalonia disposes a finished animation before this method
         // resumes, and a render can run in between. With the base already at the end state, that frame is the same
         // as the last keyframe instead of a flash of the pre-animation look.
-        foreach (var t in tracks)
+        foreach (var t in run.Tracks)
         {
             ApplyFinal(control, t);
         }
 
-        var runs = new Task[tracks.Count];
-        for (var i = 0; i < tracks.Count; i++)
+        var runs = new Task[run.Tracks.Length];
+        for (var i = 0; i < run.Tracks.Length; i++)
         {
-            var t = tracks[i];
+            var t = run.Tracks[i];
             var animation = new Animation
             {
                 Delay = t.Delay,
@@ -161,21 +173,133 @@ internal static class AnimationRunner
             };
             animation.Children.Add(new KeyFrame { Cue = new Cue(0), Setters = { new Setter(t.Property, t.From) } });
             animation.Children.Add(new KeyFrame { Cue = new Cue(1), Setters = { new Setter(t.Property, t.To) } });
-            runs[i] = animation.RunAsync(control, cancellationToken);
+            runs[i] = animation.RunAsync(control, token);
         }
 
-        await Task.WhenAll(runs).ConfigureAwait(true);
-        if (cancellationToken.IsCancellationRequested)
+        try
+        {
+            await Task.WhenAll(runs).ConfigureAwait(true);
+        }
+        finally
+        {
+            Release(control, run);
+        }
+
+        if (token.IsCancellationRequested)
         {
             return false;
         }
 
-        foreach (var t in tracks)
+        foreach (var t in run.Tracks)
         {
             ApplyFinal(control, t);
         }
 
         return true;
+    }
+
+    /// <summary>The live runs of a control, kept only while they run.</summary>
+    private sealed class LiveRun(Track[] tracks)
+    {
+        public Track[] Tracks { get; } = tracks;
+        public CancellationTokenSource Cancellation { get; } = new();
+    }
+
+    private static readonly ConditionalWeakTable<Control, List<LiveRun>> s_live = new();
+
+    /// <summary>
+    /// Registers a run on the control. Any live run that animates one of the same properties is canceled first, and
+    /// the new tracks on those properties pick up the value showing at that moment as their From.
+    /// </summary>
+    private static LiveRun Supersede(Control control, IReadOnlyList<Track> tracks)
+    {
+        var live = s_live.GetOrCreateValue(control);
+        var resumed = new Track[tracks.Count];
+        for (var i = 0; i < resumed.Length; i++)
+        {
+            resumed[i] = tracks[i];
+        }
+
+        for (var i = live.Count - 1; i >= 0; i--)
+        {
+            var previous = live[i];
+            if (!Overlaps(previous.Tracks, tracks))
+            {
+                continue;
+            }
+
+            // The animated value is only readable while the animation is bound, so it is taken before the cancel.
+            for (var j = 0; j < resumed.Length; j++)
+            {
+                var t = resumed[j];
+                if (Animates(previous.Tracks, t.Property) && LiveValue(control, t) is { } from)
+                {
+                    resumed[j] = t with { From = from };
+                }
+            }
+
+            live.RemoveAt(i);
+            previous.Cancellation.Cancel();
+        }
+
+        var run = new LiveRun(resumed);
+        live.Add(run);
+        return run;
+    }
+
+    private static void Release(Control control, LiveRun run)
+    {
+        if (s_live.TryGetValue(control, out var live))
+        {
+            live.Remove(run);
+        }
+
+        run.Cancellation.Dispose();
+    }
+
+    private static bool Overlaps(Track[] previous, IReadOnlyList<Track> next)
+    {
+        for (var i = 0; i < next.Count; i++)
+        {
+            if (Animates(previous, next[i].Property))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool Animates(Track[] tracks, AvaloniaProperty property)
+    {
+        foreach (var t in tracks)
+        {
+            if (t.Property == property)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// The value a track's property shows right now: the interpolated value of a live animation. Only the tracks
+    /// on the control itself resume; a 3D track lives on a child transform and keeps its own From.
+    /// </summary>
+    private static object? LiveValue(Control control, Track t)
+    {
+        if (t.Property == Visual.RenderTransformProperty)
+        {
+            return control.RenderTransform as TransformOperations;
+        }
+
+        if (t.Property == Visual.OpacityProperty)
+        {
+            return control.Opacity;
+        }
+
+        return null;
     }
 
     public static Task Run(Control control, params Track[] tracks) => Run(control, (IReadOnlyList<Track>)tracks);

@@ -88,6 +88,41 @@ public class DiscreteAnimationTests
     }
 
     [AvaloniaFact]
+    public async Task New_Run_Supersedes_Live_Run_On_Same_Property()
+    {
+        // Toggling mid-flight must not stack animations: the earlier run is canceled at once, and the new one
+        // resumes from the value on screen rather than replaying from its own start.
+        WinAnimations.TimeScale = 1;
+        var (_, tile) = Host();
+        var hide = WinAnimations.HideEdgeUI(tile);
+        for (var i = 0; i < 8; i++)
+        {
+            AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+            await Task.Delay(16);
+        }
+
+        var midway = Assert.IsType<TransformOperations>(tile.RenderTransform).Value.M32;
+        Assert.True(midway < 0 && midway > -70, $"expected a mid-flight translate, got {midway}");
+
+        var show = WinAnimations.ShowEdgeUI(tile);
+        Assert.True(hide.IsCompleted, "the superseded run should finish as soon as the next one starts");
+        AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+        await Task.Delay(16);
+        AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+        var resumed = Assert.IsType<TransformOperations>(tile.RenderTransform).Value.M32;
+        Assert.True(resumed <= 0 && resumed >= midway - 5, $"expected the show to resume near {midway}, got {resumed}");
+
+        for (var i = 0; i < 40 && !show.IsCompleted; i++)
+        {
+            AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+            await Task.Delay(16);
+        }
+
+        await show;
+        Assert.Null(tile.RenderTransform);
+    }
+
+    [AvaloniaFact]
     public void IsEnabled_False_Short_Circuits()
     {
         WinAnimations.TimeScale = 1;
