@@ -116,6 +116,7 @@ public partial class ListView : SelectingItemsControl
     private bool _loadingMore;
     private int _anchorIndex = -1;
     private ListViewItem? _pressedItem;
+    private Point _pressOrigin;
     private ListViewLayout? _hookedLayout;
 
     static ListView()
@@ -429,6 +430,7 @@ public partial class ListView : SelectingItemsControl
     {
         base.OnPointerPressed(e);
         _pressedItem = ContainerOf(e.Source);
+        _pressOrigin = e.GetPosition(this);
         BeginDragTracking(e);
     }
 
@@ -454,7 +456,7 @@ public partial class ListView : SelectingItemsControl
         var item = ContainerOf(e.Source);
         var pressed = _pressedItem;
         _pressedItem = null;
-        if (item is null || !ReferenceEquals(item, pressed) || e.Handled)
+        if (item is null || !ReferenceEquals(item, pressed) || e.Handled || !IsTap(e))
         {
             return;
         }
@@ -503,6 +505,18 @@ public partial class ListView : SelectingItemsControl
                 Invoke(index, item);
                 break;
         }
+    }
+
+    private bool IsTap(PointerReleasedEventArgs e)
+    {
+        if (e.Pointer.Type is not (PointerType.Touch or PointerType.Pen))
+        {
+            return true;
+        }
+
+        var tapSize = Application.Current?.PlatformSettings?.GetTapSize(e.Pointer.Type) ?? new Size(10, 10);
+        var tapRect = new Rect(_pressOrigin, default(Size)).Inflate(new Thickness(tapSize.Width / 2, tapSize.Height / 2));
+        return tapRect.ContainsExclusive(e.GetPosition(this));
     }
 
     private void OnListKeyDown(object? sender, KeyEventArgs e)

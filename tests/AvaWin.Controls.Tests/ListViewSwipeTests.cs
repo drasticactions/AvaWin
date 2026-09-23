@@ -256,4 +256,22 @@ public class ListViewSwipeTests
         Assert.Equal("A2", source[2]);
         window.Close();
     }
+
+    [AvaloniaFact]
+    public void A_Touch_That_Travels_Is_Not_A_Tap()
+    {
+        var (window, list, _) = Make(swipe: SwipeBehavior.None);
+        var invoked = -1;
+        list.ItemInvoked += (_, e) => invoked = e.Index;
+        var p = Centre(window, list, 1);
+        var touch = new TouchInput(window);
+        touch.Drag(p, new Vector(0, 60));
+        touch.Up(p + new Vector(0, 60));
+        Assert.Equal(-1, invoked);
+
+        touch.Drag(p, new Vector(2, 1), steps: 1);
+        touch.Up(p + new Vector(2, 1));
+        Assert.Equal(1, invoked);
+        window.Close();
+    }
 }
