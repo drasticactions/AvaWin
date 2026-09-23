@@ -145,9 +145,12 @@ public partial class ListView
             ? Selection.SelectedIndexes.OrderBy(i => i).ToList()
             : [index];
         var items = indexes.Select(i => ItemsView[i]).ToList();
+        // One item carrying both formats: macOS makes a drag image per item but a pasteboard item only for
+        // non-in-process formats, and AppKit throws when those counts differ.
+        var item = DataTransferItem.Create(DragFormat, new ListViewDragData(this, indexes, items));
+        item.SetText(string.Join(Environment.NewLine, items.Select(i => i?.ToString())));
         var data = new DataTransfer();
-        data.Add(DataTransferItem.Create(DragFormat, new ListViewDragData(this, indexes, items)));
-        data.Add(DataTransferItem.CreateText(string.Join(Environment.NewLine, items.Select(i => i?.ToString()))));
+        data.Add(item);
         var startArgs = new ListViewDragEventArgs(ItemDragStartEvent, indexes, items, data, -1);
         RaiseEvent(startArgs);
         if (startArgs.Cancel)
