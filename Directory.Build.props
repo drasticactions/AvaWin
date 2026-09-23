@@ -9,7 +9,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <AvaloniaVersion>12.1.2</AvaloniaVersion>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
     <Authors>drasticactions</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/draticactions/avawin</PackageProjectUrl>
