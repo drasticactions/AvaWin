@@ -18,7 +18,7 @@ namespace AvaWin.Controls;
 [TemplatePart("PART_Checkmark", typeof(Panel))]
 [TemplatePart("PART_HoverOutline", typeof(Border))]
 [TemplatePart("PART_FocusOutline", typeof(Border))]
-[PseudoClasses(":selected", ":pressed", ":backdrop", ":nonselectable", ":dragsource", ":dragover", ":selectionmode")]
+[PseudoClasses(":selected", ":pressed", ":backdrop", ":nonselectable", ":dragsource", ":dragover", ":selectionmode", ":swipeselect")]
 public class ListViewItem : ContentControl, ISelectable
 {
     /// <summary>Defines the <see cref="IsSelected"/> property.</summary>
@@ -53,6 +53,8 @@ public class ListViewItem : ContentControl, ISelectable
         PseudoClasses.Set(":dragsource", source);
         PseudoClasses.Set(":dragover", over);
     }
+
+    internal void SetSwipeState(bool select) => PseudoClasses.Set(":swipeselect", select);
 
     internal void SetSelectionModeActive(bool active) => PseudoClasses.Set(":selectionmode", active);
 }

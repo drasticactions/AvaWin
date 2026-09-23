@@ -89,7 +89,8 @@ public partial class ListView
     {
         _dragTrigger = null;
         _dragCandidate = null;
-        if (!(ItemsDraggable || ItemsReorderable) || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        if (!(ItemsDraggable || ItemsReorderable) || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed ||
+            (SwipeBehavior == SwipeBehavior.Select && e.Pointer.Type is PointerType.Touch or PointerType.Pen))
         {
             return;
         }
@@ -250,7 +251,7 @@ public partial class ListView
     private static (IReadOnlyList<int>, IReadOnlyList<object?>) Payload(ListViewDragData? payload) =>
         payload is null ? (Array.Empty<int>(), Array.Empty<object?>()) : (payload.Indexes, payload.Items);
 
-    private bool ReorderItems(IReadOnlyList<int> indexes, int insert)
+    private bool ReorderItems(IReadOnlyList<int> indexes, int insert, bool keepSelection = false)
     {
         if (ItemsSource is not IList list || list.IsReadOnly || list.IsFixedSize || indexes.Count == 0)
         {
@@ -258,6 +259,7 @@ public partial class ListView
         }
 
         var moving = indexes.OrderBy(i => i).Select(i => list[i]).ToList();
+        var kept = keepSelection ? Selection.SelectedIndexes.Select(i => list[i]).ToList() : null;
         var target = insert - indexes.Count(i => i < insert);
         foreach (var i in indexes.OrderByDescending(i => i))
         {
@@ -277,9 +279,22 @@ public partial class ListView
             using (Selection.BatchUpdate())
             {
                 Selection.Clear();
-                for (var k = 0; k < count; k++)
+                if (kept is not null)
                 {
-                    Selection.Select(target + k);
+                    foreach (var item in kept)
+                    {
+                        if (list.IndexOf(item) is var i and >= 0)
+                        {
+                            Selection.Select(i);
+                        }
+                    }
+                }
+                else
+                {
+                    for (var k = 0; k < count; k++)
+                    {
+                        Selection.Select(target + k);
+                    }
                 }
             }
         }, DispatcherPriority.Loaded);

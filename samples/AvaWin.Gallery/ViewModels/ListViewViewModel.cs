@@ -35,7 +35,7 @@ public sealed partial class ListViewViewModel : ObservableObject
     /// <summary>The key of a group item.</summary>
     public Func<object?, object?> GroupsKey { get; } = g => ((ContactGroup)g!).Key;
 
-    public IReadOnlyList<Photo> Photos { get; } = SampleData.Photos;
+    public ObservableCollection<Photo> Photos { get; } = new(SampleData.Photos);
 
     public ObservableCollection<Contact> Reorderable { get; }
 

@@ -52,7 +52,7 @@ public partial class ListView : SelectingItemsControl
     public static readonly StyledProperty<TapBehavior> TapBehaviorProperty = AvaloniaProperty.Register<ListView, TapBehavior>(nameof(TapBehavior), TapBehavior.InvokeOnly);
 
     /// <summary>Defines the <see cref="SwipeBehavior"/> property.</summary>
-    public static readonly StyledProperty<SwipeBehavior> SwipeBehaviorProperty = AvaloniaProperty.Register<ListView, SwipeBehavior>(nameof(SwipeBehavior), SwipeBehavior.Select);
+    public static readonly StyledProperty<SwipeBehavior> SwipeBehaviorProperty = AvaloniaProperty.Register<ListView, SwipeBehavior>(nameof(SwipeBehavior), SwipeBehavior.None);
 
     /// <summary>Defines the <see cref="GroupHeaderTapBehavior"/> property.</summary>
     public static readonly StyledProperty<GroupHeaderTapBehavior> GroupHeaderTapBehaviorProperty = AvaloniaProperty.Register<ListView, GroupHeaderTapBehavior>(nameof(GroupHeaderTapBehavior), GroupHeaderTapBehavior.Invoke);
@@ -141,6 +141,7 @@ public partial class ListView : SelectingItemsControl
         // Tunnel, because the ScrollViewer of the template would otherwise take PageUp, PageDown, Home and End first.
         AddHandler(KeyDownEvent, OnListKeyDown, RoutingStrategies.Tunnel);
         InitializeDrag();
+        InitializeSwipe();
         ApplySelectionMode();
         ApplySelectionStyle();
         UpdatePseudoClasses();
@@ -167,7 +168,12 @@ public partial class ListView : SelectingItemsControl
     /// <summary>What a tap on an item does: invoke only (default), invoke and select, or invoke and toggle.</summary>
     public TapBehavior TapBehavior { get => GetValue(TapBehaviorProperty); set => SetValue(TapBehaviorProperty, value); }
 
-    /// <summary>Whether a cross-axis swipe selects an item. Kept for API compatibility. It has no effect.</summary>
+    /// <summary>
+    /// What a touch or pen swipe across the scroll axis does. With <see cref="SwipeBehavior.Select"/>, past
+    /// <see cref="SwipeSelectThreshold"/> a release toggles the selection, and past <see cref="SwipeDragThreshold"/>
+    /// the item follows the contact and a release reorders it within its group, when <see cref="ItemsReorderable"/> is
+    /// set. The mouse is not affected. Default <see cref="SwipeBehavior.None"/>.
+    /// </summary>
     public SwipeBehavior SwipeBehavior { get => GetValue(SwipeBehaviorProperty); set => SetValue(SwipeBehaviorProperty, value); }
 
     /// <summary>Whether a tap on a group header raises <see cref="GroupHeaderInvoked"/> or does nothing.</summary>

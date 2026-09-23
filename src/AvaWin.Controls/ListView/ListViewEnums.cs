@@ -35,10 +35,10 @@ public enum TapBehavior
     None,
 }
 
-/// <summary>What a cross-axis swipe does. Kept for API compatibility. It has no effect.</summary>
+/// <summary>What a touch swipe across the scroll axis of a <see cref="ListView"/> does.</summary>
 public enum SwipeBehavior
 {
-    /// <summary>A swipe selects the item.</summary>
+    /// <summary>A swipe selects the item, and a longer one reorders it.</summary>
     Select,
 
     /// <summary>A swipe does nothing.</summary>

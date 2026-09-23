@@ -68,8 +68,8 @@
 
   <g:Scenario Title="Selection chrome and tap behavior" Description="Left: the default bordered chrome with DirectSelect (click selects, Ctrl toggles, Shift ranges). Right: SelectionStyle=Filled with ToggleSelect, where every tap toggles. Swipe an item on touch to select it.">
     <g:ResponsiveColumns>
-      <win:ListView Height="260" ItemsSource="{Binding Contacts}" ItemTemplate="{StaticResource ContactRow}" SelectionMode="Multi" TapBehavior="DirectSelect" SelectionStyle="Bordered" Loaded="OnSelectSome" />
-      <win:ListView Height="260" ItemsSource="{Binding Contacts}" ItemTemplate="{StaticResource ContactRow}" SelectionMode="Multi" TapBehavior="ToggleSelect" SelectionStyle="Filled" Loaded="OnSelectSome" />
+      <win:ListView Height="260" ItemsSource="{Binding Contacts}" ItemTemplate="{StaticResource ContactRow}" SelectionMode="Multi" TapBehavior="DirectSelect" SelectionStyle="Bordered" SwipeBehavior="Select" Loaded="OnSelectSome" />
+      <win:ListView Height="260" ItemsSource="{Binding Contacts}" ItemTemplate="{StaticResource ContactRow}" SelectionMode="Multi" TapBehavior="ToggleSelect" SelectionStyle="Filled" SwipeBehavior="Select" Loaded="OnSelectSome" />
     </g:ResponsiveColumns>
   </g:Scenario>
 
@@ -81,8 +81,8 @@
     </win:ListView>
   </g:Scenario>
 
-  <g:Scenario Title="CellSpanningLayout" Description="Items of different sizes on a cell grid: ItemInfo returns each item's width and height in pixels and the layout packs them into an occupancy map, like the Windows Store's tiles.">
-    <win:ListView Name="Mosaic" Height="320" ItemsSource="{Binding Photos}" ItemTemplate="{StaticResource PhotoCell}" TapBehavior="ToggleSelect" />
+  <g:Scenario Title="CellSpanningLayout" Description="Items of different sizes on a cell grid: ItemInfo returns each item's width and height in pixels and the layout packs them into an occupancy map, like the Windows Store's tiles. On touch, SwipeBehavior=Select with ItemsReorderable is the Windows 8.1 Start screen: a short swipe down selects a tile, and a longer one picks it up to move it.">
+    <win:ListView Name="Mosaic" Height="320" ItemsSource="{Binding Photos}" ItemTemplate="{StaticResource PhotoCell}" TapBehavior="ToggleSelect" SwipeBehavior="Select" ItemsReorderable="True" />
   </g:Scenario>
 
   <g:Scenario Title="Drag and reorder" Description="ItemsDraggable and ItemsReorderable: drag a row and drop it between two others. ItemDragBetween reports the insert index while you drag; ItemDragDrop commits it.">

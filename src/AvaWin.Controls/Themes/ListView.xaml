@@ -202,6 +202,14 @@
       <Setter Property="Background" Value="{DynamicResource ListViewItemSelectionBackgroundPointerOver}" />
     </Style>
 
+    <Style Selector="^:swipeselect:not(:selected) /template/ Border#PART_SelectionBorder, ^:swipeselect:not(:selected) /template/ Panel#PART_Checkmark">
+      <Setter Property="IsVisible" Value="True" />
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+    <Style Selector="^:swipeselect:selected /template/ Border#PART_SelectionBorder, ^:swipeselect:selected /template/ Panel#PART_Checkmark">
+      <Setter Property="Opacity" Value="0.5" />
+    </Style>
+
     <Style Selector="^:selectionmode /template/ Border#PART_SelectionBorder, ^:selectionmode /template/ Panel#PART_Checkmark">
       <Setter Property="IsVisible" Value="False" />
     </Style>
