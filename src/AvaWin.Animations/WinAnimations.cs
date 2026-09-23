@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media;
 using static AvaWin.Animations.AnimationRunner;
 
 namespace AvaWin.Animations;
@@ -179,6 +181,66 @@ public static partial class WinAnimations
     public static Task PointerUp(IEnumerable<Control> elements) =>
         WhenAll(ToList(elements), (c, _) => Run(c,
             Transform(Current(c), Identity, 0, 167, WinEasing.Standard)));
+
+    /// <summary>How far the corner nearest a tilted press recedes, as a fraction of the element size (0.075).</summary>
+    public const double PointerTiltMaxRecess = 0.075;
+
+    /// <summary>
+    /// Tilts the element toward <paramref name="contact"/> (element coordinates) and scales it to 0.975 over 167 ms.
+    /// The corner nearest the contact recedes furthest, up to <see cref="PointerTiltMaxRecess"/>. Call it again as the
+    /// contact moves: the new run starts from the tilt showing.
+    /// </summary>
+    public static Task PointerDownTilt(Control element, Point contact)
+    {
+        var (angleX, angleY, depth) = TiltFor(element.Bounds.Size, contact);
+        if (element.RenderTransform is not TransformGroup)
+        {
+            Prepare3D(element, depth, element.Bounds.Width / 2, element.Bounds.Height / 2);
+        }
+
+        return Run(element,
+        [
+            Angle(Rotate3DTransform.AngleXProperty, 0, angleX, 0, 167, WinEasing.Standard),
+            Angle(Rotate3DTransform.AngleYProperty, 0, angleY, 0, 167, WinEasing.Standard),
+            .. ScaleXY(1, PointerDownScale, 0, 167, WinEasing.Standard),
+        ]);
+    }
+
+    /// <summary>Returns a tilted element to rest over 167 ms, then removes the tilt transform.</summary>
+    public static async Task PointerUpTilt(Control element)
+    {
+        if (element.RenderTransform is not TransformGroup group)
+        {
+            return;
+        }
+
+        var done = await Run(element,
+        [
+            Angle(Rotate3DTransform.AngleXProperty, 0, 0, 0, 167, WinEasing.Standard),
+            Angle(Rotate3DTransform.AngleYProperty, 0, 0, 0, 167, WinEasing.Standard),
+            .. ScaleXY(PointerDownScale, 1, 0, 167, WinEasing.Standard),
+        ], System.Threading.CancellationToken.None).ConfigureAwait(true);
+        if (done && ReferenceEquals(element.RenderTransform, group))
+        {
+            Clear3D(element);
+        }
+    }
+
+    /// <summary>The rotation, in degrees about X and Y, and the perspective depth that tilt an element of <paramref name="size"/> toward <paramref name="contact"/>.</summary>
+    public static (double AngleX, double AngleY, double Depth) TiltFor(Size size, Point contact)
+    {
+        if (size.Width <= 0 || size.Height <= 0)
+        {
+            return (0, 0, 1);
+        }
+
+        var depth = 2 * Math.Max(size.Width, size.Height);
+        var u = Math.Clamp(contact.X / size.Width * 2 - 1, -1, 1);
+        var v = Math.Clamp(contact.Y / size.Height * 2 - 1, -1, 1);
+        var edge = 1 - (1 - PointerTiltMaxRecess) / PointerDownScale;
+        double MaxAngle(double half) => Math.Asin(Math.Min(1, depth * (1 / (1 - edge) - 1) / 2 / half)) * 180 / Math.PI;
+        return (-v * MaxAngle(size.Height / 2), u * MaxAngle(size.Width / 2), depth);
+    }
 
     // -------------------------------------------------------------------------------------------------
     // Drag

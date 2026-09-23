@@ -54,6 +54,9 @@ public partial class ListView : SelectingItemsControl
     /// <summary>Defines the <see cref="SwipeBehavior"/> property.</summary>
     public static readonly StyledProperty<SwipeBehavior> SwipeBehaviorProperty = AvaloniaProperty.Register<ListView, SwipeBehavior>(nameof(SwipeBehavior), SwipeBehavior.None);
 
+    /// <summary>Defines the <see cref="PressFeedback"/> property.</summary>
+    public static readonly AttachedProperty<PressFeedback> PressFeedbackProperty = ListViewItem.PressFeedbackProperty.AddOwner<ListView>();
+
     /// <summary>Defines the <see cref="GroupHeaderTapBehavior"/> property.</summary>
     public static readonly StyledProperty<GroupHeaderTapBehavior> GroupHeaderTapBehaviorProperty = AvaloniaProperty.Register<ListView, GroupHeaderTapBehavior>(nameof(GroupHeaderTapBehavior), GroupHeaderTapBehavior.Invoke);
 
@@ -175,6 +178,9 @@ public partial class ListView : SelectingItemsControl
     /// set. The mouse is not affected. Default <see cref="SwipeBehavior.None"/>.
     /// </summary>
     public SwipeBehavior SwipeBehavior { get => GetValue(SwipeBehaviorProperty); set => SetValue(SwipeBehaviorProperty, value); }
+
+    /// <summary>How the items answer a press: scale (default), tilt toward the contact, or nothing. The items inherit it.</summary>
+    public PressFeedback PressFeedback { get => GetValue(PressFeedbackProperty); set => SetValue(PressFeedbackProperty, value); }
 
     /// <summary>Whether a tap on a group header raises <see cref="GroupHeaderInvoked"/> or does nothing.</summary>
     public GroupHeaderTapBehavior GroupHeaderTapBehavior { get => GetValue(GroupHeaderTapBehaviorProperty); set => SetValue(GroupHeaderTapBehaviorProperty, value); }

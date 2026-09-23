@@ -45,6 +45,19 @@ public enum SwipeBehavior
     None,
 }
 
+/// <summary>How an item answers a press.</summary>
+public enum PressFeedback
+{
+    /// <summary>The item scales to 0.975 (default, WinJS).</summary>
+    Scale,
+
+    /// <summary>The item tilts toward the contact, as the Windows 8 Start screen tiles did, and scales to 0.975.</summary>
+    Tilt,
+
+    /// <summary>The item does not move.</summary>
+    None,
+}
+
 /// <summary>What a tap on a group header does.</summary>
 public enum GroupHeaderTapBehavior
 {

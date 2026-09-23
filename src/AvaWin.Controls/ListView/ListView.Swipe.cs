@@ -124,8 +124,10 @@ public partial class ListView
             e.PreventGestureRecognition();
             CancelDragTracking();
             _pressedItem = null;
+            item.IsSwiping = true;
             e.Pointer.Capture(this);
             item.Transitions = null;
+            item.ClearValue(Visual.RenderTransformOriginProperty);
         }
 
         e.Handled = true;
@@ -333,6 +335,7 @@ public partial class ListView
         }
 
         item.SetSwipeState(false);
+        item.IsSwiping = false;
         var generation = _swipeGeneration;
         ResetSwipeTracking();
         if (!reposition)

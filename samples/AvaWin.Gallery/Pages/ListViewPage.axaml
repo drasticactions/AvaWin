@@ -81,8 +81,8 @@
     </win:ListView>
   </g:Scenario>
 
-  <g:Scenario Title="CellSpanningLayout" Description="Items of different sizes on a cell grid: ItemInfo returns each item's width and height in pixels and the layout packs them into an occupancy map, like the Windows Store's tiles. On touch, SwipeBehavior=Select with ItemsReorderable is the Windows 8.1 Start screen: a short swipe down selects a tile, and a longer one picks it up to move it.">
-    <win:ListView Name="Mosaic" Height="320" ItemsSource="{Binding Photos}" ItemTemplate="{StaticResource PhotoCell}" TapBehavior="ToggleSelect" SwipeBehavior="Select" ItemsReorderable="True" />
+  <g:Scenario Title="CellSpanningLayout" Description="Items of different sizes on a cell grid: ItemInfo returns each item's width and height in pixels and the layout packs them into an occupancy map, like the Windows Store's tiles. On touch, SwipeBehavior=Select with ItemsReorderable is the Windows 8.1 Start screen: a short swipe down selects a tile, and a longer one picks it up to move it. PressFeedback=Tilt tilts a pressed tile toward the contact.">
+    <win:ListView Name="Mosaic" Height="320" ItemsSource="{Binding Photos}" ItemTemplate="{StaticResource PhotoCell}" TapBehavior="ToggleSelect" SwipeBehavior="Select" ItemsReorderable="True" PressFeedback="Tilt" />
   </g:Scenario>
 
   <g:Scenario Title="Drag and reorder" Description="ItemsDraggable and ItemsReorderable: drag a row and drop it between two others. ItemDragBetween reports the insert index while you drag; ItemDragDrop commits it.">

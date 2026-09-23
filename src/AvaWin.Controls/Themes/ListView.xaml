@@ -159,6 +159,9 @@
     <Style Selector="^:pressed">
       <Setter Property="RenderTransform" Value="scale(0.975)" />
     </Style>
+    <Style Selector="^[PressFeedback=Tilt]:pressed, ^[PressFeedback=None]:pressed">
+      <Setter Property="RenderTransform" Value="none" />
+    </Style>
     <Style Selector="^:focus-visible /template/ Border#PART_FocusOutline">
       <Setter Property="IsVisible" Value="True" />
     </Style>

@@ -299,6 +299,17 @@ internal static class AnimationRunner
             return control.Opacity;
         }
 
+        if (typeof(Transform).IsAssignableFrom(t.Property.OwnerType) && control.RenderTransform is TransformGroup group)
+        {
+            foreach (var child in group.Children)
+            {
+                if (child.GetType() == t.Property.OwnerType)
+                {
+                    return child.GetValue(t.Property);
+                }
+            }
+        }
+
         return null;
     }
 
