@@ -80,6 +80,19 @@
     </StackPanel>
   </g:Scenario>
 
+  <g:Scenario Title="Inline pane" Description="IsInline lays the pane out in place, as ordinary content: no overlay, no click-eater and no slide. A host that moves the pane itself, such as a shell that owns the screen edge, uses it. The back button and Escape still raise Closed.">
+    <Border BorderBrush="{DynamicResource WinSeparatorBrush}" BorderThickness="1" Height="320" HorizontalAlignment="Left">
+      <win:SettingsFlyout Header="Settings" IsInline="True">
+        <StackPanel Classes="win-settings-section">
+          <TextBlock Text="Theme" Classes="win-type-medium" />
+          <ToggleSwitch OnContent="Dark" OffContent="Light" IsChecked="True" />
+          <TextBlock Text="Animations" Classes="win-type-medium" />
+          <ToggleSwitch OnContent="On" OffContent="Off" IsChecked="True" />
+        </StackPanel>
+      </win:SettingsFlyout>
+    </Border>
+  </g:Scenario>
+
   <g:Scenario Title="BackButton" Description="A 41px circle with the back glyph; hover adds a wash, press inverts. The small class is the SettingsFlyout header size. Disabled hides the glyph but keeps the space.">
     <WrapPanel Classes="demo-row" VerticalAlignment="Center">
       <win:BackButton IsAutoEnabled="False" />

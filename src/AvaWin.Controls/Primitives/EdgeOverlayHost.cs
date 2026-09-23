@@ -113,6 +113,19 @@ internal sealed class EdgeOverlayHost : Panel
         return true;
     }
 
+    /// <summary>Takes the docked child out of the host, so another parent can hold it.</summary>
+    public void ReleaseChild() => Children.Remove(_child);
+
+    /// <summary>Puts the docked child back into the host after <see cref="ReleaseChild"/>.</summary>
+    public void AdoptChild()
+    {
+        if (!Children.Contains(_child))
+        {
+            Children.Add(_child);
+            ApplyEdge();
+        }
+    }
+
     /// <summary>Removes the host from its overlay layer.</summary>
     public void Detach()
     {

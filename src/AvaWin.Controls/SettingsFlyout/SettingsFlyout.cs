@@ -8,6 +8,7 @@ using Avalonia.Controls.Templates;
 using Avalonia.Metadata;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 using AvaWin.Animations;
 using AvaWin.Controls.Primitives;
 
@@ -61,6 +62,10 @@ public sealed class SettingsFlyout : TemplatedControl
     public static readonly StyledProperty<bool> IgnoreSafeAreaProperty =
         AvaloniaProperty.Register<SettingsFlyout, bool>(nameof(IgnoreSafeArea));
 
+    /// <summary>Defines the <see cref="IsInline"/> property.</summary>
+    public static readonly StyledProperty<bool> IsInlineProperty =
+        AvaloniaProperty.Register<SettingsFlyout, bool>(nameof(IsInline));
+
     /// <summary>Defines the <see cref="Opening"/> event.</summary>
     public static readonly RoutedEvent<CancelRoutedEventArgs> OpeningEvent = RoutedEvent.Register<SettingsFlyout, CancelRoutedEventArgs>(nameof(Opening), RoutingStrategies.Bubble);
 
@@ -85,6 +90,7 @@ public sealed class SettingsFlyout : TemplatedControl
         IsOpenProperty.Changed.AddClassHandler<SettingsFlyout>((f, e) => f.OnIsOpenChanged((bool)e.NewValue!));
         IsEnabledProperty.Changed.AddClassHandler<SettingsFlyout>((f, _) => f._presenter.IsEnabled = f.IsEnabled);
         IgnoreSafeAreaProperty.Changed.AddClassHandler<SettingsFlyout>((f, _) => f._host.RespectsSafeArea = !f.IgnoreSafeArea);
+        IsInlineProperty.Changed.AddClassHandler<SettingsFlyout>((f, e) => f.OnIsInlineChanged((bool)e.NewValue!));
     }
 
     /// <summary>Initializes a new instance.</summary>
@@ -124,6 +130,13 @@ public sealed class SettingsFlyout : TemplatedControl
     /// <summary>Whether the pane docks to the physical screen edge instead of the safe area (status bar, notch, home indicator). Default false.</summary>
     public bool IgnoreSafeArea { get => GetValue(IgnoreSafeAreaProperty); set => SetValue(IgnoreSafeAreaProperty, value); }
 
+    /// <summary>
+    /// Whether the pane is laid out in place as the flyout's own content, instead of in the overlay layer. An inline
+    /// pane is always visible, has no click-eater and runs no entrance or exit animation. Opening and closing still
+    /// raise their events, so the back button and Escape tell the host to take the pane away. Default false.
+    /// </summary>
+    public bool IsInline { get => GetValue(IsInlineProperty); set => SetValue(IsInlineProperty, value); }
+
     /// <summary>Raised before the pane opens. Cancelable.</summary>
     public event EventHandler<CancelRoutedEventArgs> Opening { add => AddHandler(OpeningEvent, value); remove => RemoveHandler(OpeningEvent, value); }
 
@@ -148,22 +161,93 @@ public sealed class SettingsFlyout : TemplatedControl
     internal EdgeOverlayHost Host => _host;
 
     /// <inheritdoc/>
-    protected override Size MeasureOverride(Size availableSize) => default;
+    protected override Size MeasureOverride(Size availableSize)
+    {
+        if (!IsInline)
+        {
+            return default;
+        }
+
+        _presenter.Measure(availableSize);
+        return _presenter.DesiredSize;
+    }
+
+    /// <inheritdoc/>
+    protected override Size ArrangeOverride(Size finalSize)
+    {
+        if (IsInline)
+        {
+            _presenter.Arrange(new Rect(finalSize));
+        }
+
+        return finalSize;
+    }
 
     /// <inheritdoc/>
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
         SyncPresenter();
+        if (IsInline)
+        {
+            AddTopLevelHandler();
+            return;
+        }
+
         if (!_host.Attach(this))
         {
             return;
         }
 
-        _topLevel = TopLevel.GetTopLevel(this);
-        _topLevel?.AddHandler(KeyDownEvent, OnTopLevelKeyDown, RoutingStrategies.Tunnel);
+        AddTopLevelHandler();
         _presenter.IsVisible = IsOpen;
         _host.IsLightDismissEnabled = IsOpen;
+    }
+
+    private void AddTopLevelHandler()
+    {
+        _topLevel = TopLevel.GetTopLevel(this);
+        _topLevel?.AddHandler(KeyDownEvent, OnTopLevelKeyDown, RoutingStrategies.Tunnel);
+    }
+
+    private void OnIsInlineChanged(bool inline)
+    {
+        _topLevel?.RemoveHandler(KeyDownEvent, OnTopLevelKeyDown);
+        _topLevel = null;
+        _generation++;
+        _presenter.ClearValue(Visual.RenderTransformProperty);
+        _presenter.ClearValue(Visual.OpacityProperty);
+        if (inline)
+        {
+            _host.Detach();
+            _host.ReleaseChild();
+            _host.IsLightDismissEnabled = false;
+            LogicalChildren.Add(_presenter);
+            VisualChildren.Add(_presenter);
+            _presenter.IsVisible = true;
+        }
+        else
+        {
+            VisualChildren.Remove(_presenter);
+            LogicalChildren.Remove(_presenter);
+            _host.AdoptChild();
+            _presenter.IsVisible = false;
+        }
+
+        InvalidateMeasure();
+        if (this.IsAttachedToVisualTree())
+        {
+            if (inline)
+            {
+                AddTopLevelHandler();
+            }
+            else if (_host.Attach(this))
+            {
+                AddTopLevelHandler();
+                _presenter.IsVisible = IsOpen;
+                _host.IsLightDismissEnabled = IsOpen;
+            }
+        }
     }
 
     /// <inheritdoc/>
@@ -237,6 +321,12 @@ public sealed class SettingsFlyout : TemplatedControl
     private async System.Threading.Tasks.Task ApplyStateAsync(bool open)
     {
         var generation = ++_generation;
+        if (IsInline)
+        {
+            RaiseEvent(new RoutedEventArgs(open ? OpenedEvent : ClosedEvent));
+            return;
+        }
+
         _host.IsLightDismissEnabled = open;
         var width = (PaneWidth == SettingsFlyoutWidth.Wide ? 645 : 345) + _presenter.SafeAreaPadding.Right;
         var offset = new WinOffset(width + 19, 0, false);

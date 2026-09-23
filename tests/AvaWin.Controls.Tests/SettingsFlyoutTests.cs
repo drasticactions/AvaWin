@@ -84,4 +84,87 @@ public class SettingsFlyoutTests
         Assert.False(flyout.IsOpen);
         window.Close();
     }
+
+    [AvaloniaFact]
+    public void Inline_Pane_Lays_Out_In_Place_At_Both_Widths()
+    {
+        var flyout = new SettingsFlyout { Header = "Options", Content = new TextBlock { Text = "c" }, IsInline = true, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left };
+        var window = ThemeTestHelpers.Host(new Grid { Children = { flyout } }, "Dark", Platform.Desktop);
+
+        Assert.True(flyout.Pane.IsVisible);
+        Assert.Same(flyout, flyout.Pane.GetVisualParent());
+        Assert.Equal(345, flyout.Bounds.Width, 0.5);
+        Assert.Equal(window.Bounds.Height, flyout.Bounds.Height, 0.5);
+        Assert.Equal(0, flyout.Pane.TranslatePoint(default, window)!.Value.X, 0.5);
+
+        flyout.PaneWidth = SettingsFlyoutWidth.Wide;
+        window.UpdateLayout();
+        Assert.Equal(645, flyout.Bounds.Width, 0.5);
+        Assert.Equal(645, flyout.Pane.Bounds.Width, 0.5);
+        window.Close();
+    }
+
+    [AvaloniaFact]
+    public void Inline_Pane_Adds_No_Overlay_Child()
+    {
+        var flyout = new SettingsFlyout { Header = "Options", IsInline = true };
+        var window = ThemeTestHelpers.Host(new Grid { Children = { flyout } }, "Light", Platform.Desktop);
+        flyout.Show();
+        window.UpdateLayout();
+
+        var layer = OverlayLayer.GetOverlayLayer(window)!;
+        Assert.DoesNotContain(layer.Children, c => c == flyout.Host);
+        Assert.Null(flyout.Host.Layer);
+        Assert.False(flyout.Host.IsLightDismissEnabled);
+        window.Close();
+    }
+
+    [AvaloniaFact]
+    public void Inline_Pane_Skips_The_Entrance_And_Raises_Its_Events()
+    {
+        var flyout = new SettingsFlyout { Header = "Options", IsInline = true };
+        var window = ThemeTestHelpers.Host(new Grid { Children = { flyout } }, "Light", Platform.Desktop);
+        var events = new System.Collections.Generic.List<string>();
+        flyout.Opened += (_, _) => events.Add("opened");
+        flyout.Closed += (_, _) => events.Add("closed");
+        var scale = Animations.WinAnimations.TimeScale;
+        Animations.WinAnimations.TimeScale = 1;
+        try
+        {
+            flyout.Show();
+            Assert.Equal(["opened"], events);
+            Assert.Null(flyout.Pane.RenderTransform);
+            Assert.Equal(1, flyout.Pane.Opacity);
+
+            var back = flyout.Pane.GetVisualDescendants().OfType<BackButton>().Single();
+            AppBarTests.Click(window, back);
+            Assert.False(flyout.IsOpen);
+            Assert.Equal(["opened", "closed"], events);
+            Assert.True(flyout.Pane.IsVisible);
+        }
+        finally
+        {
+            Animations.WinAnimations.TimeScale = scale;
+        }
+
+        window.Close();
+    }
+
+    [AvaloniaFact]
+    public void Inline_Can_Be_Turned_Off_Again()
+    {
+        var flyout = new SettingsFlyout { Header = "Options", IsInline = true };
+        var window = ThemeTestHelpers.Host(new Grid { Children = { flyout } }, "Light", Platform.Desktop);
+        flyout.IsInline = false;
+        window.UpdateLayout();
+        Assert.Same(flyout.Host, flyout.Pane.GetVisualParent());
+        Assert.False(flyout.Pane.IsVisible);
+        Assert.NotNull(flyout.Host.Layer);
+
+        flyout.Show();
+        window.UpdateLayout();
+        Assert.True(flyout.Pane.IsVisible);
+        Assert.Equal(window.Bounds.Width, flyout.Pane.Bounds.Right, 0.5);
+        window.Close();
+    }
 }
