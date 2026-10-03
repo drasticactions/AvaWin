@@ -117,12 +117,14 @@ public partial class MainView : UserControl
     private void OnHome(object? sender, RoutedEventArgs e)
     {
         CommandBar.Close();
+        NavBar.Close();
         ShowHome();
     }
 
     private void OnToggleSettings(object? sender, RoutedEventArgs e)
     {
         CommandBar.Close();
+        NavBar.Close();
         SettingsPane.IsOpen = !SettingsPane.IsOpen;
     }
 }

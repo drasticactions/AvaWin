@@ -108,6 +108,62 @@ public class AppBarTests
     }
 
     [AvaloniaFact]
+    public void Right_Click_On_An_Element_With_A_Context_Menu_Leaves_The_Bar_Closed()
+    {
+        var bar = new AppBar();
+        var target = new Border { Background = Avalonia.Media.Brushes.Transparent, Width = 100, Height = 100, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left, VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top, ContextFlyout = new MenuFlyout { Items = { new MenuItem { Header = "Copy" } } } };
+        var window = ThemeTestHelpers.Host(new Grid { Children = { target, bar } }, "Light", Platform.Desktop);
+        window.MouseDown(new Point(50, 50), MouseButton.Right);
+        window.MouseUp(new Point(50, 50), MouseButton.Right);
+        Assert.False(bar.IsOpen);
+        window.MouseDown(new Point(300, 300), MouseButton.Right);
+        window.MouseUp(new Point(300, 300), MouseButton.Right);
+        Assert.True(bar.IsOpen);
+        window.Close();
+    }
+
+    private static (Window window, NavBar nav, AppBar bar) MakeBoth()
+    {
+        var bar = new AppBar();
+        bar.Commands.Add(new AppBarCommand { Id = "add", Label = "Add", Icon = AppBarIcon.Add });
+        var nav = new NavBar { Content = new NavBarContainer { Items = { new NavBarCommand { Label = "Home", Icon = AppBarIcon.Home } } } };
+        // The NavBar comes second, so its host is above the AppBar's in the overlay layer.
+        var window = ThemeTestHelpers.Host(new Grid { Children = { new TextBlock { Text = "page" }, bar, nav } }, "Light", Platform.Desktop);
+        window.MouseDown(new Point(300, 300), MouseButton.Right);
+        window.MouseUp(new Point(300, 300), MouseButton.Right);
+        window.UpdateLayout();
+        Assert.True(bar.IsOpen);
+        Assert.True(nav.IsOpen);
+        return (window, nav, bar);
+    }
+
+    [AvaloniaFact]
+    public void With_The_NavBar_Open_Too_A_Press_Reaches_An_AppBar_Command()
+    {
+        var (window, nav, bar) = MakeBoth();
+        var add = bar.GetCommandById("add")!;
+        var clicked = false;
+        add.Click += (_, _) => clicked = true;
+        var point = add.TranslatePoint(new Point(add.Bounds.Width / 2, add.Bounds.Height / 2), window)!.Value;
+        window.MouseDown(point, MouseButton.Left);
+        window.MouseUp(point, MouseButton.Left);
+        Assert.True(clicked);
+        Assert.True(nav.IsOpen, "a press on another open edge overlay is not a light dismiss");
+        window.Close();
+    }
+
+    [AvaloniaFact]
+    public void With_The_NavBar_Open_Too_A_Press_On_The_Page_Closes_Both()
+    {
+        var (window, nav, bar) = MakeBoth();
+        window.MouseDown(new Point(300, 300), MouseButton.Left);
+        window.MouseUp(new Point(300, 300), MouseButton.Left);
+        Assert.False(bar.IsOpen);
+        Assert.False(nav.IsOpen);
+        window.Close();
+    }
+
+    [AvaloniaFact]
     public async Task Closing_Slides_The_Open_Bar_Out_Before_It_Becomes_The_Strip()
     {
         var (window, bar) = Make(mode: AppBarClosedDisplayMode.Minimal);

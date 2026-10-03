@@ -1,22 +1,27 @@
 using System;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Platform;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Layout;
+using Avalonia.Rendering;
+using Avalonia.VisualTree;
 
 namespace AvaWin.Controls.Primitives;
 
 /// <summary>
 /// Hosts an edge-docked overlay (AppBar, SettingsFlyout) in the <see cref="OverlayLayer"/> of a TopLevel. The host
 /// covers the whole overlay layer. A transparent click-eater sits under the docked child and closes it on pointer
-/// down when light dismiss is enabled. The overlay layer covers the whole screen, so the host also reports the part
-/// of the safe area of the TopLevel that touches its edge (<see cref="SafeAreaPadding"/>).
+/// down when light dismiss is enabled. Several edge overlays can be open at once (the NavBar and the AppBar open
+/// together): a click-eater lets presses through to the docked child of every other light-dismissable host, and a
+/// press on it light dismisses all of them. The overlay layer covers the whole screen, so the host also reports the
+/// part of the safe area of the TopLevel that touches its edge (<see cref="SafeAreaPadding"/>).
 /// </summary>
 internal sealed class EdgeOverlayHost : Panel
 {
-    private readonly Border _clickEater;
+    private readonly ClickEater _clickEater;
     private readonly Control _child;
     private OverlayLayer? _layer;
     private IInsetsManager? _insets;
@@ -28,7 +33,7 @@ internal sealed class EdgeOverlayHost : Panel
     {
         _child = child;
         _edge = edge;
-        _clickEater = new Border { Background = Avalonia.Media.Brushes.Transparent, IsHitTestVisible = false };
+        _clickEater = new ClickEater(this) { Background = Avalonia.Media.Brushes.Transparent, IsHitTestVisible = false };
         _clickEater.PointerPressed += OnClickEaterPressed;
         Children.Add(_clickEater);
         Children.Add(child);
@@ -213,6 +218,41 @@ internal sealed class EdgeOverlayHost : Panel
         }
 
         e.Handled = true;
-        LightDismissRequested?.Invoke(this, EventArgs.Empty);
+        // One press dismisses every light-dismissable edge overlay, as the open NavBar and AppBar close together.
+        var hosts = _layer?.Children.OfType<EdgeOverlayHost>().Where(h => h.IsLightDismissEnabled).ToList() ?? [this];
+        foreach (var host in hosts)
+        {
+            host.LightDismissRequested?.Invoke(host, EventArgs.Empty);
+        }
+    }
+
+    /// <summary>True when <paramref name="point"/> (in TopLevel coordinates) is over the docked child of another open host.</summary>
+    private bool IsOverAnotherOverlay(Point point)
+    {
+        if (_layer is null || TopLevel.GetTopLevel(this) is not Visual root)
+        {
+            return false;
+        }
+
+        foreach (var host in _layer.Children.OfType<EdgeOverlayHost>())
+        {
+            if (ReferenceEquals(host, this) || !host.IsVisible || !host.IsLightDismissEnabled || !host._child.IsVisible)
+            {
+                continue;
+            }
+
+            if (host._child.TranslatePoint(default, root) is { } origin && new Rect(origin, host._child.Bounds.Size).Contains(point))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>The click-eater: hit everywhere except over the docked child of another open edge overlay.</summary>
+    private sealed class ClickEater(EdgeOverlayHost owner) : Border, ICustomHitTest
+    {
+        public bool HitTest(Point point) => !owner.IsOverAnotherOverlay(point);
     }
 }

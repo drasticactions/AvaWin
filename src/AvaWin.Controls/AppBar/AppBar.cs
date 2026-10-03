@@ -155,7 +155,7 @@ public class AppBar : TemplatedControl
     /// <summary>Whether the bar is open. Two-way.</summary>
     public bool IsOpen { get => GetValue(IsOpenProperty); set => SetValue(IsOpenProperty, value); }
 
-    /// <summary>Whether a right-click on the page opens and closes a non-sticky bar.</summary>
+    /// <summary>Whether a right-click on the page opens and closes a non-sticky bar. A right-click on an element with a ContextFlyout or ContextMenu opens that menu instead.</summary>
     public bool IsRightClickToggleEnabled { get => GetValue(IsRightClickToggleEnabledProperty); set => SetValue(IsRightClickToggleEnabledProperty, value); }
 
     /// <summary>The padding that keeps page content clear of the closed bar's strip; bind a Padding or Margin to it.</summary>
@@ -302,6 +302,15 @@ public class AppBar : TemplatedControl
         if (e.Source is Visual v && (v == _presenter || v.GetVisualAncestors().Contains(_presenter)))
         {
             return;
+        }
+
+        // A right-click on something with its own context menu opens that menu, not the bar.
+        for (var visual = e.Source as Visual; visual is not null; visual = visual.GetVisualParent())
+        {
+            if (visual is Control { ContextFlyout: not null } or Control { ContextMenu: not null })
+            {
+                return;
+            }
         }
 
         SetCurrentValue(IsOpenProperty, !IsOpen);
