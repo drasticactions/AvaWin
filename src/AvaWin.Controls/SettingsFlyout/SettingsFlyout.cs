@@ -78,6 +78,9 @@ public sealed class SettingsFlyout : TemplatedControl
     /// <summary>Defines the <see cref="Closed"/> event.</summary>
     public static readonly RoutedEvent<RoutedEventArgs> ClosedEvent = RoutedEvent.Register<SettingsFlyout, RoutedEventArgs>(nameof(Closed), RoutingStrategies.Bubble);
 
+    /// <summary>Defines the <see cref="BackClick"/> event.</summary>
+    public static readonly RoutedEvent<RoutedEventArgs> BackClickEvent = RoutedEvent.Register<SettingsFlyout, RoutedEventArgs>(nameof(BackClick), RoutingStrategies.Bubble);
+
     private readonly SettingsFlyoutPresenter _presenter;
     private readonly EdgeOverlayHost _host;
     private TopLevel? _topLevel;
@@ -149,6 +152,12 @@ public sealed class SettingsFlyout : TemplatedControl
     /// <summary>Raised after the pane has closed.</summary>
     public event EventHandler<RoutedEventArgs> Closed { add => AddHandler(ClosedEvent, value); remove => RemoveHandler(ClosedEvent, value); }
 
+    /// <summary>
+    /// Raised when the back button in the header is clicked. The pane closes unless a handler marks the event handled,
+    /// so a host that shows nested pages in the pane can go back one page instead.
+    /// </summary>
+    public event EventHandler<RoutedEventArgs> BackClick { add => AddHandler(BackClickEvent, value); remove => RemoveHandler(BackClickEvent, value); }
+
     /// <summary>The visible pane, hosted in the overlay layer.</summary>
     public SettingsFlyoutPresenter Pane => _presenter;
 
@@ -159,6 +168,16 @@ public sealed class SettingsFlyout : TemplatedControl
     public void Hide() => SetCurrentValue(IsOpenProperty, false);
 
     internal EdgeOverlayHost Host => _host;
+
+    internal void OnBackClick()
+    {
+        var args = new RoutedEventArgs(BackClickEvent);
+        RaiseEvent(args);
+        if (!args.Handled)
+        {
+            Hide();
+        }
+    }
 
     /// <inheritdoc/>
     protected override Size MeasureOverride(Size availableSize)
@@ -411,5 +430,5 @@ public sealed class SettingsFlyoutPresenter : HeaderedContentControl
         }
     }
 
-    private void OnBackClick(object? sender, RoutedEventArgs e) => Owner?.Hide();
+    private void OnBackClick(object? sender, RoutedEventArgs e) => Owner?.OnBackClick();
 }

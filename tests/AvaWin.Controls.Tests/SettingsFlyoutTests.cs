@@ -86,6 +86,31 @@ public class SettingsFlyoutTests
     }
 
     [AvaloniaFact]
+    public void Handled_BackClick_Keeps_The_Pane_Open()
+    {
+        var flyout = new SettingsFlyout { Header = "Options" };
+        var window = ThemeTestHelpers.Host(new Grid { Children = { flyout } }, "Light", Platform.Desktop);
+        var clicks = 0;
+        flyout.BackClick += (_, e) =>
+        {
+            clicks++;
+            e.Handled = clicks == 1;
+        };
+        flyout.Show();
+        window.UpdateLayout();
+        var back = flyout.Pane.GetVisualDescendants().OfType<BackButton>().Single();
+
+        AppBarTests.Click(window, back);
+        Assert.Equal(1, clicks);
+        Assert.True(flyout.IsOpen);
+
+        AppBarTests.Click(window, back);
+        Assert.Equal(2, clicks);
+        Assert.False(flyout.IsOpen);
+        window.Close();
+    }
+
+    [AvaloniaFact]
     public void Inline_Pane_Lays_Out_In_Place_At_Both_Widths()
     {
         var flyout = new SettingsFlyout { Header = "Options", Content = new TextBlock { Text = "c" }, IsInline = true, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left };
